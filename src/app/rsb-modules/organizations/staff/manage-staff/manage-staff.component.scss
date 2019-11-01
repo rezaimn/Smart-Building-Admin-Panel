@@ -1,0 +1,64 @@
+@import '../../OMS';
+.subsidiary-box {
+    height: 290px !important;
+}
+.row{
+    margin: 0px!important;
+}
+
+
+.profile-image {
+    height: 70px;
+    width: 80px;
+    background-color: inherit;
+    border: 0.1px solid $primary-clr;
+    border-radius: 1px;
+    padding: 0px;
+}
+
+.box-footer {
+    position: absolute;
+    bottom: 28px;
+    right: 10%;
+    color: #fff;
+    width: 80%!important;
+
+    i {
+        color: $secondary-clr-alpha;
+        display: inline-table;
+        vertical-align: middle;
+        cursor: pointer;
+        ;
+        &:hover,
+        &:active,
+        &:focus {
+            color: $primary-clr;
+            -webkit-text-shadow: 0px 0px 20px $primary-clr-alpha;
+            -moz-text-shadow: 0px 0px 20px $primary-clr-alpha;
+            text-shadow: 0px 0px 20px $primary-clr-alpha;
+            outline: none;
+            outline-offset: none;
+            text-decoration: none;
+        }
+    }
+
+    
+}
+
+.box-button{
+    background: #f9961e;
+    color: #010813;
+    font-size: 16px;
+    width: 48%;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 0px;
+    margin-bottom: 0;
+    font-weight: 100 !important;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid #f9961e;
+}
+

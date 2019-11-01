@@ -1,0 +1,68 @@
+
+
+<footer class="footer fixed-footer" style="z-index: 10000">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-3">
+                <div class="col-sm-2">
+                    <p class="footer__version">V2.2.2</p>
+                </div>
+                <div class="col-sm-10">
+                    <div class="footer__version-box">
+                        <img *ngIf="!appService.lightThemeC" src="../../../assets/images/common/footer/version-box.png"
+                             alt="">
+                        <img *ngIf="appService.lightThemeC" src="../../../assets/images/common/footer/version-box2.png"
+                             alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="col-sm-4" align="center">
+                    <a [routerLink]='["/rsb-modules/alms/notification-management/notification-list/manage"]'>
+                        <div class="notification">
+                            <span class="notification__span">{{'footer.notifications'|translate}}</span>
+                            <!--<span class="notification__number text-center">{{notificationCount}}</span>-->
+                            <span class="notification__number text-center">00</span>
+
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-sm-4" align="center">
+                    <a [routerLink]='["/rsb-modules/vics/video-call/call/view-all"]'>
+                        <div class="notification" >
+                            <span class="notification__span">{{'footer.miss-calls'|translate}}</span>
+                            <span class="notification__number text-center">14+</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-sm-4" align="center">
+                    <a [routerLink]='["/rsb-modules/alms/ticket-management/ticket-list/manage"]'>
+                        <div class="notification">
+                            <span class="notification__span">{{'footer.tickets'|translate}}</span>
+                            <!--<span class="notification__number text-center">{{ticketCount}}</span>-->
+                            <span class="notification__number text-center">00</span>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-6 ">
+                    <div class="footer-date text-right">
+                        <span style="font-size: 20px">{{timeStamp}} </span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <img *ngIf="!appService.lightThemeC" class="img-responsive footer-left-logo"
+                         src="../../../assets/images/common/footer/powered%20by.png" height="35"/>
+                    <img *ngIf="appService.lightThemeC" class="img-responsive footer-left-logo"
+                         src="../../../assets/images/common/footer/powered%20by2.png" height="35"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

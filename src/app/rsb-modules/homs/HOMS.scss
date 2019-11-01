@@ -1,0 +1,401 @@
+@import "../../variables";
+@import "../../common";
+
+//  -------------------  order /  add-order -------------------------------------
+
+.etc input {
+  width: 50% !important;
+}
+
+.etc span {
+  font-size: 0.8vw !important;
+}
+
+.prepare-form {
+  background: #04142b;
+  text-transform: uppercase;
+  border: 3px solid $primary-clr; // border-bottom: 1px solid $secondary-clr-alpha;
+  // background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(67, 116, 187, 1)));
+  // background-image: -webkit-linear-gradient(transparent, rgba(67, 116, 187, 1));
+  // background-image: -moz-linear-gradient(transparent, rgba(67, 116, 187, 1)), -moz-linear-gradient(transparent, rgba(67, 116, 187, 1));
+  // background-image: -o-linear-gradient(transparent, rgba(67, 116, 187, 1)), -o-linear-gradient(transparent, rgba(67, 116, 187, 1));
+  // background-image: linear-gradient(transparent, rgba(67, 116, 187, 1)), linear-gradient(transparent, rgba(67, 116, 187, 1));
+  // -moz-background-size: 1px 100%;
+  // background-size: 1px 100%;
+  // background-position: 0 0, 100% 0;
+  // background-repeat: no-repeat;
+  padding: 0 70px 70px;
+  position: relative;
+  .prepare-form-head {
+    span {
+      position: absolute;
+      left: 5px;
+      font-size: 46px;
+      top: 5px;
+    }
+    h2 {
+      padding: 15px 0 4vw 0;
+      font-size: 40px;
+    }
+  }
+  .prepare-form-body {
+    .form-group {
+      margin-bottom: 30px;
+      .name-input {
+        float: left;
+        width: 60%;
+        margin-right: 5px;
+        position: relative;
+      }
+      .phone-input {
+        float: left;
+        width: 39%;
+        margin-top: 22px;
+        position: relative;
+      }
+      .inline-label {
+        float: left;
+        width: auto;
+        padding-right: 10px;
+        padding-top: 20px;
+      }
+      .inline-input {
+        float: left;
+        width: 86.3333%;
+      }
+    }
+  }
+}
+
+.image-preview-filename {
+  background: #000;
+  border: none;
+  color: #333;
+}
+
+.table {
+  margin-top: 1.7vw;
+  span {
+    font-size: 1.1vw;
+    position: relative;
+    display: inline-block;
+    top: 0.2vw;
+  }
+}
+
+.table .radio {
+  width: 1vw;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  top: 0.25vw;
+  margin-right: 1vw;
+}
+
+@media screen and (min-width: 1024px) {
+  textarea {
+    height: 8vw;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  textarea {
+    height: 9vw;
+  }
+}
+
+//  -------------------  order / delete-order -------------------------------------
+
+.move-far-away {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+}
+
+//  -------------------  order / order-list  -------------------------------------
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+
+//  -------------------  order / view  --------------------------------------------
+
+.texts {
+  h4 {
+    display: inline-block;
+    font-size: 1.8vw;
+    padding: 0 !important;
+  }
+  span {
+    color: #fff;
+    font-size: 1.8vw;
+  }
+}
+
+.table {
+  margin-top: 1vw;
+}
+
+//  -------------------  planner / add-menu  -------------------------------------
+
+.policy-container {
+  min-height: 5vw;
+  margin-top: 1.55vw;
+  padding: 0.2vw 0.5vw;
+  background: #0a2347;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  .row {
+    margin: 0 !important;
+  }
+  .col-sm-4 {
+    padding: 0 !important;
+  }
+  span {
+    font-size: 1.2vw;
+
+    color: #f9961e;
+
+    padding: 0.2vw 0.5vw;
+  }
+  .cross-btn {
+    cursor: pointer;
+    margin-top: 0.4vw;
+    position: relative;
+    top: 0.3vw;
+  }
+}
+
+ew-filename {
+  background: #000;
+  border: none;
+  color: #333;
+}
+
+.col-sm-c-1 {
+  padding-left: 0 !important;
+  width: 40.9%;
+  min-height: 1px;
+  float: left;
+  padding-right: 15px;
+  position: relative;
+}
+
+.col-sm-c-2 {
+  padding-left: 0 !important;
+  width: 18%;
+  min-height: 1px;
+  float: left;
+  position: relative;
+}
+
+.col-sm-c-01 {
+  padding-left: 0 !important;
+  width: 30.9%;
+  min-height: 1px;
+  float: left;
+  padding-right: 8px;
+  position: relative;
+}
+
+.col-sm-c-0 {
+  padding-left: 0 !important;
+  width: 9.9%;
+  min-height: 1px;
+  float: left;
+  padding-right: 15px;
+  position: relative;
+}
+
+.col-sm-c-02 {
+  padding-left: 0 !important;
+  width: 40.7%;
+  min-height: 1px;
+  float: left;
+  padding-right: 35px;
+  position: relative;
+}
+
+.col-sm-c-3 {
+  padding-left: 0 !important;
+  width: 18%;
+  min-height: 1px;
+  float: left;
+  position: relative;
+}
+
+@media screen and (min-width: 1024px) {
+  .policy-container {
+    height: 13.5vw;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .policy-container {
+    height: 15.6vw;
+  }
+}
+
+//  -------------------  planner / menu  -----------------------------------------
+
+//  -------------------  planner / planner-list  ---------------------------------
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .col-s-1 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+  .col-s-2 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+  .col-s-3 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 25%;
+    float: left;
+  }
+
+  .col-s-6 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 35%;
+    float: left;
+  }
+}
+
+.full-width {
+  width: auto !important;
+}
+
+//  -------------------  planner / view  ------------------------------------------
+
+//  -------------------  voucher  / add-voucher -------------------------------------
+
+.image-preview-input input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  background: $primary-clr;
+}
+
+.image-preview-input-title {
+  margin-left: 2px;
+}
+
+.image-preview-input {
+  background: #0a2347;
+  border-radius: 0;
+  position: absolute;
+  left: 0;
+  z-index: 9999;
+  border: none;
+  top: 0px;
+  color: #fff;
+  width: 100%;
+  height: 42px;
+  padding-right: 5px;
+  border: 1px solid $primary-clr;
+  i {
+    float: right;
+    font-size: 24px;
+    color: $primary-clr;
+  }
+  span {
+    float: left;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    width: 230px;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+//  -------------------  voucher / delete-voucher -----------------------------------z
+
+//  -------------------  voucher / voucher-list  -------------------------------------
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .col-s-1 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+  .col-s-2 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+  .col-s-3 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+  .col-s-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 16%;
+    float: left;
+  }
+  .col-s-6 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 20%;
+    float: left;
+  }
+}
+
+// Amir addition
+
+
+.form-button-cancel {
+  margin-right: 1vw;
+}
+
+.add-voucher-btn {
+  margin-left: 0 !important;
+}
+
+.add-planner-btn {
+  margin-left: 0 !important;
+}

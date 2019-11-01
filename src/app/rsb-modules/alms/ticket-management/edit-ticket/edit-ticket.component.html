@@ -1,0 +1,220 @@
+<div class="row">
+    <div class="col-xs-12 " style="min-height: 500px">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2 *ngIf="addAlert == 1">{{'ALMS.add-ticket'|translate}}</h2>
+                <h2 *ngIf="addAlert == 0"> {{'ALMS.update-ticket'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form #addTicketForm="ngForm">
+                    <div class="col-sm-6 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.department'|translate}}</label>
+                            <select name="department" #Department="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    required (change)="getSubDepartment(Department.value)" [(ngModel)]="alertData.departmentId">
+                                <option [ngValue]="undefined" selected disabled >{{'SELECT.select-department' | translate}}</option>
+                                <option *ngFor="let department of departmentList" [value]="department.id">
+                                    <p *ngIf="appService.currentLang=='en'"> {{department.nameMultiLingual.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'"> {{department.nameMultiLingual.map.fa}}</p>
+
+                                </option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="Department.valid || Department.untouched">
+                                    <div *ngIf="Department.errors && Department.errors.required">
+                                        {{'validate-message.department-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.sub-department'|translate}}</label>
+                            <select name="subdepartment" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    #Subdepartment="ngModel" required (change)="getOwner(Subdepartment.value)" [(ngModel)]="alertData.subdepartmentId">
+                                <option [ngValue]="undefined" selected disabled >{{'SELECT.select-sub-department' | translate}}</option>
+                                <option *ngFor="let subdepartment of subDepartmentList" [value]="subdepartment.id">
+                                    <p *ngIf="appService.currentLang=='en'"> {{subdepartment.nameMultiLingual.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'"> {{subdepartment.nameMultiLingual.map.fa}}</p>
+
+                                </option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="Subdepartment.valid || Subdepartment.untouched">
+                                    <div *ngIf="Subdepartment.errors && Subdepartment.errors.required">
+                                        {{'validate-message.sub-department-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.subject'|translate}}</label>
+                            <input name="subject" placeholder="{{alertData.subject}}"
+                                   required #Subject="ngModel"  [(ngModel)]="alertData.subject" type="text">
+                            <div class="error-message-display">
+                                <div [hidden]="Subject.valid || Subject.untouched">
+                                    <div *ngIf="Subject.errors && Subject.errors.required">
+                                        {{'validate-message.subject-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.system'|translate}}</label>
+                            <select name="system" #System="ngModel" required [(ngModel)]="alertData.moduleid">
+                                <option [ngValue]="undefined" selected disabled >Select System</option>
+                                <option *ngFor="let system of systemList" [value]="system.id">{{system.name}}</option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="System.valid || System.untouched">
+                                    <div *ngIf="System.errors && System.errors.required">
+                                        {{'validate-message.system-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.owner'|translate}}</label>
+                            <select name="owner" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    #Owner="ngModel" required [(ngModel)]="alertData.ownerid">
+                                <option [ngValue]="undefined" selected disabled >Select owner</option>
+                                <option *ngFor="let owner of ownerList" [value]="owner.employeeid">
+                                    <p *ngIf="appService.currentLang=='en'"> {{owner.nameMultiLingual.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'"> {{owner.nameMultiLingual.map.fa}}</p>
+
+                                </option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="Owner.valid || Owner.untouched">
+                                    <div *ngIf="Owner.errors && Owner.errors.required">
+                                        {{'validate-message.owner-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 submit-form-element">
+                        <div class="form-group">
+                            <label>{{'ALMS.description'|translate}}</label>
+                            <textarea  name="description" placeholder="{{alertData.description}}" style="height: 130px"
+                                      [(ngModel)]="alertData.description"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 submit-form-element" style="padding: 0 !important">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{'ALMS.status'|translate}}</label>
+                                <select name="status" required [(ngModel)]="alertData.status" #Status="ngModel">
+                                    <option [ngValue]="undefined" selected disabled >Select status</option>>
+                                    <option value="1" selected>OPEN</option>
+                                    <option value="0">CLOSE</option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Status.valid || Status.untouched">
+                                        <div *ngIf="Status.errors && Status.errors.required">
+                                            {{'validate-message.status-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.severity'|translate}}</label>
+                                <select name="severity" #Severity="ngModel" required [(ngModel)]="alertData.severity">
+                                    <option [ngValue]="undefined" selected disabled >Select severity</option>
+                                    <option *ngFor="let severity of severityList" [value]="severity.id">{{severity.name}}</option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Severity.valid || Severity.untouched">
+                                        <div *ngIf="Severity.errors && Severity.errors.required">
+                                            {{'validate-message.severity-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                        <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='gregorian'">
+                            <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                            <div >
+                                <input (ngModelChange)="convertGregorianDateToUTC(myDate)" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedDate" [(ngModel)]="pickedDate" [matDatepicker]="myDate" placeholder="{{date}}"
+                                       required class="dob-field" readonly="true" style="direction: ltr!important;">
+                                <mat-datepicker-toggle [for]="myDate"></mat-datepicker-toggle>
+                                <mat-datepicker #myDate [startAt]="pickedDate"  ></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                            <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                            <div >
+                                <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;font-size: 14px!important;"
+                                                  dir="rtl"
+                                                  [(ngModel)]="pickedDate"
+                                                  mode="day"
+                                                  placeholder="تاریخ"
+                                                  theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedDate)" >
+                                </dp-date-picker>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.etc-time'|translate}}</label>
+                                <input style="direction: ltr!important;" type="text" name="etctime" #Etctime="ngModel" [(ngModel)]="dateTimeObj.etctime" placeholder="00:00:00" required  minlength=8 maxlength=8 class="dob-field">
+                                <div class="error-message-display">
+                                    <div [hidden]="Etctime.valid || Etctime.untouched">
+                                        <div *ngIf="Etctime.errors && Etctime.errors.required">
+                                            {{'validate-message.etc-time-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="glyphicon glyphicon-time time-icon"
+                                        id="timepicker1"
+                                        style="font-size:26px;right: 0%;float: right;top: -30px;z-index: 1000;background-color: transparent;border: none;" (click)="openTimer(dateTimeObj.etctime,'timepicker1')"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-footer pull-right row"
+                         style="width: 100%;margin-bottom: 20px!important;margin-top: 20px!important;">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 submit-footer" style="float: right">
+                            <div class="col-lg-6" style="float: right;width: 50%">
+                                <button class="form-button-submit pull-right " style="width: 100%" *ngIf="appService.hasAccessToWrite(4,13)"
+                                        [disabled]="!addTicketForm.valid" (click)="updateEdit(alertData)">{{'shared.execute'|translate}}
+                                </button>
+                            </div>
+                            <div class="col-lg-6" style="float: left;width: 50%">
+                                <button class="form-button-cancel pull-right" style="width: 100%" type="button"
+                                        (click)="closeModal()">{{'shared.cancel'|translate}}
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="clear "></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div>
+        </div>
+    </div>
+</div>

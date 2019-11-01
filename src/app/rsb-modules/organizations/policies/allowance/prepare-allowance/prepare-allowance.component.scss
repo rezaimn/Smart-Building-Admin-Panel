@@ -1,0 +1,32 @@
+@import '../../../OMS';
+.amount-icon {
+    position: absolute;
+    top: 42px;
+    z-index: 99;
+    right: 23px;
+    color: #fff;
+}
+.type-of-allowance-heading { 
+    margin-bottom: 10px;
+    color: $primary-clr;
+}
+.amount-input {
+    padding-right: 30px;
+    text-align: center;
+}
+.custom-form-width {
+    width: 40%;
+    @media(max-width:1280px){
+        width:50%;        
+    }
+}
+.index-of-allowance {
+    color: $primary-clr;
+}
+
+.btn-divs{
+    button {
+        display: block;
+        margin-bottom: 15px;
+    }
+}

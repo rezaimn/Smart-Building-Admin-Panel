@@ -1,0 +1,98 @@
+<div class="row" style="margin-left: 0px;margin-right: 0px">
+    <div class="col-sm-12">
+      <h3 class="holiday-header">{{'AMS.1397-holiday-list' | translate}}</h3>
+      <div class="row" *ngIf="totalRecordsCount > perPage" >
+        <div class="col-sm-12">
+          <div class="">
+            <div class="filter">
+                <div class="pagers">
+                    <ul>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left-d filter-icon"  ></i>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left filter-icon"  ></i>
+                        </li>
+                        <li class="filter-int">
+                          <span>1</span>
+                          <span>-</span>
+                          <span>7</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right filter-icon" ></i>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right-d filter-icon" ></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">
+                <thead>
+                  <tr>
+                    <th class="col-sm-4">{{'AMS.date' | translate}}</th>
+                    <th class="col-sm-4">{{'AMS.day' | translate}}</th>
+                    <th class="col-sm-4">{{'AMS.occasion' | translate}}</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1397/01/01</td>
+                    <td>{{'AMS.wednesday' | translate}}</td>
+                    <td>{{'AMS.nowruz' | translate}}</td>
+                    
+                  </tr>
+                  <tr>
+                      <td>1397/02/01</td>
+                      <td>{{'AMS.thursday' | translate}}</td>
+                      <td>{{'AMS.nowruz' | translate}}</td>
+                      
+                    </tr>
+                    <tr>
+                        <td>1397/03/01</td>
+                        <td>{{'AMS.friday' | translate}}</td>
+                        <td>{{'AMS.nowruz' | translate}}</td>
+                        
+                      </tr>
+                      <tr>
+                          <td>1397/04/01</td>
+                          <td>{{'AMS.saturday' | translate}}</td>
+                          <td>{{'AMS.nowruz' | translate}}</td>
+                          
+                        </tr>
+                        <tr>
+                            <td>1397/05/01</td>
+                            <td>{{'AMS.sunday' | translate}}</td>
+                            <td>{{'AMS.nowruz' | translate}}</td>
+                            
+                          </tr>
+                          <tr>
+                              <td>1397/06/01</td>
+                              <td>{{'AMS.monday' | translate}}</td>
+                              <td>{{'AMS.nowruz' | translate}}</td>
+                              
+                            </tr>
+                            <tr>
+                                <td>1397/07/01</td>
+                                <td>{{'AMS.tuesday' | translate}}</td>
+                                <td>{{'AMS.nowruz' | translate}}</td>
+                                
+                              </tr>
+                  
+                  
+                </tbody>
+              </table>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  

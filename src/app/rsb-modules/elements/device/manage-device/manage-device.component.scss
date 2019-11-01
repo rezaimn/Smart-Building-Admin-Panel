@@ -1,0 +1,152 @@
+    @import '../../EMS';
+    .device-list {
+        position: relative; // @include angle-gradient(rgba(3, 15, 26, 0), rgba(18, 78, 151, 0.3), -180deg);
+        background: $tile-blue;
+        text-transform: uppercase;
+        padding: 10px;
+        margin-bottom: 10px;
+        height: auto;
+        // width: 85%;
+        border: 1px solid $primary-clr;
+        .device-index {
+            float: left;
+            width: 28px;
+            text-align: center;
+            h4 {
+                font-size: 50px;
+                color: $primary-clr;
+                padding: 0
+            }
+        }
+        .device-detail {
+            float: left;
+            width: calc(100% - 28px);
+            .device-head {
+                ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    li {
+                        position: relative;
+                        display: inline-block;
+                        padding: 3px 30px 0px 15px;
+                        color: $white;
+                        font-size: 18px;
+                    }
+                }
+            }
+            .description {
+                padding-left: 15px;
+                .execute-btn {
+                    width: 117px !important;
+                }
+                @media screen and (min-width: 1080px) and (max-width: 1300px) {
+                    .execute-btn {
+                        width: 85px !important;
+                    }
+                    .execute-btn-search {
+                        padding: 0 15px;
+                    }
+                }
+                ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    display: table;
+                    width: 100%;
+                    li {
+                        position: relative;
+                        display: inline-block;
+                        // width: 14.99999%;
+                        width: 5%;
+                        padding: 0px;
+                        display: table-cell;
+                        vertical-align: top;
+                        span {
+                            color: $primary-clr;
+                            font-size: 18px;
+                            display: block;
+                            margin: 1px 0 -6px 0px;
+                        }
+                        &.inline-label {
+                            p,
+                            span {
+                                display: inline-block;
+                                padding: 10px
+                            }
+                        }
+                        p {
+                            color: $white;
+                            font-size: 18px;
+                            margin: 0;
+                            &.nt-in-use {
+                                color: #919191;
+                            }
+                            &.in-use {
+                                color: #009d56;
+                            }
+                            &.out-of-use {
+                                color: #cf180b;
+                            }
+                        }
+                        i {
+                            color: $secondary-clr-alpha;
+                            fexecute-btnont-size: 20px;
+                            padding: 10px;
+                            cursor: pointer;
+                        }
+                        // &:last-child {
+                        //     // width: auto;
+                        //     margin-left: 10px;
+                        //     margin-right: 10px;
+                        // }
+                        // &:nth-child(6) {
+                        //     // width: auto;
+                        // }
+                        // &:nth-child(2) {
+                        //     padding-left: 6%;
+                        // }
+                        // &:nth-child(4) {
+                        //     // width: auto;
+                        //     padding-left: 50px;
+                        // }
+                    }
+                }
+            }
+        }
+    }
+
+    .pagers1 {
+        ul {
+            list-style: none;
+            padding: 0 !important;
+
+            li {
+                margin-left: 2px !important;
+                display: inline-block;
+                color: #fff;
+                font-size: 10px;
+                cursor: pointer;
+                i {
+                    &.transformed {
+                        transform: rotate(180deg);
+                    }
+                }
+                span {
+                    display: inline-block;
+                    font-size: 14px;
+                    padding:  0 !important;
+                    color: $tile-blue ;
+                    background: $primary-clr;
+                }
+
+            }
+        }
+    }
+    .filter-area {
+        float: right;
+        i {
+            color: $secondary-clr-alpha;
+            font-size: 20px;
+        }
+    }

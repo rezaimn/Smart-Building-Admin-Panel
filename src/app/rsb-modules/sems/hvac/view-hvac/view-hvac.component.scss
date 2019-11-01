@@ -1,0 +1,198 @@
+@import '../../../../_variables.scss';
+label {
+    font-size: 22px;
+    color: $primary-clr;
+    display: block;
+    margin: 0;
+    padding: 0 0 2px 0;
+    text-transform: uppercase;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.prepare-form {
+    background: #04142b;
+    text-transform: uppercase;
+    border: 3px solid $primary-clr; // border-bottom: 1px solid $secondary-clr-alpha;
+    // background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(67, 116, 187, 1)));
+    // background-image: -webkit-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: -moz-linear-gradient(transparent, rgba(67, 116, 187, 1)), -moz-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: -o-linear-gradient(transparent, rgba(67, 116, 187, 1)), -o-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: linear-gradient(transparent, rgba(67, 116, 187, 1)), linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // -moz-background-size: 1px 100%;
+    // background-size: 1px 100%;
+    // background-position: 0 0, 100% 0;
+    // background-repeat: no-repeat;
+    padding: 0 70px 70px;
+    position: relative;
+    .prepare-form-head {
+        span {
+            position: absolute;
+            left: 5px;
+            font-size: 46px;
+            top: 5px;
+        }
+        h2 {
+            padding: 15px 0 5px 0px;
+            font-size: 40px;
+        }
+    }
+    .prepare-form-body {
+        .form-group {
+            margin-bottom: 30px;
+            .name-input {
+                float: left;
+                width: 60%;
+                margin-right: 5px;
+                position: relative;
+            }
+            .phone-input {
+                float: left;
+                width: 39%;
+                margin-top: 22px;
+                position: relative;
+            }
+            .inline-label {
+                float: left;
+                width: auto;
+                padding-right: 10px;
+                padding-top: 5px;
+            }
+            .inline-input {
+                float: left;
+                width: 100%;
+                margin-bottom: 10%;
+            }
+        }
+    }
+}
+.form-button-search-modal {
+    text-transform: uppercase;
+    margin-top: 11.7%;
+    margin-bottom: 10%;
+    font-size: 27px;
+    border: 1px solid #f9961f;
+    color: black;
+    background: #f9961f;
+    width: 50%;
+    float: left;
+    &:hover {
+        color: #f9961f;
+        background: transparent;
+        transition-duration: .5s;
+        transition-timing-function: ease-in-out;
+    }
+    &:active,
+    &:focus {
+        color: black;
+        background: #f9961f;
+    }
+    &:disabled {
+        opacity: 0.5;
+        &:hover,
+        &:active,
+        &:focus {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+    }
+}
+
+
+.blur-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.blur-overlay:before {
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    background-image: #fff;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: -1;
+}
+
+.input-group {
+    position: relative;
+    height: 35px;
+    width: 100%;
+    display: block;
+}
+
+.image-preview-filename {
+    background: #000;
+    border: none;
+    color: #333;
+}
+
+.image-preview-input input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background: $primary-clr;
+}
+.btn-indicator{
+    background: #f9961f;
+}
+.image-preview-input-title {
+    margin-left: 2px;
+}
+
+.image-preview-input {
+    background: #0a2347;
+    border-radius: 0;
+    position: absolute;
+    left: 0;
+    z-index: 9999;
+    border: none;
+    top: 0px;
+    color: #fff;
+    width: 100%;
+    height: 42px;
+    padding-right: 5px;
+    border:1px solid $primary-clr;
+    i {
+        float: right;
+        font-size: 24px;
+        color: $primary-clr;
+    }
+    span {
+        float: left;
+        font-size: 20px;
+        text-overflow: ellipsis;
+        width: 230px;
+        display: block;
+        overflow: hidden;
+    }
+}
+.btn-icons{
+    margin-top: 11.3% !important;
+    margin-left: -9.5% !important;
+    span{
+        cursor: pointer;
+        color: #000;
+        background-color: #f9961f;
+        padding: 0.9% 4% !important;
+    }
+    
+}

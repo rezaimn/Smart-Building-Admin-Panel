@@ -1,0 +1,183 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px">
+    <div class="col-sm-12" style="min-height: 500px">
+
+        <div class="row">
+            <div class="col-sm-2 filter-elements" >
+                <p><span class="staff-header">{{'ALMS.campus'|translate}}</span></p>
+
+                <select  class="form-control col-lg-8"
+                         [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                         #campus required (change)="getBuilding(campus.value)">
+                    <option value="0"  *ngIf="appService.currentLang=='en'"  >{{'SELECT.select-campus' | translate}}</option>
+                    <option value="0"  *ngIf="appService.currentLang=='fa'"  >{{'SELECT.select-campus' | translate}}</option>
+                    <option *ngFor="let campus of campusList" [value]="campus.id">
+                        <p *ngIf="appService.currentLang=='en'">{{campus.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" >{{campus.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2 filter-elements" >
+                <p><span class="staff-header">{{'ALMS.building'|translate}}</span></p>
+                <select class="form-control col-lg-8"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        #building required (change)="getFloor(building.value)">
+                    <option value="0"  *ngIf="appService.currentLang=='en'" >{{'SELECT.select-building' | translate}}</option>
+                    <option value="0"  *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan!important;" >{{'SELECT.select-building' | translate}}</option>
+
+                    <option *ngFor="let building of buildingList" [value]="building.id">
+                        <p *ngIf="appService.currentLang=='en'">{{building.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'">{{building.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2 filter-elements" >
+                <p><span class="staff-header">{{'ALMS.floor'|translate}}</span></p>
+                <select class="form-control col-lg-8"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        #floor required (change)="getFloorId(floor.value)">
+                    <option value="0"  *ngIf="appService.currentLang=='en'" >{{'SELECT.select-floor' | translate}}</option>
+                    <option value="0"  *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" >{{'SELECT.select-floor' | translate}}</option>
+                    <option *ngFor="let floor of floorList" [value]="floor.id">
+                        <p *ngIf="appService.currentLang=='en'">{{floor.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" >{{floor.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                <div >
+                    <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                           style="direction: ltr!important;font-family:tw-regular!important;"
+                           matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                           [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myFromDate [startAt]="pickedFromDate"  ></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-2 input1 filter-elements-cal"
+                 *ngIf="appService.currentCalendar=='jalali'">
+                <p>
+                    <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                </p>
+                <div >
+                    <dp-date-picker
+                            style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                            dir="rtl"
+                            [(ngModel)]="pickedFromDate"
+                            mode="day"
+                            placeholder="تاریخ"
+                            theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')" >
+                    </dp-date-picker>
+                </div>
+            </div>
+            <div class="col-sm-2 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                <div >
+                    <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate" placeholder="{{toDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myToDate [startAt]="pickedToDate"  ></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-2 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                <div >
+                    <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                      dir="rtl"
+                                      [(ngModel)]="pickedToDate"
+                                      mode="day"
+                                      placeholder="تاریخ"
+                                      theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')" >
+                    </dp-date-picker>
+                </div>
+            </div>
+            <div class="col-sm-2 filter-elements">
+                <p><span class="staff-header">&nbsp;</span></p>
+                <div class="filter-area">
+                    <button class="execute-btn execute-btn-search" (click)="execute(1);resetPage()">{{'shared.execute'|translate}}</button>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="alertList != '' && totalRecordsCount">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">{{'ALMS.id'|translate}}</th>
+                        <th class="col-sm-1">{{'ALMS.system'|translate}}</th>
+                        <th class="col-sm-2">{{'ALMS.device-type'|translate}}</th>
+                        <th class="col-sm-2">{{'ALMS.device-name'|translate}}</th>
+                        <th class="col-sm-1">{{'ALMS.floor'|translate}}</th>
+                        <th class="col-sm-2">{{'ALMS.alert-time'|translate}}</th>
+                        <th class="col-sm-3">{{'ALMS.alert-message'|translate}}</th>
+                        <th class="col-sm-1">{{'ALMS.action'|translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let alert of alertList"
+                        [ngClass]="{'green': alert.status == true || alert.status == 1, 'red': alert.status == false || alert.status == 0 }">
+                        <td><p>{{alert.id}}</p></td>
+                        <td><p>{{alert.modulename}}</p></td>
+                        <td><p>{{alert.devicetype}}</p></td>
+                        <td><p>{{alert.devicename}}</p></td>
+                        <td><p>{{alert.floorname}}</p></td>
+                        <td><p>{{alert.alerttime}}</p></td>
+                        <td><p>{{alert.alertmessage}}</p></td>
+                        <td style="text-align:center" class="pointer" *ngIf="alert.status == 1"
+                            [class.disabled]="alert.status == 1"><p>
+                            <span class="glyphicon glyphicon-cog">
+
+                            </span>
+                            </p>
+                        </td>
+                        <td style="text-align:center" *ngIf="alert.status == 0"  class="pointer"
+                            (click)="alertStatus(alert.id)"><p>
+                            <span class="glyphicon glyphicon-cog" *ngIf="appService.hasAccessToWrite(4,11)">
+
+                            </span>
+                        </p>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

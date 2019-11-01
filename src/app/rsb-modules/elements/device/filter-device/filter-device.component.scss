@@ -1,0 +1,211 @@
+@import '../../EMS';
+// checkbox & radio
+.radio,
+.checkbox {
+    margin-top: 10px;
+    float: left;
+    width: 200px;
+}
+
+.radio label,
+.checkbox label {
+    padding-left: 0px;
+    p {
+        color: $white;
+        font-size: 22px;
+    }
+}
+
+.checkbox label:after,
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid $primary-clr;
+    border-radius: 10px;
+    width: 21px;
+    height: 21px;
+    float: left;
+    margin-top: 4px;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: 22px;
+    line-height: 0;
+    top: 10px;
+    left: -1px;
+    color: $primary-clr;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon,
+.radio label input[type="radio"]+.cr>.cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
+.radio label input[type="radio"]:checked+.cr>.cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr,
+.radio label input[type="radio"]:disabled+.cr {
+    opacity: .5;
+}
+
+label {
+    display: block;
+    position: relative;
+    top: 0;
+}
+
+// checkbox & radio
+.serial-search {
+    margin-bottom: 20px;
+    .form-group {
+        position: relative;
+        input {
+            border: 1px solid #f9961e;
+            float: left;
+            width: 77%; // margin-right: 10px;
+            height: 45px;
+            @media(min-width: 1400px) and (max-width: 1700px) {
+                width: 72%;
+                margin-right: 10px;
+            }
+            @media(min-width:1280px) and (max-width:1366px) {
+                width: 66%;
+            }
+        }
+        i {
+            color: #aaa;
+            position: absolute;
+            z-index: 999;
+            right: 10px;
+            top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+}
+
+.status-filter {
+    margin-top: 20px;
+}
+
+.filter-result {
+    width: 535px;
+    display: block;
+    margin: 0 auto;
+    text-transform: uppercase; // height: 250px;
+    .filtered-desc {
+        position: relative;
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: table;
+            width: 100%;
+            height: auto;
+            li {
+                position: relative;
+                display: table-cell;
+                vertical-align: middle;
+                height: 100%;
+                text-align: center;
+                span {
+                    background: #010813;
+                    color: $primary-clr; // width: 50px;
+                    // height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    display: block;
+                    margin: 0 auto;
+                    border-radius: 100px;
+                    i {
+                        font-size: 18px;
+                        line-height: 50px;
+                        cursor: pointer;
+                        &:hover {
+                            color: $primary-clr;
+                        }
+                    }
+                }
+                p {
+                    color: #031052;
+                    font-size: 70px;
+                    border: 2px solid white;
+                    background-color: $primary-clr;
+                    width: 160px;
+                    height: 160px;
+                    line-height: 160px;
+                    display: block;
+                    margin: 0 auto;
+                    border-radius: 80px;
+                    cursor: pointer;
+                }
+                &:nth-child(2) {
+                    padding: 0 50px;
+                }
+            }
+        }
+        a {
+            position: absolute;
+            z-index: 9999;
+            right: 15px;
+            font-size: 32px;
+            color: $primary-clr;
+            top: 15px;
+            cursor: pointer;
+            &:hover {
+                color: $primary-clr;
+            }
+        }
+    }
+    .filter-search {
+        display: block;
+        background: $primary-clr;
+        color: $secondary-clr;
+        padding: 15px 15px;
+        border: none; // border-radius: 0 0 5px 5px;
+        width: 100%;
+        font-size: 28px;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+}
+
+.wt-119 {
+    width: 119px;
+}
+
+.filter-msg {
+    color: $primary-clr;
+    font-size: 22px;
+    padding: 15px 0;
+    text-align: center;
+}

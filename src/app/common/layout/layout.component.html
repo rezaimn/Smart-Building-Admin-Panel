@@ -1,0 +1,36 @@
+<div class="page-wrapper"  #pageWrapper>
+    <div class="bg-img">
+        <!-- <img [src]="loadURL" alt="BG" /> -->
+        <div class="page-overlay-wrapper">
+            <div class="page-overlay">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <app-header></app-header>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-lg-12">
+                            <app-sub-header></app-sub-header>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="layout-sidemenu" *ngIf="toggleMenu">
+                            <app-sidemenu></app-sidemenu>
+                        </div>
+<!--  malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{'config-style':removeLayoutFrame}" -->
+                        <div class="layout-frame" #mainPanel malihu-scrollbar [scrollbarOptions]="scrollbarOptions"  >
+                            <div class="layout-inner-frame">
+                                <router-outlet ></router-outlet>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12" style="margin-bottom: 2px;">
+                            <app-footer></app-footer>
+                        </div>
+                        <div class="clearfix"></div>
+                        <app-call-notify></app-call-notify>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

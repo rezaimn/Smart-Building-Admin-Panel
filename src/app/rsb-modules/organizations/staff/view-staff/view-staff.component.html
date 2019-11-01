@@ -1,0 +1,278 @@
+<div class="prepare-form">  
+  <div class="view-staff-overlay">
+    <div class="view-staff-top">
+      <div class="personal-info">
+        <div class="personal-head">
+          <h4>{{'OMS.personal-information'|translate}}</h4>
+          <span>
+            <button class="manage-btn department-btns pull-right full-width" (click)="goToParticularStep(1,'edit',staff)">{{'shared.edit'|translate}}</button>
+          </span>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="profile-pic">
+          <img class="img-responsive" [src]="staff.profileImage" width="300" height="300">
+        </div>
+        <div class="profile-desc" style="font-family: Yekan!important">
+          <ul>
+            <li>
+                <span>{{'OMS.name'|translate}}</span>
+                <p *ngIf="appService.currentLang=='en'">{{ staff.firstNameMultiLingual.map.en }} {{ staff.lastNameMultiLingual.map.en}}</p>
+                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{ staff.firstNameMultiLingual.map.fa }} {{ staff.lastNameMultiLingual.map.fa}}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.birth-date'|translate}}</span>
+              <p>{{ staff.dob }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.father-name'|translate}}</span>
+              <p *ngIf="appService.currentLang=='en'">{{ staff.fatherNameMultiLingual.map.en }}</p>
+              <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{ staff.fatherNameMultiLingual.map.fa }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.national-id'|translate}}</span>
+              <p>{{ staff.nationalId }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.social-security-id'|translate}}</span>
+              <p>{{ staff.ssn }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.phone'|translate}}</span>
+              <p>{{ staff.mobileNum }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.email'|translate}}</span>
+              <p>{{ staff.email }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.residency-address'|translate}}</span>
+              <p *ngIf="appService.currentLang=='en'">{{ staff.resAddressMultiLingual.map.en }}</p>
+              <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{ staff.resAddressMultiLingual.map.fa }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.residency-phone'|translate}}</span>
+              <p>{{ staff.resPhoneNum }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.permanent-address'|translate}}</span>
+              <p  *ngIf="appService.currentLang=='en'">{{ staff.permAddressMultiLingual.map.en }}</p>
+              <p  *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{ staff.permAddressMultiLingual.map.fa }}</p>
+            </li>
+            <div class="clearfix"></div>
+            <li>
+              <span>{{'OMS.permanent-phone'|translate}}</span>
+              <p>{{ staff.permPhoneNum }}</p>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="emp-info">
+        <div class="emp-head">
+          <h4>{{'OMS.employee-details'|translate}}</h4>
+          <span>
+            <button class="manage-btn department-btns pull-right full-width" (click)="goToParticularStep(2,'edit',staff.employmentDetails)">{{'shared.edit'|translate}}</button>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="emp-desc">
+          <p>{{'OMS.employee-id'|translate}}</p>
+          <span class="header-class">{{ staff.employmentDetails.employeeId }}</span>
+          <ul>
+            <li>
+              <span>{{'OMS.joining-date'|translate}}</span>
+              <p>{{staff.employmentDetails.doj}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.line-supervisor-id'|translate}}</span>
+              <p>{{staff.employmentDetails.lineSupervisorId}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.line-manager-id'|translate}}</span>
+              <p>{{staff.employmentDetails.lineMgrId}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.basic-salary'|translate}}</span>
+              <p>{{ staff.employmentDetails.basicSal}}{{'OMS.irr'|translate}}</p>
+              <div class="clearfix"></div>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="view-staff-bottom">
+      <div class="area-info">
+        <div class="area-head">
+          <h4>{{'OMS.policies'|translate}}</h4>
+          <button style="float: right" class="manage-btn department-btns staff-policy full-width" (click)="goToParticularStep(3,'edit',policyObject)">{{'shared.edit'|translate}}</button>
+          <!-- <span><i class="icon icon-note-interface-symbol edit-icon" (click)="goToParticularStep(3,'edit',policyObject)"></i></span> -->
+        </div>
+        <div class="clearfix"></div>
+        <div class="area-desc">
+          <ul>
+            <li>
+              <span>{{'OMS.department'|translate}}</span>
+              <p *ngIf="appService.currentLang=='en'">{{policyObject.deptnameMultiLingual.map.en}}</p>
+              <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{policyObject.deptnameMultiLingual.map.fa}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.sub-department'|translate}}</span>
+              <p  *ngIf="appService.currentLang=='en'">{{policyObject.subDeptnameMultiLingual.map.en}}</p>
+              <p   *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{policyObject.subDeptnameMultiLingual.map.fa}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.designation'|translate}}</span>
+              <p>{{policyObject.designation}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.grade'|translate}}</span>
+              <span>{{'OMS.allowance'|translate}}</span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <p>{{policyObject.grade}}</p>
+              <p>{{policyObject.allowance}}</p>
+              <div class="clearfix"></div>
+            </li>
+
+            <li>
+              <span>{{'OMS.work'|translate}}</span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>
+                <p>{{'OMS.start-time'|translate}}</p>
+                <p>{{policyObject.workStartTime | date: 'hh:mm a' }}</p>
+              </span>
+              <span>
+                <p>{{'OMS.end-time'|translate}}</p>
+                <p>{{policyObject.workEndTime | date: 'hh:mm a'}}</p>
+              </span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>
+                <p>{{'OMS.duration'|translate}}</p>
+                <p>{{policyObject.workDuration}}</p>
+              </span>
+              <span>
+                <span></span>
+                <p></p>
+              </span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.meal'|translate}}</span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>
+                <p>{{'OMS.start-time'|translate}}</p>
+                <p>{{policyObject.mealStartTime | date: 'hh:mm a' }}</p>
+              </span>
+              <span>
+                <p>{{'OMS.end-time'|translate}}</p>
+                <p>{{policyObject.mealEndTime | date: 'hh:mm a'}}</p>
+              </span>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>
+                <p>{{'OMS.duration'|translate}}</p>
+                <p>{{policyObject.mealDuration}}</p>
+              </span>
+              <span>
+                <span></span>
+                <p></p>
+              </span>
+              <div class="clearfix"></div>
+            </li>
+
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="vehicle-info">
+        <div class="vehicle-head">
+          <h4>{{'OMS.vehicle-details'|translate}}</h4>
+          <span>
+            <button class="manage-btn department-btns pull-right full-width" (click)="goToParticularStep(4,'edit',vehicles)">{{'shared.edit'|translate}}</button>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="vehicle-desc" *ngIf="vehicles.length == 0">
+          <p class="header-class">{{'OMS.no-vehicle'|translate}}</p>
+        </div>
+        <div class="vehicle-desc" *ngFor="let vehicle of vehicles; let i = index">
+          <p class="header-class">{{ vehicle.type }} {{ i+1 }} </p>
+          <ul>
+            <li>
+              <span>{{'OMS.register-no'|translate}}</span>
+              <p>{{vehicle.regn}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.brand'|translate}}</span>
+              <p *ngIf="appService.currentLang=='en'"> {{vehicle.brandMultiLingual.map.en}}</p>
+              <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;"> {{vehicle.brandMultiLingual.map.fa}}</p>
+
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.color'|translate}}</span>
+              <p *ngIf="appService.currentLang=='en'">{{vehicle.colorMultiLingual.map.en}}</p>
+              <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{vehicle.colorMultiLingual.map.fa}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.reserved-lot-no'|translate}}</span>
+              <p>{{vehicle.resLotNum}}</p>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <span>{{'OMS.reserve-expire-date'|translate}}</span>
+              <p>{{vehicle.expDate | date: 'dd/MM/yyyy'}}</p>
+              <div class="clearfix"></div>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="access-info">
+        <div class="access-head">
+          <h4></h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="access-desc">
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="form-footer">
+        <button class="form-button-cancel pull-right" type="button" (click)="closeModal()" style="margin-top: 10px">
+          {{'shared.cancel'|translate}}
+        </button>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

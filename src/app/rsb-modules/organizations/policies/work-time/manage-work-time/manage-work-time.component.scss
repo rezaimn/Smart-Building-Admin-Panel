@@ -1,0 +1,210 @@
+@import '../../../OMS';
+.worktime-box {
+    position: relative;
+    background: #04142b; // @include angle-gradient(rgba(3, 15, 26, 0), rgba(18, 78, 151, 0.3), -180deg);
+    text-transform: uppercase;
+    padding: 10px;
+    margin-bottom: 15px;
+    height: auto;
+    border: 1px solid $primary-clr;
+    &.default {
+        border: 1px solid $primary-clr;
+    }
+    .box-header {
+        position: relative; // top: -24px;
+        // background: rgb(3, 10, 25);
+        // left: -2px;
+        width: 100%;
+        h4 {
+            color: $primary-clr;
+            font-size: 28px;
+            display: inline-table;
+            vertical-align: middle;
+            line-height: 1;
+            padding: 0;
+        }
+        span {
+            &.index {
+                color: $primary-clr;
+                font-size: 60px;
+                float: left;
+                vertical-align: middle;
+                padding-right: 10px;
+                line-height: 1; // margin-top: 1%;
+            }
+            &.name {
+                color: #f9961e;
+                font-size: 28px;
+                float: left;
+                vertical-align: middle;
+                line-height: 1;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 280px;
+                padding-top: 8px;
+            }
+            i.chip {
+                position: relative;
+                top: -3px;
+                display: inline-block;
+                color: #010813;
+                background: #f9961e;
+                font-size: 19px;
+                padding: 0px 15px;
+                font-style: normal;
+                line-height: 1;
+                margin: 0 0 0 10px;
+            }
+        }
+    }
+    .box-body {
+        position: relative; // padding-top: 25px;
+        .box-select {
+            float: left;
+            width: 2%;
+            height: 100%;
+        }
+        .box-aside {
+            width: 48%;
+            float: left; // padding: 0 15px;
+        }
+        .box-aside {
+            h4 {
+                font-size: 24px;
+                color: $primary-clr;
+                padding: 5px 0;
+            }
+            ul {
+                position: relative;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                li {
+                    float: left;
+                    width: 33.33333%;
+                    text-transform: uppercase;
+                    margin-top: -8px;
+                    @media (min-width: 1280px) and (max-width:1599px) {
+                        margin-top: -20px;
+                    }
+                    span {
+                        color: #f9961e;
+                        padding-right: 10px;
+                        font-size: 22px;
+                        line-height: 1;
+                        @media (min-width: 1280px) and (max-width:1599px) {
+                            display: block;
+                            padding-left: 10px;
+                        }
+                    }
+                    p {
+                        display: inline;
+                        color: #fff;
+                        font-size: 24px;
+                        margin-bottom: 0;
+                        /* line-height: 1; */
+                        @media (min-width: 1280px) and (max-width:1599px) {
+                            display: block;
+                            padding-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.default-btn {
+    font-size: 16px;
+    padding: 0 5px;
+    background: $primary-clr;
+    border: 1px solid $primary-clr;
+    color: $secondary-clr;
+    float: right;
+    margin-top: -6px;
+    text-transform: uppercase;
+    &:hover {
+        background: $secondary-clr;
+        color: $primary-clr;
+        transition-duration: .5s;
+        transition-timing-function: ease-in-out;
+    }
+    &:active,
+    &:focus {
+        background: $primary-clr;
+        color: $secondary-clr;
+    }
+}
+
+.radio,
+.checkbox {
+    margin-top: 25px;
+    @media (min-width: 1280px) and (max-width:1599px) {
+        margin-top: 30px;
+    }
+}
+
+.radio label,
+.checkbox label {
+    padding-left: 0px;
+}
+
+.checkbox label:after,
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid $primary-clr;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: 21px;
+    line-height: 0;
+    top: 10px;
+    left: -1px;
+    color: $primary-clr;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon,
+.radio label input[type="radio"]+.cr>.cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
+.radio label input[type="radio"]:checked+.cr>.cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr,
+.radio label input[type="radio"]:disabled+.cr {
+    opacity: .5;
+}

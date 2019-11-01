@@ -1,0 +1,28 @@
+@import '../../../_variables';
+
+.area-icon {
+    color: $primary-clr;
+	margin-bottom:5px;
+    cursor: pointer;
+    font-size: 22px;
+    
+    i {
+        padding: 1px;        
+        color: #985e17 !important;
+        border-radius: 10px;
+    }
+
+    .activeChip {
+        color:$primary-clr !important;
+        background-color: inherit;
+    }
+}
+
+.read-text {
+    color:$primary-clr;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+.previous-icon {
+    top: 55px !important;
+}

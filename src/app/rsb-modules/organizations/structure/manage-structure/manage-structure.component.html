@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 translatable-float-right" *ngFor="let structure of manageStructure; let i=index">
+    <div class="subsidiary-box" >
+      <div class="box-header">
+        <!-- <span class="pull-right">{{i+1}}</span> -->
+        <h4 class="pull-left">
+          <span class="index">{{i + 1}}</span>
+          <span class="name" style="padding-bottom: 5px" *ngIf="appService.currentLang=='en'">{{structure.name.map.en}}</span>
+          <span class="name" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;padding-bottom: 5px">{{structure.name.map.fa}}</span>
+        </h4>
+        <div class="clear"></div>
+      </div>
+      <div class="box-body">
+        <div class="block-elements">
+          <!-- <span>{{structure.name}}</span>
+          <p>block 01</p> -->
+          <span class="translatable">{{'OMS.building-type'|translate}}</span>
+          <!--<p *ngIf="appService.currentLang=='en'">{{structure.buildingType}}</p>-->
+          <p *ngIf="appService.currentLang=='en'">{{'SELECT.office' | translate}}</p>
+          <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{'SELECT.office' | translate}}</p>
+          <span class="translatable">{{'OMS.description'|translate}}</span>
+          <p class="shrink-line" *ngIf="appService.currentLang=='en'">{{structure.description.map.en}}</p>
+          <p class="shrink-line" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{structure.description.map.fa}}</p>
+        </div>
+        <div class="clear"></div>
+        <div class="inline-elements">
+          <span class="translatable">{{'OMS.floors'|translate}}</span>
+          <p>{{structure.childCount}}</p>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="box-footer row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="padding: 3px!important;"><button class="execute-btn exe-sm exe-block" *ngIf="appService.hasAccessToWrite(1,1)&& appService.spaceIsAvailable('STRUCTURE')" (click)="deleteStructure(structure.id)">{{'shared.delete'|translate}}</button></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 3px!important;"><button class="execute-btn exe-sm exe-block" (click)="prepareStructure('edit', ( i + 1), structure)">{{'shared.edit'|translate}}</button></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 3px!important;"><button class="execute-btn exe-sm exe-block" routerLink="/rsb-modules/organization/space/level/manage" (click)="storeStructure(structure)">{{'shared.manage'|translate}}</button></div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-3">
+      <div class="subsidiary-add-box" (click)="prepareStructure('new', (manageStructure.length + 1), {})" style="height:338px;">
+        <div class="box-body">
+          <span>{{manageStructure.length + 1}}</span>
+          <i>+</i>
+        </div>
+      </div>
+    </div> -->
+</div>

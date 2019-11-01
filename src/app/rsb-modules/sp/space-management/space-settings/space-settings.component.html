@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-xs-12" >
+        <div class="prepare-form" style="margin: 20px;float: none!important;">
+
+            <div class="prepare-form-body" >
+                <div class="row" style="padding-top: 30px;margin-bottom: 50px" >
+                    <div  *ngFor="let space of spaces.spaceSettingsList;let i=index">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 " *ngIf="space.spaceType!='ORGANIZATION'">
+                            <input [name]="'space'+i" type="checkbox" class="pull-left-img"
+                                   [ngModel]="space.available"
+                                   style="height: 16px;"  (change)="changeSpaceStatus($event,i)"/>
+                            <label *ngIf="appService.currentLang=='en'"
+                                   class="staff-name pull-left-img" >
+                                {{'space-list.'+space.spaceType|translate}}
+                            </label>
+                            <label *ngIf="appService.currentLang=='fa'"
+                                   class="staff-name pull-left-img" style="font-family: Yekan" >
+                                {{'space-list.'+space.spaceType|translate}}
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="bottom: 65px;padding: 0px 70px 0px;width: 100%;">
+                    <div class="form-footer" style="width: 100%;">
+                        <button type="button" (click)="updateSpaces()" *ngIf="appService.hasAccessToWrite(13,49)"
+                                class="form-button-submit pull-right" tabindex="5"  style="margin: 3px">
+                            {{'shared.execute'|translate}}
+                        </button>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

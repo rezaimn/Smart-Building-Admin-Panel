@@ -1,0 +1,113 @@
+@import '../../OMS';
+.single-floor.active:after {
+    content: '\E905';
+    font-family: 'icomoon' !important;
+    font-size: 1.3vw !important;
+    color: #f9961e;
+    position: absolute;
+    right: -1.3vw !important;
+    top: 7.5vw !important;
+}
+.row{
+    margin: 0px!important;
+}
+
+.single-floor .floor-head span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    float: left;
+    white-space: nowrap;
+    font-size: 1.5vw !important;
+}
+
+.single-floor .floor-head-number {
+    color: #f9961e;
+    font-size: 1.6vw !important;
+    float: right !important;
+    width: auto !important;
+    line-height: 1;
+}
+
+.single-floor .type-head h5, .single-floor .name-head h5 {
+    color: #f9961e;
+    font-size: 1.2vw !important;
+    font-weight: 600;
+    padding: 3px 0;
+}
+
+.single-floor .type-description, .single-floor .name-description {
+    color: #fff;
+    font-size: 1.3vw !important;
+    font-weight: 400;
+}
+
+.single-floor .area-di-points .area-point-head, .single-floor .area-di-points .di-point-head {
+    font-weight: 600;
+    color: #f9961e;
+    font-size: 1.2vw !important;
+}
+
+.single-floor .area-di-points .area-value, .single-floor .area-di-points .di-value {
+    font-size: 1.4vw !important;
+    font-weight: 600;
+    margin: 1vw;
+}
+//end new
+.manage-level-container {
+    height: $screenHeight;
+}
+
+.floor-detail-container {
+    height: $screenHeight;
+    padding-right: 0;
+}
+
+.workspace {
+    height: $screenHeight;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+
+
+.box-footer {
+    display: table;
+    width: 100%;
+    span {
+        display: table-cell;
+        vertical-align: middle;
+        width: 33.33333%;
+        padding: 0 5px 0 0;
+        &:nth-child(3) {
+            padding: 0px;
+        }
+    }
+}
+
+.svg-area-map-container {
+    width: 100%; // background: linear-gradient(-135deg, #081E3D 10%, #040D1B 90%);
+    background: #fff;
+    min-height: 100px;
+    position: relative;
+    img {
+        width: 100%;
+    }
+}
+
+.create-area-action {
+    text-align: right;
+    position: absolute;
+    top: 11%;
+    right: 2%;
+    width: 100%;
+    .btn {
+        position: relative;
+        z-index: 10;
+        bottom: 40px;
+        margin-right: 10px;
+        background: #4A7FCC;
+        border-radius: 0;
+        color: #fff;
+        width: 12%;
+    }
+}

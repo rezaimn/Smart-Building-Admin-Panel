@@ -1,0 +1,30 @@
+<div class="prepare-form">
+  <div class="prepare-form-head">
+    <span></span>
+    <h1 style="    margin-left: 24px!important;
+    margin-right: 24px!important;">{{'LNR.report-form' | translate}}</h1>
+  </div>
+  <div class="clear"></div>
+  <div class="prepare-form-body">
+    <div class="view-staff-overlay lnr-config-label">
+      <mat-card>
+
+        <json-schema-form   [schema]="Schema"  [layout]="Layout" [widgets]="newWidgets" (onChanges)="yourOnChangesFn($event)">
+        </json-schema-form>
+
+        <button class="manage-btn lnr-execute-btn" (click)="executeModal()">{{'LNR.execute' | translate}}</button>
+        <button class="manage-btn lnr-cancel-btn" (click)="closeModal()">{{'LNR.cancel' | translate}}</button>
+
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <div class="powered-by-lnr">
+
+              <img class="report-logo" *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+              <img class="report-logo"  *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div></div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

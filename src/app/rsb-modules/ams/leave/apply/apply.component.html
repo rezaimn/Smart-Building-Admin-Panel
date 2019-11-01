@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'AMS.apply-leave' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <div class="row">
+
+
+                        <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                            <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                            <div>
+                                <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                                       style="direction: ltr!important;font-family:tw-regular!important;"
+                                       matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                                       [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                                       required class="dob-field" readonly="true" style="direction: ltr!important;">
+                                <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                                <mat-datepicker #myFromDate [startAt]="pickedFromDate"></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 input1 filter-elements-cal"
+                             *ngIf="appService.currentCalendar=='jalali'">
+                            <p>
+                                <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                            </p>
+                            <div>
+                                <dp-date-picker
+                                        style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                        dir="rtl"
+                                        [(ngModel)]="pickedFromDate"
+                                        mode="day"
+                                        placeholder="تاریخ"
+                                        theme="dp-material"
+                                        (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')">
+                                </dp-date-picker>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-c-01 translatable-float-right">
+                            <div class="form-group">
+                                <label>{{'AMS.start-time' | translate}}</label>
+                                <input type="text" [disabled]="leavedatevalidate" name="workStartTime"
+                                       #workStartTime=ngModel [(ngModel)]="workTime.workStartTime"
+                                       placeholder="00:00:00" required
+                                       pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                       maxlength=8>
+                                <div class="clearfix"></div>
+                                <div class="error">
+                                    <div [hidden]="workStartTime.valid || workStartTime.untouched">
+                                        <div *ngIf="workStartTime.errors && workStartTime.errors.required">
+                                            {{'validate-message.start-time-is-required'| translate}}
+                                        </div>
+                                    </div>
+                                    <div [hidden]="workStartTime.valid || workStartTime.untouched">
+                                        <div *ngIf="workStartTime.errors && workStartTime.errors.pattern">
+                                            {{'validate-message.not-valid-format'| translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-c-0 calendar-icon">
+                            <div class="form-group">
+                                <button
+                                        style="background-color: transparent;border: none; "
+                                        class="glyphicon glyphicon-time ams-time" id="timepicker1"
+                                        (click)="openTimer(workStartTime,'timepicker1',workTime)"></button>
+                            </div>
+                        </div>
+
+                </div>
+
+                <div class="row">
+
+                        <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                            <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                            <div>
+                                <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')"
+                                       style="direction: ltr!important;font-family:tw-regular!important;" matInput
+                                       name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate"
+                                       placeholder="{{toDate}}"
+                                       required class="dob-field" readonly="true" style="direction: ltr!important;">
+                                <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                                <mat-datepicker #myToDate [startAt]="pickedToDate"></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                            <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                            <div>
+                                <dp-date-picker style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                                dir="rtl"
+                                                [(ngModel)]="pickedToDate"
+                                                mode="day"
+                                                placeholder="تاریخ"
+                                                theme="dp-material"
+                                                (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')">
+                                </dp-date-picker>
+                            </div>
+                        </div>
+                        <div class="col-sm-c-01 translatable-float-right">
+                            <div class="form-group">
+                                <label>{{'AMS.end-time' | translate}}</label>
+                                <input type="text" [disabled]="leavedatevalidate" name="workEndTime"
+                                       #workEndTime="ngModel" [(ngModel)]="workTime.workEndTime" placeholder="00:00:00"
+                                       required pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                       maxlength=8>
+                                <div class="clearfix"></div>
+                                <div class="error">
+                                    <div [hidden]="workEndTime.valid || workEndTime.untouched">
+                                        <div *ngIf="workEndTime.errors && workEndTime.errors.required">
+                                            {{'validate-message.end-time-required'| translate}}
+                                        </div>
+                                    </div>
+                                    <div [hidden]="workEndTime.valid || workEndTime.untouched">
+                                        <div *ngIf="workEndTime.errors && workEndTime.errors.pattern">
+                                            {{'validate-message.not-valid-format'| translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-c-0  calendar-icon">
+                            <div class="form-group">
+                                <button
+                                        style="background-color: transparent;border: none;"
+                                        class="glyphicon glyphicon-time ams-time" id="timepicker2"
+                                        (click)="openTimer(workEndTime,'timepicker2',workTime)"></button>
+                            </div>
+                        </div>
+                </div>
+
+
+                <form #prepareLeaveForm="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-sm-6 translatable-float-right leave-modal">
+                            <div class="form-group">
+                                <label>{{'AMS.leave-type' | translate}}</label>
+                                <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        #leavetypeid [(ngModel)]="workTime.leavetypeid"
+                                        (change)="getLeaveElebibityByType($event.target.value)" name="leavetypeid"
+                                        required>
+                                    <option [value]="0" [selected] style="font-family: Yekan!important;">
+                                        {{'SELECT.select-types' | translate}}
+                                    </option>
+                                    <option [value]="leave.id" *ngFor="let leave of leaveTypes">
+                                        <p *ngIf="appService.currentLang=='en'">{{leave.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">
+                                            {{leave.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error">
+                                    <div [hidden]="leavetypeid.valid || leavetypeid.untouched">
+                                        <div *ngIf="leavetypeid.errors &&leavetypeid.errors.required">
+                                            leave Type is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 translatable-float-right">
+                                <span class="time-solid translatable">
+                                    {{days}} {{'AMS.days' | translate}} {{hours}} {{'AMS.hours-left' | translate}}
+                                </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{'AMS.reason-for-leave' | translate}}</label>
+                                <textarea #leavereason [(ngModel)]="workTime.leavereason" name="leavereason"></textarea>
+                                <div class="error">
+                                    <div [hidden]="leavereason.valid || leavereason.untouched">
+                                        <div *ngIf="leavereason.errors && leavereason.errors.required">
+                                            {{'validate-message.end-time-required'| translate}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-footer">
+                        <button class="form-button-submit pull-right" (click)="submitLeave(workTime)"
+                                *ngIf="appService.hasAccessToWrite(5,17)"
+                                [disabled]="!prepareLeaveForm.valid || executeDisable">{{'AMS.execute' | translate}}
+                        </button>
+                        <button class="form-button-cancel pull-right" (click)="closeModal()" type="button">
+                            {{'AMS.cancel' | translate}}
+                        </button>
+
+                        <div class="clear"></div>
+                    </div>
+                    <!--<div class="clearfix"></div>-->
+                    <!--<div class="form-footer" style="margin-top: 2%">-->
+                    <!--<button class="form-button-cancel pull-right" (click)="closeModal()" type="button">{{'AMS.cancel' | translate}}</button>-->
+                    <!--<div class="clear"></div>-->
+                    <!--</div>-->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+
+            </div>
+        </div>
+    </div>
+</div>

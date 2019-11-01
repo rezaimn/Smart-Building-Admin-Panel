@@ -1,0 +1,109 @@
+policy-tiles<div class="prepare-common-area-container">
+    <div class="row">
+        <div class="col-md-12 prepare-common-area-header">
+            <span>New common area group</span>
+        </div>
+        <div class="col-md-3">
+            <input type="text" placeholder="enter common area group name">
+        </div>
+    </div>
+    <div class="row prepare-common-area-body prepare-form-body">
+        <div class="col-md-3">
+            <div class="row mt-15">
+                <div class="col-md-12 mt-15">
+                    <select class="select-dropdowns" name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)" required>
+                        <option value="0" >{{'SELECT.select-campus' | translate}}</option>
+                        <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">{{campus.name}}</option>
+                    </select>
+                    <div class="error-msg">
+                        <div [hidden]="selectedCampus.valid || selectedCampus.untouched">
+                            <div *ngIf="selectedCampus.errors && selectedCampus.errors.required">
+                                campus is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-15">
+                    <select class="select-dropdowns" name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId" aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)" required>
+                            <option value="0" >{{'SELECT.select-building' | translate}}</option>
+                            <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">{{building.name}}</option>
+                        </select>
+                    <div class="error-msg">
+                        <div [hidden]="selectedBuilding.valid || selectedBuilding.untouched">
+                            <div *ngIf="selectedBuilding.errors && selectedBuilding.errors.required">
+                                Building is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-15">
+                    <select name="selectedFloor" #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="select type of building" required (ngModelChange)="getAllAreas(selectedFloorId)">
+                        <option value="0" >{{'SELECT.select-floor' | translate}}</option>
+                        <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">{{floor.levelName}}</option>
+                    </select>
+                    <div class="error-msg">
+                        <div [hidden]="selectedFloor.valid || selectedFloor.untouched">
+                            <div *ngIf="selectedFloor.errors && selectedFloor.errors.required">
+                                Floor is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <!-- <div class="col-lg-12"> -->
+            <div class="col-lg-6">
+                <!-- All areas -->
+                <div class="assign-area-left-wrapper" style="padding-right:15px;">
+                    <span class="col-lg-6 selected-areas-header fs-23 pull-left no-padding-left">Select Areas</span>
+                    <div class="col-lg-5 buttons-div">
+                        <span class="selected-areas-header area-icon pull-right" (click)="selectAllAvailableAreas()">
+                                <i [ngClass]="{'activeChip' : selectAllActive}" class="glyphicon glyphicon-ok-sign"></i> Select all areas
+                            </span>
+                        <!-- <button type="button" class="delete-btn" (click)="deleteGrade()">Delete</button> -->
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="area-main-container" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+
+                        <div *ngIf="areaDropdownList.length >= 1">
+                            <div class="area-lists chips fs-14" *ngFor="let area of areaDropdownList;let i = index;" (click)="selectArea($event,i,area)">
+                                <i class="glyphicon glyphicon-ok-sign select-icon" id="area_{{area.id}}"></i> {{area.name}}
+                            </div>
+                        </div>
+                        <div *ngIf="areaDropdownList.length < 1">
+                            <div class="no-areas-availble fs-14">
+                                No Areas available
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Selected areas -->
+            <div class="col-md-offset-1 col-lg-5">
+                <span class="previous-icon" (click)="pushSelectedAreas();">
+                        <i class="icon-right-arrow"></i>
+                    </span>
+                <div class="assign-area-left-wrapper" style="padding-left:15px;">
+                    <span class="col-lg-6 selected-areas-header fs-23 pull-left no-padding-left">Allocated Areas</span>
+                    <div class="clearfix"></div>
+                    <div class="area-main-container mt-10" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                        <div class="area-lists chips fs-14" *ngFor="let selectArea of selectedAreas; let i = index;">
+                            {{selectArea.code}} | {{selectArea.name}}
+                            <i class="glyphicon glyphicon-remove-sign delete-icon" (click)="removeareas($event,i,selectArea)"></i>
+                        </div>
+                        <div *ngIf="selectedAreas.length<1">
+                            <div class="no-areas-availble fs-14">
+                                No Areas assigned
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert no-area" [hidden]="!showErrorMessage">
+                    <h4>Please select areas to add</h4>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>

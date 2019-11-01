@@ -1,0 +1,108 @@
+<div class="prepare-form">
+  <div class="view-staff-overlay">
+    <form action="" (ngSubmit)="onSubmit()" #createAccessZoneForm="ngForm" method="post" autocomplete="off">
+      <!-- <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+                <label>Name</label>
+                 <input placeholder="enter name" type="text" name="name" #name="ngModel" [(ngModel)]="zone.name"
+                          required="true"  />
+            </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+                <label>department</label>
+                <select name="selectedDepartment" #selectedDepartment="ngModel" [(ngModel)]="zone.departmentId" aria-placeholder="select department"
+                    required (ngModelChange)="updateSubDepartments($event)">
+                    <option value="" selected disabled>Select a department</option>
+                    <option *ngFor="let department of departments;" [ngValue]="department.id">{{department.name}}</option>
+                  </select>
+                  <div class="error-message-display">
+                    <div [hidden]="selectedDepartment.valid || selectedDepartment.untouched">
+                      <div *ngIf="selectedDepartment.errors && selectedDepartment.errors.required">
+                        department is required
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+                <label>sub department</label>
+                    <select name="selectedSubDepartment" #selectedSubDepartment="ngModel" [(ngModel)]="zone.subDepartmentId" aria-placeholder="select sub department"
+                       required>
+                      <option value="" selected>Select a sub department</option>
+                      <option *ngFor="let department of subdepartments;" [ngValue]="department.id">{{department.name}}</option>
+                    </select>
+                    <div class="error-message-display">
+                      <div [hidden]="selectedSubDepartment.valid || selectedSubDepartment.untouched">
+                        <div *ngIf="selectedSubDepartment.errors && selectedSubDepartment.errors.required">
+                          sub department is required
+                        </div>
+                      </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group ">
+              <label>Work group</label>
+              <select name="selectedAccessGroups" #selectedAccessGroups="ngModel" [(ngModel)]="zone.acessGroupId" aria-placeholder="select access group"
+                 required>
+                <option value="" selected>Select Work group</option>
+                <option *ngFor="let accessGroup of accessGroups;" [ngValue]="accessGroup.Name">{{accessGroup.Name}}</option>
+              </select>
+              <div class="error-message-display">
+                <div [hidden]="selectedAccessGroups.valid || selectedAccessGroups.untouched">
+                  <div *ngIf="selectedAccessGroups.errors && selectedAccessGroups.errors.required">
+                    access group is required
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div> -->
+      <div class="row">
+          <div class="col-md-12">
+            <div class="form-group ">
+                <!-- <label>Work group</label>
+                <select name="selectedAccessGroups" #selectedAccessGroups="ngModel" [(ngModel)]="zone.acessGroupId" aria-placeholder="select access group"
+                   required>
+                  <option value="" selected>Select Work group</option>
+                  <option *ngFor="let accessGroup of accessGroups;" [ngValue]="accessGroup.Name">{{accessGroup.Name}}</option>
+                </select>
+                <div class="error-message-display">
+                  <div [hidden]="selectedAccessGroups.valid || selectedAccessGroups.untouched">
+                    <div *ngIf="selectedAccessGroups.errors && selectedAccessGroups.errors.required">
+                      access group is required
+                    </div>
+                  </div>
+                </div> -->
+                <iframe width="100%" height="600" [src]="url" allow="camera;microphone" ></iframe>
+              </div>
+          </div>
+        </div>
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <!-- <button class="form-button-submit floating-bnt" tabindex="5"  >execute</button> -->
+          <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">{{'VICS.cancel' |translate }}</button>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <div class="powered-by">
+            <img src="../../../../../assets/images/logo.png" />
+            
+        </div></div>
+      </div>
+
+    </form>
+  </div>
+</div>

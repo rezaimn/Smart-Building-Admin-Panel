@@ -1,0 +1,46 @@
+@import '../../EMS';
+.delete-box {
+    border: 1.5px solid #d22b2b;
+    // border-radius: 20px;
+    height: auto;
+    text-align: center;
+    background: rgba(210, 43, 43, 0.14);
+    padding: 40px 100px 60px;
+    position: relative;
+    .del-length {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 10em;
+        color: #d22b2b;
+    }
+    h4 {
+        color: #d22b2b;
+        padding: 0;
+        font-size: 28px;
+    }
+    ul {
+        list-style: none;
+        padding: 40px 40px 20px;
+        margin: 0;
+        display: table-cell;
+        width: 100%;
+        &.block {
+            display: block;
+        }
+        li {
+            position: relative;
+            color: $white;
+            text-align: left;
+            span {
+                font-size: 20px;
+                float: left;
+                width: 50%;
+            }
+            p {
+                font-size: 22px;
+                float: left;
+                width: 50%;
+            }
+        }
+    }
+}

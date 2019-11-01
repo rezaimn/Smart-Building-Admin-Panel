@@ -1,0 +1,17 @@
+<div class="main-wrapper">
+	<div class="data-container">
+		<div class="otp-container">
+			<div class="otp-header">
+                Super Admin
+			</div>
+			<div class="otp-body">
+                <p>OTP</p>
+
+                <input #otpToVerify class="partitioned" (ngModelChange)="checkOTP($event,otpToVerify)" [(ngModel)]="one_time_password" type="password" maxlength="4" onpaste="return false" />
+
+				<p *ngIf="!otpErrorDisplay" class="help-message">PLEASE ENTER THE OTP SENT TO YOUR EMAIL ID</p>
+				<p *ngIf="otpErrorDisplay" class="error-message">PLEASE ENTER CORRECT OTP</p>
+			</div>
+		</div>
+	</div>
+</div>

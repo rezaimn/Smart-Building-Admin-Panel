@@ -1,0 +1,79 @@
+<div class="main-container " *ngIf="!editClicked">
+  <!-- && editClikedFromPrepareDept == 'false' -->
+  <!-- class="create-btn" -->
+  <button class="execute-btn exe-sm create-btn" (click)="prepareAllowanceFunction('new', manageAllowance.length + 1 , '')">create</button>
+  <div *ngIf="manageAllowance.length >= 1;then dataTemplate else noDataMessage"></div>
+  <ng-template #dataTemplate>
+    <div class="wrapper col-lg-12 col-md-12" *ngFor="let allowance of manageAllowance;let i = index;">
+      <div class="department-box worktime-box">
+        <div class="box-header">
+          <h4>
+            <span>{{i+1}}</span>{{allowance.allowanceName}}</h4>
+        </div>
+        <div class="department-content-wrapper">
+          <div class="col-lg-12 col-md-12 grade-heading">
+            <span class="golden-heading">Grade</span>
+            <span class="main-text">{{allowance.gradePolicy.gradeName}} </span>
+          </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="col-lg-5 ">
+              <span class="golden-heading col-lg-12 no-padding-left"> Parking</span>
+            </div>
+            <div class="col-lg-7 ">
+              <span class="golden-heading add-padding-left">meals</span>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="col-lg-5 ">
+              <div class="col-lg-6 no-padding-left">
+                <span class="sub-head">Amount</span>
+                <span class="main-text">{{allowance.parkingAmount}}
+                  <span class="convey-text">irr</span>
+                </span>
+              </div>
+              <div class="col-lg-6">
+                <span class="sub-head">recharge period</span>
+                <span class="main-text">{{allowance.parkingPeriod}}
+                  <span class="convey-text">days</span>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="col-lg-6 add-padding-left">
+                <span class="sub-head">Amount</span>
+                <span class="main-text">{{allowance.mealsAmount}}
+                  <span class="convey-text">irr</span>
+                </span>
+              </div>
+              <div class="col-lg-6">
+                <span class="sub-head">recharge period</span>
+                <span class="main-text">{{allowance.mealsPeriod}}
+                  <span class="convey-text">days </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-2 no-padding-right">
+              <div class="department-box-footer">
+                <!-- (click)="prepareAllowance('edit', 2, allowance)" -->
+                <!-- <i class="icon-note-interface-symbol" ></i>
+                <i class="icon-rubbish-bin" ></i> -->
+                <button class="box-button department-btns" (click)="deleteAllowance(allowance.id)">DELETE</button>
+                <button class="box-button department-btns" (click)="prepareAllowanceFunction('edit', i+1, allowance)">EDIT</button>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<ng-template #noDataMessage>
+  <div class="col-lg-12 grade-policy-main-container department-box">
+    <div class="no-allowance-availble fs-23">No allowance available.</div>
+  </div>
+</ng-template>
+<div *ngIf="editClicked">
+  <!-- && editClikedFromPrepareDept === 'true' -->
+  <app-prepare-allowance [prepareAllowanceDataGot]="prepareAllowanceDataGot"></app-prepare-allowance>
+</div>

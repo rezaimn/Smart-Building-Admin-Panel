@@ -1,0 +1,244 @@
+<div class="col-md-12">
+    <app-header></app-header>
+</div>
+<div class="clearfix"></div>
+<div class="dashboard-wrapper" #dashboardWrap malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+
+    <!-- <div class="dashboard-head"><span class="pageDetail">main dashboard</span></div> -->
+    <!-- malihu-scrollbar [scrollbarOptions]="scrollbarOptions" -->
+    <div class="dashboard-inner">
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-5 search-panel">
+                <div class="header-second__header-bar pageDetail noselect" align="center">
+                    <!--<p *ngIf="notHover" class="text-center">MAIN DASHBOARD</p>-->
+                    <p  class="text-center">{{moduleHeader}}</p>
+                    <img *ngIf="!appService.lightThemeC" src="../../../assets/images/common/header/sample.png">
+                    <img class="sample2" *ngIf="appService.lightThemeC" src="../../../assets/images/common/header/sample2.png">
+                    <img *ngIf="isLoading" src="../../../assets/images/earth-loader.gif" style="padding: 3px" >
+                    <img  *ngIf="!isLoading" class="lead-icon"  [src]="modulePng">
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row" @depthSlide >
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(1)">
+                <div class="module-box" (mouseenter)="onHover('OMS')" (mouseleave)="offHover()"  (click)="dashboardClick('OMS')">
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='OMS' && !appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/OMS.png" alt="ORGANIZATION MANAGEMENT" />
+                    <img style="float: none!important;" *ngIf="selectedModule!='OMS'&&appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/OMS2.png" alt="ORGANIZATION MANAGEMENT" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='OMS' && !appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/hover-imgs/OMS.png" alt="ORGANIZATION MANAGEMENT"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='OMS' && appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/OMS2.png" alt="ORGANIZATION MANAGEMENT"/>
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='OMS',
+                    moduleMouseOffText:selectedModule!='OMS'}">{{'dashboard.OMS'|translate}}
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(2)">
+                <div class="module-box" (mouseenter)="onHover('EMS')" (mouseleave)="offHover()" (click)="dashboardClick('EMS')" >
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='EMS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/INDOOR-SURVEILLANCE-SYSTEM.png" alt="element MANAGEMENT"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='EMS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/INDOOR-SURVEILLANCE-SYSTEM2.png" alt="element MANAGEMENT" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='EMS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/hover-imgs/INDOOR-SURVEILLANCE-SYSTEM.png" alt="element MANAGEMENT"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='EMS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/INDOOR-SURVEILLANCE-SYSTEM2.png" alt="element MANAGEMENT" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='EMS',
+                    moduleMouseOffText:selectedModule!='EMS'}">{{'dashboard.EMS'|translate}}
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(3)">
+                <div class="module-box" (mouseenter)="onHover('SPAS')" (mouseleave)="offHover()" (click)="dashboardClick('SPAS')">
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SPAS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART_PHYSICAL_ACCESS_SYSTEM.png" alt="Smart Physical Access System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SPAS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART_PHYSICAL_ACCESS_SYSTEM2.png" alt="Smart Physical Access System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SPAS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/hover-imgs/SMART_PHYSICAL_ACCESS_SYSTEM.png" alt="Smart Physical Access System" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='SPAS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/SMART_PHYSICAL_ACCESS_SYSTEM2.png" alt="Smart Physical Access System" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SPAS',
+                    moduleMouseOffText:selectedModule!='SPAS'}">{{'dashboard.SPAS'|translate}}
+
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(4)">
+                <div class="module-box" (mouseenter)="onHover('ALMS')" (mouseleave)="offHover()" (click)="dashboardClick('ALMS')" >
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='ALMS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/ALERT-MANAGEMENT-SYSTEM.png" alt="Alert Management system"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='ALMS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/ALERT-MANAGEMENT-SYSTEM2.png" alt="Alert Management system"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='ALMS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/ALERT-MANAGEMENT-SYSTEM.png" alt="Alert Management system" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='ALMS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"   src="../../../assets/images/dashboard/ALERT-MANAGEMENT-SYSTEM2.png" alt="Alert Management system" />
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='ALMS',
+                    moduleMouseOffText:selectedModule!='ALMS'}">{{'dashboard.ALMS'|translate}}
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(5)">
+                <div class="module-box" (mouseenter)="onHover('AMS')" (mouseleave)="offHover()" (click)="dashboardClick('AMS')" >
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='AMS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/AMS.png" alt="Attendance Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='AMS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/AMS2.png" alt="Attendance Management System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='AMS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/AMS.png" alt="Attendance Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='AMS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/AMS2.png" alt="Attendance Management System"/>
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='AMS',
+                    moduleMouseOffText:selectedModule!='AMS'}">{{'dashboard.AMS'|translate}}
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(6)">
+                <div class="module-box" (mouseenter)="onHover('SPMS')" (mouseleave)="offHover()"  (click)="dashboardClick('SPMS')">
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SPMS'&& !appService.lightThemeC"  class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-PARKING-SYSTEM.png" alt="Smart Parking Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SPMS'&& appService.lightThemeC"  class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-PARKING-SYSTEM2.png" alt="Smart Parking Management System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SPMS'&& !appService.lightThemeC"  class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/SMART-PARKING-SYSTEM.png" alt="Smart Parking Management System" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='SPMS'&& appService.lightThemeC"  class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/SMART-PARKING-SYSTEM2.png" alt="Smart Parking Management System" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SPMS',
+                    moduleMouseOffText:selectedModule!='SPMS'}">{{'dashboard.SPMS'|translate}}</p>
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(7)">
+                <div class="module-box" (mouseenter)="onHover('SSMS')" (mouseleave)="offHover()" (click)="dashboardClick('SSMS')" >
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SSMS' && !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-SECURITY-SYSTEM.png" alt="Smart Security Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SSMS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-SECURITY-SYSTEM2.png" alt="Smart Security Management System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SSMS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/hover-imgs/SMART-SECURITY-SYSTEM.png" alt="Smart Security Management System" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='SSMS' && appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/SMART-SECURITY-SYSTEM2.png" alt="Smart Security Management System" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SSMS',
+                    moduleMouseOffText:selectedModule!='SSMS'}">{{'dashboard.SSMS'|translate}}</p>
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(8)">
+                <div class="module-box" (mouseenter)="onHover('SFMS')" (mouseleave)="offHover()" (click)="dashboardClick('SFMS')" >
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;"v *ngIf="selectedModule!='SFMS' && !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/EMS.png" alt="Smart Safety Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SFMS' && appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/EMS2.png" alt="Smart Safety Management System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SFMS' && !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/EMS.png" alt="Smart Safety Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='SFMS' && appService.lightThemeC" class="img-responsive omsH moduleMouseOn" src="../../../assets/images/dashboard/EMS2.png" alt="Smart Safety Management System"/>
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SFMS',
+                    moduleMouseOffText:selectedModule!='SFMS'}">{{'dashboard.SFMS'|translate}}</p>
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(9)">
+                <div class="module-box" (mouseenter)="onHover('SEMS')" (mouseleave)="offHover()" (click)="dashboardClick('SEMS')" >
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SEMS' && !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-ENERGY-SAVING-SYSTEM.png" alt="Smart Energy Management Syetem"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SEMS' && appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SMART-ENERGY-SAVING-SYSTEM2.png" alt="Smart Energy Management Syetem"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='SEMS' && !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/SMART-ENERGY-SAVING-SYSTEM.png" alt="Smart Energy Management System" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='SEMS' && appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/SMART-ENERGY-SAVING-SYSTEM2.png" alt="Smart Energy Management System" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SEMS',
+                    moduleMouseOffText:selectedModule!='SEMS'}">{{'dashboard.SEMS'|translate}}</p>
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(10)">
+                <div class="module-box" (mouseenter)="onHover('VICS')" (mouseleave)="offHover()" (click)="dashboardClick('VICS')">
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='VICS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/VIDEO-CALL-SYSTEM.png" alt="Video Call System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='VICS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/VIDEO-CALL-SYSTEM2.png" alt="Video Call System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='VICS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/VIDEO-CALL-SYSTEM.png" alt="Video Call System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='VICS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/VIDEO-CALL-SYSTEM2.png" alt="Video Call System"/>
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='VICS',
+                    moduleMouseOffText:selectedModule!='VICS'}">{{'dashboard.VICS'|translate}}</p>
+                </div>
+            </div>
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(11)">
+                <div class="module-box" (mouseenter)="onHover('HOMS')" (mouseleave)="offHover()" (click)="dashboardClick('HOMS')" >
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='HOMS'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/HOSPITALITY-MANAGEMENT-SYSTEM.png" alt="Hospitality Management System"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='HOMS'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/HOSPITALITY-MANAGEMENT-SYSTEM2.png" alt="Hospitality Management System"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='HOMS'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/HOSPITALITY-MANAGEMENT-SYSTEM.png" alt="Hospitality Management System" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='HOMS'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/HOSPITALITY-MANAGEMENT-SYSTEM2.png" alt="Hospitality Management System" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='HOMS',
+                    moduleMouseOffText:selectedModule!='HOMS'}">{{'dashboard.HOMS'|translate}}
+
+                </div>
+            </div>
+
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(12)">
+                <div class="module-box" (mouseenter)="onHover('SK')" (mouseleave)="offHover()" (click)="dashboardClick('SK')">
+                    <div class="locked-green">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SK'&& !appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/SIGNAGES-AND-KIOSKS.png" alt="Signages and KIOSKs"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SK'&& appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/SIGNAGES-AND-KIOSKS2.png" alt="Signages and KIOSKs"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SK'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/SIGNAGES-AND-KIOSKS.png" alt="Signages and KIOSKs"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='SK'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/SIGNAGES-AND-KIOSKS2.png" alt="Signages and KIOSKs"/>
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SK',
+                    moduleMouseOffText:selectedModule!='SK'}">{{'dashboard.SK'|translate}}</p>
+                </div>
+            </div>
+
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(13)">
+                <div class="module-box" (mouseenter)="onHover('SP')" (mouseleave)="offHover('SP')" (click)="redirectToPage('sp')">
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='SP'&& !appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SETTING-PANEL.png" alt="Settings Panel" />
+                    <img style="float: none!important;" *ngIf="selectedModule!='SP'&& appService.lightThemeC" class="img-responsive oms"  src="../../../assets/images/dashboard/SETTING-PANEL2.png" alt="Settings Panel" />
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='SP'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/hover-imgs/SETTING-PANEL.png" alt="Settings Panel"/>
+                    <img style="float: none!important;" *ngIf="selectedModule=='SP'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"  src="../../../assets/images/dashboard/SETTING-PANEL2.png" alt="Settings Panel"/>
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='SP',
+                    moduleMouseOffText:selectedModule!='SP'}">{{'dashboard.SP'|translate}}</p>
+                </div>
+            </div>
+
+            <div class="col-md-2 new-anim" *ngIf="userHasAccessToModule(14)">
+                <div class="module-box" (mouseenter)="onHover('LNR')" (mouseleave)="offHover()" (click)="dashboardClick('LNR')" >
+                    <div class="locked">
+                        <img src="../../../assets/images/dashboard/LOCK-GREEN.png" />
+                    </div>
+                    <img style="float: none!important;" *ngIf="selectedModule!='LNR'&& !appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/LOGGING-AND-REPORTING.png" alt="Logging & Reporting"/>
+                    <img style="float: none!important;" *ngIf="selectedModule!='LNR'&& appService.lightThemeC" class="img-responsive oms" src="../../../assets/images/dashboard/LOGGING-AND-REPORTING2.png" alt="Logging & Reporting"/>
+
+                    <img style="float: none!important;" *ngIf="selectedModule=='LNR'&& !appService.lightThemeC" class="img-responsive omsH moduleMouseOn"   src="../../../assets/images/dashboard/hover-imgs/LOGGING-AND-REPORTING.png" alt="Logging & Reporting" />
+                    <img style="float: none!important;" *ngIf="selectedModule=='LNR'&& appService.lightThemeC" class="img-responsive omsH moduleMouseOn"   src="../../../assets/images/dashboard/LOGGING-AND-REPORTING2.png" alt="Logging & Reporting" />
+
+                    <p class="module-box-text" [ngClass]="{moduleMouseOnText:selectedModule=='LNR',moduleMouseOffText:selectedModule!='LNR'}">{{'dashboard.LNR'|translate}}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="clearfiX"></div>
+<div class="col-md-12">
+    <app-footer></app-footer>
+</div>
+<app-call-notify></app-call-notify>

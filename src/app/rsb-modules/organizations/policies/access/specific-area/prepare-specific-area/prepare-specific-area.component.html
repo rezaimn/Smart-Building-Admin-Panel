@@ -1,0 +1,102 @@
+<div class="prepare-form">
+    <div class="prepare-form-head index-of-allowance">
+        <span>{{index}}1</span>
+        <h2>{{mode}} new specific area group</h2>
+    </div>
+    <div class="clear"></div>
+    <div class="prepare-form-body">
+        <form action="" (ngSubmit)="onSubmit()" #specificAreaGroupForm="ngForm" method="post" autocomplete="off" novalidate="">
+            <div id="left-elements">
+              <div class="form-group col-lg-4">
+                <input placeholder="enter specific area group name" type="text" name="specificAreaGroupName" #specificAreaGroupName="ngModel" [(ngModel)]="areaName"
+                  required="true" tabindex="1" minlength="3" maxlength="30" pattern="[a-zA-Z0-9 ]+"/>
+                <!-- <div class="error-message-display">
+                  <div [hidden]="specificAreaGroupName.valid || specificAreaGroupName.untouched">
+                    <div *ngIf="specificAreaGroupName.errors && specificAreaGroupName.errors.required">
+                      Name is required
+                    </div>
+                  </div>
+                </div>
+                <div class="error-message-display">
+                  <div [hidden]="specificAreaGroupName.valid || specificAreaGroupName.untouched">
+                    <div *ngIf="specificAreaGroupName.errors && specificAreaGroupName.errors.minlength">
+                      Minimum 3 characters required
+                    </div>
+                  </div>
+                </div>
+                <div class="error-message-display">
+                  <div [hidden]="GradeName.valid || GradeName.untouched">
+                    <div *ngIf="GradeName.errors && GradeName.errors.pattern">
+                      Only alphabets allowed
+                    </div>
+                  </div>
+                </div> -->
+              </div>                        
+            </div>            
+  
+          </form>
+          <!-- below section -->
+          <div class="col-lg-12 no-padding-left">
+              <div class="col-lg-6">
+                <!-- All grades -->
+                <div class="assign-area-left-wrapper" style="padding-right:15px;">
+                  <span class="grades-header fs-23 pull-left no-padding-left">Areas</span>
+                  <div class="pull-right grades-header fs-23">
+                    <i class="glyphicon glyphicon-ok-sign"></i>select all areas                    
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="grade-policy-main-container">
+                    <!-- <div *ngIf="manageAreas.length >= 1">
+                      <div class="grade-lists chips fs-23" *ngFor="let area of manageAreas;let i = index;" (click)="selectGrades($event,i,area)">
+                        <i class="glyphicon glyphicon-ok-sign select-icon"></i> {{area.gradeName}}
+                      </div>
+                    </div>
+            
+                    <div *ngIf="manageAreas.length < 1">
+                      <div class="no-grades-availble fs-23">
+                        No areas available.
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- Selected grades -->
+              <div class="col-lg-6">            
+                <span class="previous-icon" (click)="pushSelectedAreasToSelectedGrades();">
+                  <i class="icon-right-arrow"></i>
+                </span>
+            
+                <div class="assign-area-left-wrapper" style="padding-left:15px;">
+                  <span class="col-lg-6 grades-header fs-23 pull-left no-padding-left">selected areas</span>
+                  <div class="clearfix"></div>
+                  <div class="grade-policy-main-container"> 
+                    <!-- <div class="grade-lists chips fs-23" *ngFor="let selArea of selectedAreaArr; let i = index;">
+                      {{selArea.areaName}}
+                      <i class="glyphicon glyphicon-remove-sign delete-icon" (click)="removeAreas($event,i,selArea)"></i>
+                    </div>                
+                    <div *ngIf="selectedAreaArr.length<1">
+                      <div class="no-grades-availble fs-23">
+                        No areas assigned.
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="row bottom-buttons-div no-padding-right">
+                    <!-- col-lg-offset-6 -->
+                  <div class="col-lg-8   no-padding-right" style="float: right">
+                      <div class="col-lg-6" style="float: right;padding: 5px">
+                                              <button style="margin-bottom:15px;float: right" class="form-next-button execute-btn exe-sm exe-block " type="button" (click)="saveAreasForParticularDesig()">execute</button>
+
+                      </div>
+                      <div class="col-lg-6" style="padding: 5px;float: left">
+                                              <button class="form-button-cancel execute-btn exe-sm exe-block " type="button" (click)="cancelAssignArea()" >cancel</button>
+
+                      </div>
+                  </div>
+                  <!-- <span class="col-lg-3 no-padding-right pull-right"></span> -->
+                  
+                </div>
+              </div>
+            </div>
+    </div>
+</div>

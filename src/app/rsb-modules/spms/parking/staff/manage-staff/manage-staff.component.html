@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-3">
+                <p><span class="staff-header">DEPARTMENT</span></p>
+                
+                
+                  <select name="selectedDepartment" #selectedDepartment="ngModel" [(ngModel)]="departmentId" aria-placeholder="select department"
+                    required (ngModelChange)="updateSubDepartments($event)">
+                    <option value="0" >{{'SELECT.select-department' | translate}}</option>
+                    <option *ngFor="let department of departments;" [ngValue]="department.id">{{department.name}}</option>
+                  </select>
+                
+              </div>
+              <div class="col-md-3">
+                <p><span class="staff-header">SUB-DEPARTMENT</span></p>
+                <select name="selectedSubDepartment" #selectedSubDepartment="ngModel" [(ngModel)]="subDepartmentId" aria-placeholder="select sub department"
+                       required>
+                      <option value="0" >{{'SELECT.select-sub-department' | translate}}</option>
+                      <option *ngFor="let department of subdepartments;" [ngValue]="department.id">{{department.name}}</option>
+                    </select>
+                    
+              </div>
+              <div class="col-md-3">
+                <p><span class="staff-header">&nbsp;</span></p>
+                <select id="u249_input" [(ngModel)]="status" >
+                  <option value="0">SELECT A&nbsp; STATUS</option>
+                  <option value="1">ALL</option>
+                  <option value="ASSINGNED">ASSINGNED</option>
+                  <option value="UNASSINGNED">UNASSINGNED</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <p><span class="staff-header">&nbsp;</span></p>
+                <div class="filter-area">
+                    <button class="execute-btn execute-btn-search" (click)="getAllStaffs()" >EXECUTE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="filter">
+                <p><span class="staff-header">&nbsp;</span></p>
+                <div class="pagers">
+                    <ul>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left filter-icon" (click)="getPreviousList()" ></i>
+                        </li>
+                        <li class="pagination-style">
+                            <span>{{page+1}}</span>
+                            <span>-</span>
+                            <span>{{totalPages}}</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right filter-icon" (click)="getNextList()" ></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12" *ngFor="let staff of staffs; let i = index">
+        <div class="subsidiary-box mitoconnect-ui-listing-grid">
+            <div class="fs-23 staff-header">
+                <span>{{i+1}} {{ staff.employmentDetails.employeeId }}</span>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="box-body">        
+              <div class="row">
+                  <div class="col-md-2 inline-elements">
+                    <span>Name</span>
+                    <p>{{staff.firstName }} {{ staff.lastName }}</p>
+                  </div>
+
+                  <div class="col-md-2 inline-elements">
+                    <span>MOBILE NUMBER</span>
+                    <p> {{staff.mobileNum }}</p>
+                  </div>
+
+                  <div class="col-md-2 inline-elements">
+                    <span>DEPARTMENT</span>
+                    <p>DEPT1</p>
+                  </div>
+
+                  <div class="col-md-2 inline-elements">
+                    <span>SUB DEPARTMENT</span>
+                    <p>SUB1</p>
+                  </div>
+
+                  <div class="col-md-2 inline-elements">
+                    <span>CARD NUMBER</span>
+                    <p>{{staff.cardNumber }}</p>
+                  </div>
+
+                  <div class="col-md-2 inline-elements">
+
+                    <button class="manage-btn pull-left" (click)="viewStaff(staff)" *ngIf="!staff.cardNumber" >ALLOCATE</button>
+                    <button class="manage-btn pull-right" (click)="deleteStaffAccess(staff)" *ngIf="staff.cardNumber" >DISABLE</button>
+                  </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>
+  

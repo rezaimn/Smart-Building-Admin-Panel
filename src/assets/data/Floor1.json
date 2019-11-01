@@ -1,0 +1,144 @@
+[{
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 500,
+        "deviceid": 200,
+        "devicename": "Glass Break 1",
+        "devicetype": "SDS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "80%",
+        "img": "../../../assets/images/template/img1.jpg"
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 501,
+        "deviceid": 201,
+        "devicename": "Flood Sensor 1",
+        "devicetype": "SDS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "70%",
+        "img": "../../../assets/images/template/img1.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 503,
+        "deviceid": 203,
+        "devicename": "Smoke Detector 1",
+        "devicetype": "SDS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "89%",
+        "img": "../../../assets/images/template/img1.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 504,
+        "deviceid": 204,
+        "devicename": "Window 1",
+        "devicetype": "SDS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "100%",
+        "img": "../../../assets/images/template/img2.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 506,
+        "deviceid": 206,
+        "devicename": "Window 2",
+        "devicetype": "DWS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "100%",
+        "img": "../../../assets/images/template/img2.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 507,
+        "deviceid": 207,
+        "devicename": "Door 2",
+        "devicetype": "DWS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "77%",
+        "img": "../../../assets/images/template/img3.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 508,
+        "deviceid": 208,
+        "devicename": "Siren 1",
+        "devicetype": "SRN",
+        "devicecategoryid": 3,
+        "devicecategoryname": "On/Off Switch",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "0",
+        "batterystate": "70%",
+        "img": "../../../assets/images/template/img4.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 509,
+        "deviceid": 209,
+        "devicename": "Glass Break 2",
+        "devicetype": "SRN",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "1",
+        "batterystate": "80%",
+        "img": "../../../assets/images/template/img4.jpg"
+
+    },
+    {
+        "floorId": 126,
+        "areaId": 127,
+        "areaName": "0-C19-B20-F26AREA0",
+        "pointId": 510,
+        "deviceid": 210,
+        "devicename": "Window 3",
+        "devicetype": "DWS",
+        "devicecategoryid": 4,
+        "devicecategoryname": "Sensor",
+        "deviceworkingstate": "IN-SERVICE",
+        "devicestatus": "TRIGGERED",
+        "batterystate": "100%",
+        "img": "../../../assets/images/template/img4.jpg"
+
+    }
+]

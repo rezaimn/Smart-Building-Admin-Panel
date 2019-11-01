@@ -1,0 +1,157 @@
+@import '../../OMS';
+
+.row{
+    margin: 0px!important;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+.subsidiary-grid{
+    position: relative;
+    width: 20% !important;
+    display: inline-block;
+    min-height: 1px;
+    padding-right: 0.5vw;
+    padding-left: 0.5vw;
+}
+.subsidiary-box {
+    background: #04142b;
+    text-transform: uppercase;
+    border: 0.1px solid #f9961e;
+    overflow: hidden;
+    padding: 1vw;
+    margin-bottom: 0px;
+    margin-top: 1vw;
+    height: auto;
+}
+
+
+
+.subsidiary-box .box-body .block-elements span {
+    color: #f9961e;
+    font-size: 1.4vw;
+    display: block;
+}
+
+.subsidiary-box .box-body .block-elements p.shrink-line {
+    display: block;
+    display: -webkit-box;
+    direction: ltr;
+    height: 3.2vw;
+    line-height: 1.2;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subsidiary-box .box-body .block-elements p {
+    color: #fff;
+    font-size: 1.3vw;
+    line-height: 1.2;
+    text-transform: none;
+    margin: 0 0 0.5vw;
+}
+
+.subsidiary-box .inline-elements span {
+    color: #f9961e;
+    font-size: 1.4vw;
+    padding-right: 0.5vw;
+    display: inline-table;
+}
+
+.subsidiary-box .inline-elements p {
+    color: #fff;
+    font-size: 1.25vw;
+    line-height: 1;
+    display: inline-table;
+    margin-bottom: 2px;
+    width: auto;
+}
+
+.manage-btn {
+    background: #f9961e;
+    color: #010813;
+    font-size: 1.3vw;
+    width: 7vw;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 0px;
+    margin-bottom: 0;
+    font-weight: 100 !important;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid #f9961e;
+}
+
+p{
+    margin-bottom: 0 !important;
+}
+.manage-btn{
+    padding: .15vw !important;
+    width: 48% !important;
+    font-size: 1.25vw !important;
+}
+
+.btns{
+    padding-left: 0 !important;
+}
+.col-sm-3{
+    padding-right: 0 !important;
+}
+.col-sm-12 {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.header-number{
+    font-size: 1.5vw !important;
+}
+.subsidiary-box {
+    height: auto !important;
+    width: 100%;
+    padding: 0.5vw !important;
+    margin-top:0 !important;
+    margin-bottom: 1vw !important;
+    
+}
+.box-body{
+    span {
+        font-size: 1.15vw !important;
+    }
+    p{
+        font-size: 1.2vw !important;
+    }
+}
+
+
+
+
+.glyphicon-menu-left-d:before{
+    content: "\E257\E257";
+        
+}
+
+.glyphicon-menu-right-d:before{
+    content: "\E258\E258";
+}
+

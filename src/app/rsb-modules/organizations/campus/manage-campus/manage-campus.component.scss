@@ -1,0 +1,301 @@
+@import '../../OMS';
+.manage-level-container {
+    height: $screenHeight;
+    overflow: hidden;
+}
+.row{
+    margin: 0px!important;
+}
+.campus-detail-container {
+    height: $screenHeight;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+    padding-right: 0;
+}
+
+.single-campus .campus-head span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    float: left;
+    white-space: nowrap;
+}
+
+.single-campus .campus-head {
+    color: #f9961e;
+    position: relative;
+    font-size: 1.7vw !important;
+    z-index: 100;
+}
+
+.single-campus span.campus-head-number {
+    color: #f9961e;
+    font-size: 3vw !important;
+    float: right !important;
+    width: auto !important;
+    line-height: 1;
+}
+.single-campus .type-head h5, .single-campus .name-head h5 {
+    color: #f9961e;
+    font-size: 1.3vw !important;
+    font-weight: 600;
+    padding: 3px 0;
+}
+
+.single-campus .type-description, .single-campus .name-description {
+    color: #fff;
+    font-size: 1.6vw !important;
+    font-weight: 400;
+}
+
+.single-campus .area-di-points .area-point-head, .single-campus .area-di-points .di-point-head {
+    font-size: 1.4vw !important;
+    font-weight: 600;
+    color: #f9961e;
+}
+
+.fs-24 {
+    font-size: 1.4vw !important;
+}
+
+.single-campus .area-di-points .area-value, .single-campus .area-di-points .di-value {
+    font-size: 1.4vw !important;
+    font-weight: 600;
+    margin: 20px;
+}
+//end new
+.single-campus {
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    position: relative;
+    padding: 10px;
+    background-color: $tile-blue;
+    border: 1.5px solid $primary-clr;
+    width: 92%;
+    &.active {
+        &:after {
+            content: '\E905';
+            font-family: 'icomoon' !important;
+            font-size: 1.5vw !important;
+            color: $primary-clr;
+            position: absolute;
+            right: -24px;
+            top: 85px;
+        }
+    }
+    .single-campus-inner-container {
+        z-index: 10;
+        position: relative; // bottom: 15px;
+        // padding-left: 10px; // background: linear-gradient(-180deg, rgba(3, 15, 26, 0) 10%, rgba(18, 78, 151, 0.3) 90%);
+    }
+    .campus-head {
+        color: $primary-clr;
+        position: relative;
+        font-size: 28px;
+        z-index: 100;
+        span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 250px;
+            float: left;
+            white-space: nowrap;
+            @media(min-width: 1280px) and (max-width:1400px) {
+                width:200px;
+            }
+        }
+        &:first-child {
+            vertical-align: top;
+        }
+    }
+    span.campus-head-number {
+        color: #f9961e;
+        font-size: 60px;
+        /* vertical-align: middle; */
+        float: right !important;
+        width: auto !important;
+        line-height: 1;
+    }
+    .name-head {
+        padding-top: 3px;
+    }
+    .type-head,
+    .name-head {
+        h5 {
+            color: $primary-clr;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 3px 0;
+        }
+    }
+    .type-description,
+    .name-description {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 400;
+    }
+    .type-description {
+        text-transform: none;
+        line-height: 1.2;
+    }
+    .area-di-points {
+        color: #fff;
+        width: 100%;
+        .area-point-head,
+        .di-point-head {
+            font-size: 18px;
+            font-weight: 600;
+            color: $primary-clr;
+        }
+        .area-value,
+        .di-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 20px;
+        }
+    }
+    .action-button-container {
+        padding: 10px 0 0;
+        display: table;
+        width: 100%;
+        height: auto;
+        span {
+            display: table-cell;
+            vertical-align: middle;
+            width: 32%; // width: auto; Aneesh 4th Dec
+            padding: 0 5px 0 0;
+            &:last-child {
+                padding-right: 0;
+            }
+        } // color: $primary-clr;
+        // text-transform: uppercase !important;
+        // margin-top: 15px;
+        // // padding-bottom: 8px;
+        // display: table;
+        // width: 100%;
+        // .manage-button {
+        //     width: 100%;
+        //     background: $primary-clr;
+        //     color: #010813;
+        //     font-size: 20px;
+        //     text-transform: uppercase;
+        //     display: inline-block;
+        //     @include border-radius(0px);
+        //     padding: 0px 26px;
+        //     margin-bottom: 0;
+        //     font-weight: 100 !important;
+        //     line-height: 1.42857143;
+        //     text-align: center;
+        //     white-space: nowrap;
+        //     vertical-align: middle;
+        //     border: 1px solid $primary-clr;
+        //     &:hover,
+        //     &:active,
+        //     &:focus {
+        //         -webkit-text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //         -moz-text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //         text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //         outline: none;
+        //         outline-offset: none;
+        //         text-decoration: none;
+        //         -webkit-box-shadow: 0px 0px 10px 2px rgba(249, 150, 30, 0.3);
+        //         -moz-box-shadow: 0px 0px 10px 2px rgba(249, 150, 30, 0.3);
+        //         box-shadow: 0px 0px 10px 2px rgba(249, 150, 30, 0.3);
+        //         transition-duration: .5s;
+        //         transition-timing-function: ease-in-out;
+        //     }
+        // }
+        // span {
+        //     width: 32%;
+        //     cursor: pointer;
+        //     margin-left: 2px;
+        //     display: inline-table;
+        //     vertical-align: middle;
+        //     &:nth-child(2) {
+        //         // margin-left: 40px;
+        //     }
+        //     // &:hover {
+        //     //     color: $primary-clr;
+        //     //     -webkit-text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //     //     -moz-text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //     //     text-shadow: 0px 0px 20px $primary-clr-alpha;
+        //     //     outline: none;
+        //     //     outline-offset: none;
+        //     //     text-decoration: none;
+        //     //     transition-duration: .5s;
+        //     //     transition-timing-function: ease-in-out;
+        //     // }
+        // }
+        // button {
+        //     display: inline-table;
+        //     vertical-align: middle;
+        // }
+    }
+}
+
+.workspace {
+
+    overflow: hidden;
+    padding-bottom: 0px; // padding-left: 50px;
+}
+
+.svg-map-container {
+    width: 100%;
+    background: linear-gradient(-135deg, #081E3D 10%, #040D1B 90%);
+    min-height: 100px;
+    position: relative;
+    height: 100%;
+    background: #fff;
+    embed {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#svg-pan-zoom-zoom-in rect {
+    background: url('../../../../../assets/images/dashboard/ems-active.png') !important; //ams.png
+}
+
+.custom-pan-zoom-controlls {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    background-color: #fff;
+    z-index: 9999;
+    cursor: pointer;
+    .individual-icon-wrapper {
+        border: 1px solid #ccc;
+        padding: 7px 10px;
+        box-shadow: 2px 1px 1px rgbA(0, 0, 0, .3);
+        span {
+            vertical-align: middle;
+        }
+    }
+}
+
+//
+//.box-footer {
+//   height: auto;
+//    color: #fff;
+//    width: 100%!important;
+//
+//    i {
+//        color: $secondary-clr-alpha;
+//        display: inline-table;
+//        vertical-align: middle;
+//        cursor: pointer;
+//    ;
+//        &:hover,
+//        &:active,
+//        &:focus {
+//            color: $primary-clr;
+//            -webkit-text-shadow: 0px 0px 20px $primary-clr-alpha;
+//            -moz-text-shadow: 0px 0px 20px $primary-clr-alpha;
+//            text-shadow: 0px 0px 20px $primary-clr-alpha;
+//            outline: none;
+//            outline-offset: none;
+//            text-decoration: none;
+//        }
+//    }
+
+
+//}

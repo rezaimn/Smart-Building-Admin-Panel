@@ -1,0 +1,12 @@
+@import '../../SP';
+
+@media screen and (min-width: 1024px){
+    textarea{
+        height: 8vw;
+    }
+}
+@media screen and (max-width: 1024px){
+    textarea{
+        height: 9vw;
+    }
+}

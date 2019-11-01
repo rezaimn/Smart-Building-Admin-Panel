@@ -1,0 +1,346 @@
+<div class=" container" [style.height]="appService.layout_height+'px'">
+  <div class="col-sm-12" style="margin-left: 10%;width: 80%" [style.height]="appService.layout_height-5+'px'">
+    <div class="row " style="padding-top: 0px!important;" [style.height]="appService.layout_height-14+'px'">
+      <div class="col-sm-5 call-side" [style.height]="appService.layout_height-14+'px'">
+        <div class="profile vics-profile">
+          <img class="profile-pic vics-profile-pic" [src]="proImage" width="64" height="64">
+          <h4>{{logname}}</h4>
+        </div>
+        <div class="search vics-search">
+          <input matInput name="search" [(ngModel)]="peopleFilter.nameFilter" [placeholder]="'VICS.search'|translate" #searchInput style="height: 30px;font-size: 18px!important;">
+          <span class="fa fa-search search-icon" (click)="searchButton(searchInput.value)"></span>
+        </div>
+        <div class="row text-center video-call-row">
+          <div class="col-sm-10 vics-select" style="padding-right: 5px!important;padding-left: 5px!important;">
+            <select name="selectedManagerStatusForFilter" style="height: 30px!important" #selectedManagerStatusForFilter="ngModel" [(ngModel)]="peopleFilter.managerStatusFilter" aria-placeholder="SELECT A FILTER" required>
+                            <option value="0" >{{'VICS.status-filter'|translate}}</option>
+                            <option value="1" selected>{{'VICS.all'|translate}}</option>
+                            <option value="2">{{'VICS.favorites'|translate}}</option>
+                            <option value="3"> {{'VICS.available'|translate}}</option>
+                            <option value="4"> {{'VICS.unavailable'|translate}}</option>
+                        </select>
+          </div>
+          <!--<div class="col-sm-4" style="padding-right: 2px!important;padding-left: 5px!important;">-->
+          <!--<select name="CallTypeSelection" style="height: 30px!important"-->
+          <!--#SelectedCallType="ngModel"-->
+          <!--[(ngModel)]="selectedCallType" aria-placeholder="CALL TYPE"-->
+          <!--required>-->
+          <!--<option value="1">VIDEO</option>-->
+          <!--<option value="2">VOICE</option>-->
+          <!--</select>-->
+          <!--</div>-->
+          <div *ngIf="selectedCallType==1" class="col-sm-2" [matTooltip]="'VICS.video-call'|translate" [matTooltipPosition]="tooltipPosition">
+                <div class="call-pic" style="position: relative; top: -0px;">
+                    <img tooltip="video call" src="../../../../../assets/images/video-call/video-call.png" style="width: 30px;height: 30px;cursor: pointer" (click)="groupCall()" />
+                </div>
+
+          </div>
+          <!--<div *ngIf="selectedCallType==2" class="col-sm-2" matTooltip="voice call" [matTooltipPosition]="tooltipPosition">-->
+          <!--<img src="../../../../../assets/images/video-call/voice-call.png"-->
+          <!--style="width: 30px;height: 30px;cursor: pointer" (click)="groupCall()"/>-->
+          <!--</div>-->
+
+        </div>
+
+        <!-- <div class="ex1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.</div> -->
+
+        <div class="sort">
+
+          <span [matTooltip]="'VICS.ascending-sort'|translate" [matTooltipPosition]="tooltipPosition" (click)="sortTable('asce')" *ngIf="sortDown==true">
+                            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/video-call/arrow-down.png">
+                            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/video-call/arrow-down2.png">
+
+                        </span>
+          <span [matTooltip]="'VICS.descending-sort'|translate" [matTooltipPosition]="tooltipPosition" (click)="sortTable('desc')" *ngIf="sortDown==false">
+                            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/video-call/arrow-up.png">
+                            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/video-call/arrow-up2.png">
+
+                        </span>
+
+        </div>
+        <div class="vics-scroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height-214+'px'">
+          <div class="name-side" *ngFor="let online of onlineList | filter:peopleFilter ; let i = index ">
+            <div *ngIf="online.staffId == 0" class="row video-call-row">
+              <!-- <span *ngIf="online.selected" >
+                                            <img (click)="addListOff(i)" src="assets/images/checklist/checked.png" class="icon-check"/>
+                                    </span>
+                                    <span *ngIf="!online.selected" >
+                                            <img (click)="addListOn(i)" src="assets/images/checklist/unchecked.png" class="icon-check"/>
+                                    </span> -->
+              <div style="float: right;" class="col-sm-2">
+                <span *ngIf="online.favorite" [matTooltip]="'VICS.delete-from-favorites'|translate" [matTooltipPosition]="tooltipPosition">
+                                                <img (click)="deleteFromFavorite(online)" src="../../../../../assets/images/video-call/favorite.png"
+                                                />
+                                        </span>
+                <span *ngIf="!online.favorite" matTooltip="Add to favorites" [matTooltipPosition]="tooltipPosition">
+                                                <img (click)="addToFavorite(online)" src="../../../../../assets/images/video-call/not-favorite.png"
+                                                />
+                                        </span>
+              </div>
+              <div class="col-sm-1" style="padding-left: 5px;margin-top: -1px;">
+                <img src="../../../../../assets/images/video-call/online.png" *ngIf="online.userId > 0">
+                <img src="../../../../../assets/images/video-call/offline.png" *ngIf="online.userId == 0">
+              </div>
+              <div class="col-sm-9">
+                <span class="name">{{online.firstName}} {{online.lastName}}</span>
+              </div>
+
+            </div>
+            <div class="row video-call-row" (dblclick)="sendOnlineData(online)" *ngIf="online.staffId > 0" style="width: 100%">
+              <div style="float: right;" class="col-sm-2">
+                <span *ngIf="online.favorite" matTooltip="Delete from favorites" [matTooltipPosition]="tooltipPosition">
+                                                <img (click)="deleteFromFavorite(online)" src="../../../../../assets/images/video-call/favorite.png"
+                                                   />
+                                        </span>
+                <span *ngIf="!online.favorite" matTooltip="Add to favorites" [matTooltipPosition]="tooltipPosition">
+                                                <img (click)="addToFavorite(online)" src="../../../../../assets/images/video-call/not-favorite.png"
+                                                   />
+                                        </span>
+
+              </div>
+              <div style="float: right;" class="col-sm-2">
+                <span *ngIf="online.selected">
+                                                <img (click)="addListOff(i)" src="assets/images/checklist/checked.png"
+                                                     class="icon-check"/>
+                                        </span>
+                <span *ngIf="!online.selected">
+                                                <img (click)="addListOn(i)" src="assets/images/checklist/unchecked.png"
+                                                     class="icon-check"/>
+                                        </span>
+
+              </div>
+              <div class="col-sm-1" style="padding-left: 5px;margin-top: 0px;">
+                <img src="../../../../../assets/images/video-call/online.png" *ngIf="online.userId > 0">
+                <img src="../../../../../assets/images/video-call/offline.png" *ngIf="online.userId == 0">
+              </div>
+
+              <div class="col-sm-5">
+                <span class="name">{{online.firstName}} {{online.lastName}}</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- <div class="name-side" *ngFor="let online of onlineList; let i = index " >
+                    <div (dblclick)="sendOnlineData(online)"  *ngIf="online.staffId > 0">
+                            <span class="online" *ngIf="online.staffId > 0"></span>
+                            <span class="offline" *ngIf="online.staffId == 0"></span>
+                            <span class="name">{{online.firstName}} {{online.lastName}}</span>
+                    </div>
+                    <div  *ngIf="online.staffId == 0">
+                            <span class="online" *ngIf="online.staffId > 0"></span>
+                            <span class="offline" *ngIf="online.staffId == 0"></span>
+                            <span class="name">{{online.firstName}} {{online.lastName}}</span>
+                    </div>
+
+                </div> -->
+
+      </div>
+
+      <div class="col-sm-7 call-content" [style.height]="appService.layout_height-14+'px'">
+        <div class="row call-border" style="border-bottom: solid 2px #f9961e;margin-right:0px!important;margin-left: 0px!important;padding: 0px!important;">
+          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-8" style="border-bottom:0;"></div>
+          <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-bottom: 5px;margin-top: 5px">
+            <div class="col-12">
+              <div class="btn-group" style="width: 100%">
+                <button type="button" id="incoming-calls" class="btn col-lg-6 col-md-6 col-sm-6 col-xs-6 incoming-button" (click)="setCallStatus('incoming')">{{'VICS.incoming'|translate}}
+                                    <!--[ngClass]="{'btn-outline-success':Driver.Jensiyat=='Mard','btn-outline-secondary':Driver.Jensiyat=='Zan'}"-->
+                                    <img class="incoming-icon" src="../../../../../assets/images/inComing.png" alt="">
+                                </button>
+                <button type="button" class="btn  col-lg-6 col-md-6 col-sm-6 col-xs-6 outgoing-button" (click)="setCallStatus('outgoing')">{{'VICS.outgoing'|translate}}
+                                        <!--[ngClass]="{'btn-outline-success':Driver.Jensiyat=='Zan','btn-outline-secondary':Driver.Jensiyat=='Mard'}"-->
+                                    <img class="outgoing-icon" src="../../../../../assets/images/outGoing.png" alt="">
+                                </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-8"></div>
+        </div>
+        <div style="padding: 0px;">
+
+
+          <div style=" padding: 8px;border-bottom: 0;margin-bottom: 5px">
+            <div *ngIf="incomingCalls=='incoming'">
+              <h4 class="io" style="padding: 0px">{{'VICS.incoming-calls'|translate}}</h4>
+
+              <div class="vics-scroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height-113+'px'">
+                <div class="row name-side" style="cursor: default;padding: 3px!important;" *ngFor="let online of inList; let i = index">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px">{{online.callerName}}</p>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px"> {{online.createdTs}} </p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px"> {{convertToTime(online.closedTs -online.createdTs) }} </p>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+                    <img *ngIf="incomingCalls=='incoming'" src="../../../../../assets/images/inComing-green.png" height="20" width="20" style="float: right" />
+                    <img *ngIf="incomingCalls=='outgoing'" src="../../../../../assets/images/outGoing-blue.png" height="20" width="20" style="float: right" />
+                    <input type="checkbox" style="width: 12px;height: 12px;float: right;margin-left: 10px;margin-right: 10px;">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div *ngIf="incomingCalls=='outgoing'">
+              <h4 class="io" style="padding: 0px">{{'VICS.outgoing-calls'|translate}}</h4>
+              <div class="vics-scroll" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height-113+'px'">
+                <div class="row name-side" style="cursor: default;padding: 3px!important;" *ngFor="let online of reqList; let i = index">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px">{{online.callingName}}</p>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px"> {{online.createdTs | date:'yyyy-MM-dd'}} </p>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
+                    <p style="color: #f9961e;font-size:16px"> {{ convertToTime(online.closedTs -online.createdTs)}} </p>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+                    <img *ngIf="incomingCalls=='incoming'" src="../../../../../assets/images/inComing-green.png" height="20" width="20" style="float: right" />
+                    <img *ngIf="incomingCalls=='outgoing'" src="../../../../../assets/images/outGoing-blue.png" height="20" width="20" style="float: right" />
+                    <input type="checkbox" style="width: 12px;height: 12px;float: right;margin-left: 10px;margin-right: 10px;">
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <!--
+            <img matTooltip="delete selected logges" [matTooltipPosition]="tooltipPosition" src="../../../../../assets/images/delete.png" height="20" width="20" style="float: right;cursor: pointer" />
+            <input type="checkbox" style="width: 12px;height: 12px;float: right;margin-left: 10px;margin-right: 10px;">
+          -->
+          </div>
+
+          <!--<div class="row name-side" *ngFor="let online of inList; let i = index ">-->
+          <!--<img *ngIf="online.status == 1" class="bg-call income"-->
+          <!--src="../../../../../assets/images/sample-bg.png" alt="">-->
+          <!--<img *ngIf="online.status==1" class="call-pic incoming-c income"-->
+          <!--src="../../../../../assets/images/inComing-Copy.png" alt="">-->
+          <!--<div class="col-sm-2">-->
+          <!--<span class="online"></span>-->
+          <!--</div>-->
+
+          <!--<div class="col-sm-4">-->
+          <!--<span class="name">{{online.callingName}}</span>-->
+          <!--</div>-->
+          <!--<div class="col-md-2  inline-elements" *ngIf="online.status==1">-->
+
+          <!--<span class="status-success">REQUESTED</span>-->
+          <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="col-md-2  inline-elements" *ngIf="online.status==2">-->
+
+          <!--<span class="status-success">ACCEPTED</span>-->
+          <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="col-md-2  inline-elements" *ngIf="online.status==3">-->
+
+          <!--<span class="status-fail">REJECTED</span>-->
+          <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+          <!--</div>-->
+
+          <!--<div class="col-md-4 inline-elements" *ngIf="online.status==1">-->
+          <!--<button class="manage-btn pull-right" (click)="acceptVideo(online)">ACCEPT</button>-->
+          <!--<button class="manage-btn pull-left" (click)="rejectVideo(online)">REJECT</button>-->
+
+          <!--</div>-->
+
+          <!--</div>-->
+
+
+        </div>
+
+
+        <!--<div   *ngIf="!incomingCalls">-->
+        <!--<div class="profile">-->
+
+        <!--<h4>OUTGOING CALLS</h4>-->
+        <!--<img class="call-pic" src="../../../../../assets/images/outGoing.png" alt="">-->
+        <!--</div>-->
+
+        <!--<div class="row name-side" *ngFor="let online of reqList; let i = index ">-->
+        <!--<div class="col-sm-2">-->
+        <!--<span class="online"></span>-->
+        <!--</div>-->
+        <!--<div class="col-sm-4">-->
+        <!--<span class="name">{{online.callingName}}</span>-->
+        <!--</div>-->
+        <!--<div class="col-md-2  inline-elements" *ngIf="online.status==1">-->
+
+        <!--<span class="status-success">REQUESTED</span>-->
+        <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-md-2  inline-elements" *ngIf="online.status==2">-->
+
+        <!--<span class="status-success">ACCEPTED</span>-->
+        <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-md-2  inline-elements" *ngIf="online.status==3">-->
+
+        <!--<span class="status-fail">REJECTED</span>-->
+        <!--&lt;!&ndash; <p>{{staff.cardNumber }}</p> &ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="col-md-4 inline-elements">-->
+        <!--<button class="manage-btn pull-right">REJECT</button>-->
+
+
+        <!--</div>-->
+
+        <!--</div>-->
+
+
+        <!--</div>-->
+
+      </div>
+      <!-- <div class="col-sm-5 call-content">
+                <div class="btns">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <div class="pull-right">
+                            <img src="../../../assets/images/video-call/share-p.png" alt="">
+                            <img src="../../../assets/images/video-call/share.png" alt="">
+                            <img src="../../../assets/images/video-call/message.png" alt="">
+                            <img src="../../../assets/images/video-call/video.png" alt="">
+                            <img src="../../../assets/images/video-call/sound.png" alt="">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                        <iframe width="100%" height="600" [src]="url"></iframe>
+                </div>
+            </div> -->
+
+
+      <!-- <div class="col-sm-6 ">
+            <div class="btns">
+                <div class="col-sm-6 col-sm-offset-6">
+                    <div class="pull-right">
+                        <img src="../../../assets/images/video-call/share-p.png" alt="">
+                        <img src="../../../assets/images/video-call/share.png" alt="">
+                        <img src="../../../assets/images/video-call/message.png" alt="">
+                        <img src="../../../assets/images/video-call/video.png" alt="">
+                        <img src="../../../assets/images/video-call/sound.png" alt="">
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="video-call-view">
+
+            </div>
+        </div> -->
+    </div>
+
+
+  </div>
+
+</div>

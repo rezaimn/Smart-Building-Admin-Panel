@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="prepare-form">
+      <!-- Head -->
+      <div class="prepare-form-head">
+        <span>{{index}}</span>
+        <h2 *ngIf="mode=='new'">{{'OMS.add-department'|translate}}</h2>
+        <h2 *ngIf="mode=='edit'">{{'OMS.edit-department'|translate}}</h2>
+        <!-- <span>3</span>
+        <h2>New Department</h2> -->
+      </div>
+      <div class="clear"></div>
+      <!-- Content -->
+      <div class="prepare-form-body">
+        <form action="" (ngSubmit)="onSubmit()" #prepareDepartmentForm="ngForm" method="post" autocomplete="off" novalidate="">
+          <div id="left-elements">
+
+                      <!-- EN -->
+            <div class="form-group">
+              <input placeholder="DEPARTMENT NAME" type="text" name="DepartmentName" #DepartmentName="ngModel" [(ngModel)]="prepareDepartment.deptnameMultiLingual.map.en"
+                required="true" tabindex="1" minlength="3" maxlength="30"  />
+              <div class="error-message-display" style="right: auto; left: 5px ;">
+                <div [hidden]="DepartmentName.valid || DepartmentName.untouched">
+                  <div *ngIf="DepartmentName.errors && DepartmentName.errors.required">
+                             NAME IS REQUIRED
+                  </div>
+                  <div *ngIf="DepartmentName.errors && DepartmentName.errors.minlength">
+                               MIN LENGTH IS 3
+                  </div>
+                  <!--<div *ngIf="DepartmentName.errors && DepartmentName.errors.pattern && !DepartmentName.errors.minlength">-->
+                    <!--{{'validate-message.alphabet-pattern-required'|translate}}-->
+                  <!--</div>-->
+                </div>
+              </div>
+            </div>
+
+                      <!-- FA -->
+            <div class="form-group">
+              <input style="direction: rtl;font-family: Yekan!important;" placeholder="نام دپارتمان" type="text" name="faDepartmentName" #faDepartmentName="ngModel" [(ngModel)]="prepareDepartment.deptnameMultiLingual.map.fa"
+                     required="true" tabindex="1" minlength="3" maxlength="30"  />
+              <div class="error-message-display">
+                <div [hidden]="faDepartmentName.valid || faDepartmentName.untouched">
+                  <div *ngIf="faDepartmentName.errors && faDepartmentName.errors.required">
+                    {{'validate-message.name-required'|translate}}
+                  </div>
+                  <div *ngIf="faDepartmentName.errors && faDepartmentName.errors.minlength">
+                    {{'validate-message.min-length3'|translate}}
+                  </div>
+                  <!--<div *ngIf="DepartmentName.errors && DepartmentName.errors.pattern && !DepartmentName.errors.minlength">-->
+                  <!--{{'validate-message.alphabet-pattern-required'|translate}}-->
+                  <!--</div>-->
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>{{ 'OMS.department-code' | translate}}</label>
+              <input type="text" [placeholder]="'OMS.department-code'|translate" name="DepartmentCode" #DepartmentCode="ngModel" [(ngModel)]="prepareDepartment.departmentCode"
+                required="true" tabindex="2" minlength="3" maxlength="30"/>
+              <div class="error-message-display" style="right: auto; left: 5px;">
+                <div [hidden]="DepartmentCode.valid || DepartmentCode.untouched">
+                  <div *ngIf="DepartmentCode.errors && DepartmentCode.errors.required">
+                    {{'validate-message.code-required'|translate}}
+                  </div>
+                  <!--<div *ngIf="DepartmentCode.errors && DepartmentCode.errors.pattern">-->
+                    <!--{{'validate-message.alphabet-pattern-required'|translate}}-->
+									<!--</div>-->
+                  <div *ngIf="DepartmentCode.errors && DepartmentCode.errors.minlength">
+                    {{'validate-message.min-length3'|translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="pull-left" style="font-family: Yekan!important;">{{'OMS.allocated-area'|translate}}</label>
+              <span class="area-area-icon pull-right "   style="font-family: Yekan!important;" (click)="expandAddArea()" tabindex="3">{{'OMS.add-area'|translate}}
+                <i class="glyphicon glyphicon-plus-sign"></i>
+              </span>
+              <!-- malihu-scrollbar [scrollbarOptions]="scrollbarOptions" -->
+              <div class="select-area-tags" style="height: 120px;">
+                <div class="allocated-dept-area-name chips "  style="font-family: Yekan!important;"  *ngFor="let area of selectedAreas; let i = index;">
+                  <span *ngIf="appService.currentLang=='en'">{{area.areaNameMultiLingual.map.en}}</span>
+                  <span *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{area.areaNameMultiLingual.map.fa}}</span>
+                  <i class="glyphicon glyphicon-remove-sign delete-icon" (click)="removeAreas($event,i,area)"></i>
+                </div>
+              </div>
+              <div class="error-message-display" *ngIf="mode !== 'edit'">
+                <div *ngIf="selectedAreas.length < 1 && submitted">
+                  {{'validate-message.one-area-must-select'|translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- After plus icon slide this div -->
+          <div class="slide-area" [ngClass]="{'active': addAreClicked === true}">
+            <app-filter-area [filterFlag]="subDeptFlag" (passSelectedAreaData)="passSelectedAreaData($event)"></app-filter-area>
+          </div>
+          <div class="clearfix"></div>
+          <!-- Footer / buttons -->
+          <div class="form-footer">
+            <button class="form-button-cancel pull-left" type="button" (click)="closeModal()" tabindex="4">{{'shared.cancel'|translate}}</button>
+            <button class="form-button-submit pull-right" *ngIf="appService.hasAccessToWrite(1,2)" tabindex="5" [disabled]="(prepareDepartmentForm.form.invalid) || (selectedAreas.length < 1)">{{'shared.execute'|translate}}</button>
+            <div class="clear"></div>
+          </div>
+
+        </form>
+      </div>
+      <div class="powered-by">
+        <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+        <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+
+      </div>
+      <!-- End of form-body -->
+    </div>
+  </div>
+</div>

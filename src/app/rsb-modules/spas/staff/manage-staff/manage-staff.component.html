@@ -1,0 +1,159 @@
+
+<div class="row" style="margin-left: 0;margin-right: 0">
+    <div class="col-md-12">
+        <div class="col-md-12 manage-staff-farsi">
+            <div class="row">
+                <div class="col-md-3 manage-staff-rtl manage-light font-edit">
+                    <label></label>
+                    <input maxlength="30" minlength="3" name="structureName" [placeholder]="'SPAS.name' | translate" [(ngModel)]="searchName"
+                           type="text" class="ng-pristine ng-valid ng-touched">
+                </div>
+                <div class="col-md-3 manage-staff-rtl manage-light font-edit">
+                    <label> </label>
+                    <input maxlength="30" minlength="3" name="structureName" [placeholder]="'SPAS.employee-id' | translate"
+                           [(ngModel)]="searchId" type="text" class="ng-pristine ng-valid ng-touched">
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-3 manage-staff-rtl manage-light" style="margin-top: 15px;">
+                    <p><span class="staff-header">{{'SPAS.department' | translate}}</span></p>
+                    <select name="selectedDepartment" #selectedDepartment="ngModel" [(ngModel)]="departmentId" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                    aria-placeholder="select department"
+                    required (ngModelChange)="updateSubDepartments($event)">
+                        <option value="-1">{{'SELECT.all' | translate}}</option>
+                        <option *ngFor="let department of departments;" [ngValue]="department.id">
+                            <p *ngIf="appService.currentLang==='en'">{{department?.deptnameMultiLingual?.map?.en}}</p>
+                            <p *ngIf="appService.currentLang==='fa'">{{department?.deptnameMultiLingual?.map?.fa}}</p>
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3 manage-staff-rtl manage-light" style="margin-top: 15px;">
+                    <p><span class="staff-header">{{'SPAS.sub-department' | translate}}</span></p>
+                    <select name="selectedSubDepartment" #selectedSubDepartment="ngModel" [(ngModel)]="subDepartmentId"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                            aria-placeholder="select sub department"
+                            required>
+                        <option value="-1">{{'SELECT.all' | translate}}</option>
+                        <option *ngFor="let department of subdepartments;" [ngValue]="department.id">
+                           <p *ngIf="appService.currentLang==='en'"> {{department?.deptnameMultiLingual?.map?.en}}</p>
+                            <p *ngIf="appService.currentLang==='fa'"> {{department?.deptnameMultiLingual?.map?.fa}}</p>
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-md-3 manage-staff-rtl manage-light" style="margin-top: 15px;">
+                    <p><span class="staff-header">{{'SPAS.card-assigned' | translate}}</span></p>
+                    <select id="u249_input" [(ngModel)]="status"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">
+                        <option value="ALL" selected>{{'SELECT.all' | translate}}</option>
+                        <option value="ASSIGNED">{{'SELECT.assigned' | translate}}</option>
+                        <option value="UNASSIGNED">{{'SELECT.unassigned' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 manage-staff-rtl manage-light" style="margin-top: 15px;">
+                    <p><span class="staff-header">&nbsp;</span></p>
+                    <div class="filter-area">
+                        <button class="execute-btn execute-btn-search" (click)="getAllStaffs()">{{'SPAS.execute' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="totalRecordsCount > perPage" style="margin-right: 0;margin-left: 0">
+            <div class="col-sm-12 manage-staff-pager-lrt manage-light">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page+1}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12" *ngFor="let staff of staffs; let i = index" style="margin-bottom: 10px">
+            <div class="subsidiary-box mitoconnect-ui-listing-grid" style="margin-bottom: 10px!important;margin-top: 5px!important;">
+                <div class="fs-23 staff-header">
+                    <span class="header-number">{{(i + 1) + ((page) * perPage)}}</span>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2 inline-elements manage-staff-name">
+                            <span>{{'SPAS.name' | translate}}</span>
+                            <p *ngIf="appService.currentLang=='en'">{{staff?.firstNameMultiLingual?.map?.en }} {{ staff?.lastNameMultiLingual?.map?.en }}</p>
+                            <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{staff?.firstNameMultiLingual?.map?.fa }} {{ staff?.lastNameMultiLingual?.map?.fa }}</p>
+                        </div>
+
+                        <div class="col-md-2 inline-elements">
+                            <span>{{'SPAS.mobile-number' | translate}}</span>
+                            <p style="direction: ltr!important;"> {{staff.mobileNum }}</p>
+                        </div>
+
+                        <div class="col-md-2 inline-elements">
+                            <span>{{'SPAS.work-group' | translate}}</span>
+                            <p *ngIf="staff.workgroup && appService.currentLang=='en'">{{staff?.workgroup?.name?.map?.en}}</p>
+                            <p *ngIf="staff.workgroup && appService.currentLang=='fa'" style="font-family: Yekan!important;">{{staff?.workgroup?.name?.map?.fa}}</p>
+                        </div>
+
+                        <div class="col-md-2 inline-elements">
+                            <span>{{'SPAS.access-level' | translate}}</span>
+                            <p  *ngIf="staff.accessElement && appService.currentLang=='en'">{{staff?.accessElement?.name?.map?.en}}</p>
+                            <p *ngIf="staff.accessElement && appService.currentLang=='fa'" style="font-family: Yekan!important;">{{staff?.accessElement?.name?.map?.fa}}</p>
+
+                        </div>
+
+                        <div class="col-md-2 inline-elements">
+                            <span>{{'SPAS.card-number' | translate}}</span>
+                            <p>{{staff.cardNumber }}</p>
+                        </div>
+
+                        <div class="col-md-2 inline-elements">
+
+                            <button  class="manage-btn pull-left" style="margin-right: 1px!important; margin-left: 1px!important;" (click)="viewStaff(i,'new')" *ngIf=" appService.hasAccessToWrite(3,8) && staff.id==0 ">
+                                {{'SPAS.edit' | translate}}
+                            </button>
+                            <button  class="manage-btn pull-left" style="margin-right: 1px!important; margin-left: 1px!important;" (click)="viewStaff(i,'edit')" *ngIf="appService.hasAccessToWrite(3,8) && staff.id>0">
+                                {{'SPAS.edit' | translate}}
+                            </button>
+                            <button   class="manage-btn pull-right" style="margin-right: 1px!important; margin-left: 1px!important;" (click)="enableCardHolder(false,i)"
+                                    *ngIf="staff.enabled && appService.hasAccessToWrite(3,8) && staff.id>0 && staff.loader==false">{{'SPAS.disable' | translate}}
+                            </button>
+                            <button   class="manage-btn pull-right" style="margin-right: 1px!important; margin-left: 1px!important;" (click)="enableCardHolder(true,i)"
+                                    *ngIf="!staff.enabled && appService.hasAccessToWrite(3,8) && staff.id>0  && staff.loader==false">{{'SPAS.enable' | translate}}
+                            </button>
+                            <img *ngIf="staff.loader==true" src="../../../../../assets/images/loader.gif" height="30" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+  </div>

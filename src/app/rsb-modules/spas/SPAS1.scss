@@ -1,0 +1,195 @@
+@import '../../_variables.scss';
+@import '../../common.scss';
+
+
+//  ------------------  staff / manage-cardHolder  ---------------------------------------
+
+.access-edit-titles{
+  padding: 0px!important;
+}
+.pointer {
+  cursor: pointer;
+}
+.disabled {
+  cursor: not-allowed;
+}
+p{
+  margin-bottom: 0 !important;
+}
+
+
+.green {
+  td {
+    color: green !important;
+  }
+}
+.red {
+  td {
+    color: red !important;
+  }
+}
+.staff-header{
+  color: #f9961e;
+  font-size: 16px;
+  margin-bottom: 0 !important;
+}
+
+//  ------------------  staff / view-cardHolder    ---------------------------------------
+
+.edit-icon{
+  cursor: pointer;
+}
+
+
+//  ------------------  visitor / manage-visitor  ---------------------------------------
+
+// merged with  staff / manage-cardHolder
+
+//  ------------------  visitor / view-visitor  ---------------------------------------
+label {
+  font-size: 16px;
+  color: $primary-clr;
+  display: block;
+  margin: 0;
+  padding: 0 0 2px 0;
+  text-transform: uppercase;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.add-btn{
+  margin-top: 35px !important;
+}
+.indicators{
+  i{
+    cursor: pointer;
+    text-align: center;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    margin-left: 5px !important;
+    color: black;
+    background-color: #f9961e;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+  }
+}
+.policy-container{
+  height: 194px;
+  margin-top: 2px;
+  padding: 5px;
+  background: #0a2347;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  overflow-x: auto;
+  span {
+    font-size: 1.5vw;
+
+    color: #000;
+    background: #f9961e;
+    padding: 0.2vw 0.5vw;
+  }
+  .cross-btn{
+    cursor: pointer;
+    margin-top: 0.4vw;
+    position: relative;
+    top: 0.3vw;
+  }
+}
+
+textarea{
+  height: 115px;
+}
+.etc input{
+  width: 50% !important;
+}
+
+.etc span{
+  font-size: 0.8vw !important;
+}
+
+
+
+.input-group {
+  position: relative;
+  height: 35px;
+  width: 100%;
+  display: block;
+}
+
+.image-preview-filename {
+  background: #000;
+  border: none;
+  color: #333;
+}
+
+.image-preview-input input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  background: $primary-clr;
+}
+
+.image-preview-input-title {
+  margin-left: 2px;
+}
+
+.image-preview-input {
+  background: #0a2347;
+  border-radius: 0;
+  position: absolute;
+  left: 0;
+  z-index: 9999;
+  top: 0;
+  color: #fff;
+  width: 100%;
+  height: 42px;
+  padding-right: 5px;
+  border:1px solid $primary-clr;
+  i {
+    float: right;
+    font-size: 24px;
+    color: $primary-clr;
+  }
+  span {
+    float: left;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    width: 230px;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+.time-icon{
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  top: 29px;
+  z-index: 100;
+}
+
+
+
+// Amir
+
+.spas-staff-edit-header{
+  margin-left: 10px;
+}
+.break-line{
+  border: 0;
+  height: 4px;
+  background-color: $primary-clr;
+  width: 100%;
+  margin-top: 0;
+}
+.spas-access-policy-h3{
+  padding-bottom: 2px;
+}

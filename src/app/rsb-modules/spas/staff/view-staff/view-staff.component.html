@@ -1,0 +1,300 @@
+<div class="prepare-form">
+    <div class="view-staff-overlay">
+        <div class="row spas-staff-edit-header">
+            <h2 [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" > {{'shared.edit'|translate}} </h2>
+        </div>
+        <form class="" #workGroupAssign="ngForm"
+        >
+
+            <div class="row">
+                <div class="col-md-6 staff-list-float">
+                    <div class="form-group" *ngIf="appService.currentLang=='en'">
+                        <label>{{'SPAS.name' | translate}}</label>
+                        <input maxlength="30" minlength="3" name="structureName" [placeholder]="'SPAS.name' | translate"
+                               value="{{ cardHolder?.firstNameMultiLingual?.map?.en }} {{ cardHolder?.lastNameMultiLingual?.map?.en}}" type="text"
+                               class="ng-pristine ng-valid ng-touched" readonly>
+                    </div>
+                    <div class="form-group" *ngIf="appService.currentLang=='fa'">
+                        <label>{{'SPAS.name' | translate}}</label>
+                        <input maxlength="30" minlength="3" name="structureName" [placeholder]="'SPAS.name' | translate"
+                               value="{{ cardHolder?.firstNameMultiLingual?.map?.fa }} {{ cardHolder?.lastNameMultiLingual?.map?.fa}}" type="text"
+                               class="ng-pristine ng-valid ng-touched" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6 staff-list-float">
+                    <div class="form-group">
+                        <label>{{'SPAS.mobile-number' | translate}}</label>
+                        <input maxlength="30" minlength="3" name="structureName" readonly
+                               [placeholder]="'SPAS.mobile-number' | translate" value="{{ cardHolder?.mobileNum }}"
+                               type="text" class="ng-pristine ng-valid ng-touched">
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-6 staff-list-float">-->
+                    <!--<div class="form-group" *ngIf="appService.currentLang=='en'">-->
+                        <!--<label>{{'OMS.department' | translate}}</label>-->
+                        <!--<input maxlength="30" minlength="3" name="department" [placeholder]="'OMS.department' | translate"-->
+                               <!--value="{{ cardHolder?.department?.name?.map?.en }} {{ cardHolder?.department?.name?.map?.en}}" type="text"-->
+                               <!--class="ng-pristine ng-valid ng-touched" readonly>-->
+                    <!--</div>-->
+                    <!--<div class="form-group" *ngIf="appService.currentLang=='fa'">-->
+                        <!--<label>{{'OMS.department' | translate}}</label>-->
+                        <!--<input maxlength="30" minlength="3" name="department" [placeholder]="'OMS.department' | translate"-->
+                               <!--value="{{ cardHolder?.department?.name?.map?.fa }} {{ cardHolder?.department?.name?.map?.fa}}" type="text"-->
+                               <!--class="ng-pristine ng-valid ng-touched" readonly>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6 staff-list-float">-->
+                    <!--<div class="form-group" *ngIf="appService.currentLang=='en'">-->
+                        <!--<label>{{'OMS.sub-department' | translate}}</label>-->
+                        <!--<input maxlength="30" minlength="3" name="subDepartment" [placeholder]="'OMS.sub-department' | translate"-->
+                               <!--value="{{ cardHolder?.subDepartment?.name?.map?.en }} {{ cardHolder?.subDepartment?.name?.map?.en}}" type="text"-->
+                               <!--class="ng-pristine ng-valid ng-touched" readonly>-->
+                    <!--</div>-->
+                    <!--<div class="form-group" *ngIf="appService.currentLang=='fa'">-->
+                        <!--<label>{{'OMS.sub-department' | translate}}</label>-->
+                        <!--<input maxlength="30" minlength="3" name="subDepartment" [placeholder]="'OMS.sub-department' | translate"-->
+                               <!--value="{{ cardHolder?.subDepartment?.name?.map?.fa }} {{ cardHolder?.subDepartment?.name?.map?.fa}}" type="text"-->
+                               <!--class="ng-pristine ng-valid ng-touched" readonly>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="clear"></div>-->
+
+
+            <div class="row">
+                <div class="col-md-6 visitor-list-float">
+                    <div class="form-group">
+                        <label>{{'SELECT.select-work-group'|translate}}</label>
+                        <select class="visitor-input-name" name="selectedDepartment" #selectedWG="ngModel"
+                                [(ngModel)]="workGroupId"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                required >
+                            <option *ngFor="let workGroup of workGroups;" [ngValue]="workGroup.id">
+                                <p *ngIf="appService.currentLang=='en'">{{workGroup?.name?.map?.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'">{{workGroup?.name?.map?.fa}}</p>
+                            </option>
+                        </select>
+                        <div class="error-message-display">
+                            <div [hidden]="selectedWG.valid || selectedWG.untouched">
+                                <div *ngIf="selectedWG.errors && selectedWG.errors.required">
+                                    {{'validate-message.work-group-required' | translate}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 staff-list-float">
+                    <div class="form-group ">
+                        <label>{{'SPAS.card-number' | translate}} </label>
+                        <input maxlength="30" minlength="3" name="cardHolder"
+                               [placeholder]="'SPAS.card-number' | translate" [(ngModel)]="cardHolder.cardNumber"
+                               value="{{cardHolder.cardNumber}}" type="number" class="ng-pristine ng-valid ng-touched" >
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="clear"></div>
+        </form>
+
+        <div class="clear"></div>
+        <div class="row" style="margin-bottom: 10px">
+
+
+            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                <div>
+                    <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'CFrom')"
+                           style="direction: ltr!important;font-family:tw-regular!important;"
+                           matInput name="pickedCFromDate" [(ngModel)]="pickedCFromDate"
+                           [matDatepicker]="myCFromDate" placeholder="{{CFromDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myCFromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myCFromDate [startAt]="pickedCFromDate"></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-6 input1 filter-elements-cal"
+                 *ngIf="appService.currentCalendar=='jalali'">
+                <p>
+                    <span class="staff-header" style="float: right!important;">{{'ALMS.from-date' | translate}}</span>
+                </p>
+                <div>
+                    <dp-date-picker
+                            style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                            dir="rtl"
+                            [(ngModel)]="pickedCFromDate"
+                            mode="day"
+                            placeholder="تاریخ"
+                            theme="dp-material"
+                            (ngModelChange)="convertJalaliDateToUTC(pickedCFromDate,'CFrom')">
+                    </dp-date-picker>
+                </div>
+            </div>
+
+            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                <div>
+                    <input (ngModelChange)="convertGregorianDateToUTC(myCToDate,'CTo')"
+                           style="direction: ltr!important;font-family:tw-regular!important;" matInput
+                           name="pickedToDate" [(ngModel)]="pickedCToDate" [matDatepicker]="myCToDate"
+                           placeholder="{{CToDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myCToDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myCToDate [startAt]="pickedCToDate"></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                <p><span class="staff-header" style="float: right!important;">{{'ALMS.to-date' | translate}}</span></p>
+                <div>
+                    <dp-date-picker style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                    dir="rtl"
+                                    [(ngModel)]="pickedCToDate"
+                                    mode="day"
+                                    placeholder="تاریخ"
+                                    theme="dp-material"
+                                    (ngModelChange)="convertJalaliDateToUTC(pickedCToDate,'to')">
+                    </dp-date-picker>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="spas-access-policy-h3" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">{{'SPAS.access-level'|translate}}</h3>
+                <hr class="break-line"/>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 10px">
+
+
+            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                <div>
+                    <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                           style="direction: ltr!important;font-family:tw-regular!important;"
+                           matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                           [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myFromDate [startAt]="pickedFromDate"></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-6 input1 filter-elements-cal"
+                 *ngIf="appService.currentCalendar=='jalali'">
+                <p>
+                    <span class="staff-header" style="float: right!important;">{{'ALMS.from-date' | translate}}</span>
+                </p>
+                <div>
+                    <dp-date-picker
+                            style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                            dir="rtl"
+                            [(ngModel)]="pickedFromDate"
+                            mode="day"
+                            placeholder="تاریخ"
+                            theme="dp-material"
+                            (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')">
+                    </dp-date-picker>
+                </div>
+            </div>
+
+            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                <div>
+                    <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')"
+                           style="direction: ltr!important;font-family:tw-regular!important;" matInput
+                           name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate"
+                           placeholder="{{toDate}}"
+                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                    <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                    <mat-datepicker #myToDate [startAt]="pickedToDate"></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                <p><span class="staff-header" style="float: right!important;">{{'ALMS.to-date' | translate}}</span></p>
+                <div>
+                    <dp-date-picker style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                    dir="rtl"
+                                    [(ngModel)]="pickedToDate"
+                                    mode="day"
+                                    placeholder="تاریخ"
+                                    theme="dp-material"
+                                    (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')">
+                    </dp-date-picker>
+                </div>
+            </div>
+
+        </div>
+        <form #accessPolicyAssign="ngForm">
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-md-6 staff-list-float">
+                    <div class="form-group">
+                        <label>{{'SELECT.select-access-level' | translate}}</label>
+                        <select name="accessLevel" #accessLevel="ngModel" [(ngModel)]="accessLevelId"
+                                style="margin-top: -4px;"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                >
+                            <option value="0" selected readonly>{{'SELECT.select-access-level' | translate}}</option>
+                            <option *ngFor="let AL of accessLevels;" [ngValue]="AL.id">
+                                <p *ngIf="appService.currentLang=='en'">{{AL?.name?.map?.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'">{{AL?.name?.map?.fa}}</p>
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-6 staff-list-float">
+                    <div class="form-group">
+                        <label>{{'SELECT.select-time-schedule' | translate}}</label>
+                        <select name="timeSchedule" #timeSchedule="ngModel" [(ngModel)]="selectedTSId" style="margin-top: -4px;" [disabled]="accessLevelId==0"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                required>
+                            <option value="0" selected readonly>{{'SELECT.select-time-schedule' | translate}}</option>
+                            <option *ngFor="let TS of timeSchedules;" [ngValue]="TS.id" [style.font-family]="(appService.currentLang=='fa'&& TS?.name?.map?.fa!='')?'Yekan':'tw-regular'">
+                                <p *ngIf="appService.currentLang=='en'">{{TS?.name?.map?.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'&& TS?.name?.map?.fa!=''">{{TS?.name?.map?.fa}}</p>
+                                <p *ngIf="appService.currentLang=='fa'&& TS?.name?.map?.fa==''">{{TS?.name?.map?.en}}</p>
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="form-footer pull-right row"
+                 style="width: 100%;margin-top: 20px!important;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 visitor-list-btn" style="float: right">
+                    <div class="col-lg-6 visitor-list-btn-float" style="float: right;width: 50%">
+                        <button _ngcontent-c7="" *ngIf="appService.hasAccessToWrite(3,8)" type="button"
+                                class="form-button-submit floating-bnt" style="width: 100%"
+                                (click)="addUpdateCardHolder();"  [disabled]="workGroupId==0||cardHolder.cardNumber==''"
+                        >{{'SPAS.execute' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-lg-6 visitor-list-btn" style="float: left;width: 50%">
+                        <button _ngcontent-c7="" class="form-button-cancel floating-bnt" type="button"
+                                style="width: 100%"
+                                (click)="closeModal()">{{'SPAS.cancel' | translate}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="clear "></div>
+            </div>
+            <div class="row">
+
+                <div class="powered-by">
+                    <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                    <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+@import '../../../app/_variables';
+@import "../../common";
+.prepare-form {
+  background: #04142b;
+  text-transform: uppercase;
+  border: 3px solid $primary-clr; // border-bottom: 1px solid $secondary-clr-alpha;
+  padding: 30px 70px 70px;
+  position: relative;
+  .prepare-form-head {
+    span {
+      position: absolute;
+      left: 5px;
+      font-size: 40px;
+      top: 5px;
+    }
+    h2 {
+      padding: 15px 10px 5px 10px;
+      font-size: 32px;
+    }
+  }
+  .prepare-form-body {
+    .form-group {
+      margin-bottom: 30px;
+      .name-input {
+        float: left;
+        width: 60%;
+        margin-right: 5px;
+        position: relative;
+      }
+      .phone-input {
+        float: left;
+        width: 39%;
+        margin-top: 22px;
+        position: relative;
+      }
+      .inline-label {
+        float: left;
+        width: auto;
+        padding-right: 10px;
+        padding-top: 5px;
+      }
+      .inline-input {
+        float: left;
+        width: 100%;
+        margin-bottom: 10%;
+      }
+    }
+  }
+}
+label {
+  font-size: 16px;
+  color: $primary-clr;
+  display: block;
+  margin: 0;
+  padding: 0 0 2px 0;
+  text-transform: uppercase;
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.manage-btn{
+  background-color: #f9961e;
+  height: 35px;
+  font-size: 16px !important;
+  padding: 3px !important;
+  margin-top: 2px;
+  width: 100%;
+}
+.indicators{
+  i{
+    cursor: pointer;
+    text-align: center;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    margin-left: 5px !important;
+    color: black;
+    background-color: #f9961e;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+  }
+}
+.policy-container{
+  height: 194px;
+  margin-top: 2px;
+  padding: 5px;
+  background: #0a2347;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  overflow-x: auto;
+  span {
+    font-size: 1.5vw;
+
+    color: #000;
+    background: #f9961e;
+    padding: 0.2vw 0.5vw;
+  }
+  .cross-btn{
+    cursor: pointer;
+    margin-top: 0.4vw;
+    position: relative;
+    top: 0.3vw;
+  }
+}
+select{
+  height: 35px;
+  font-size: 16px ;
+  padding: 3px;
+}
+input{
+  height: 35px;
+  font-size: 16px !important;
+  padding: 3px;
+}
+option{
+  font-size: 16px !important;
+}
+label {
+  font-size: 16px;
+  color: $primary-clr;
+  display: block;
+  margin: 0;
+  padding: 0 0 2px 0;
+  text-transform: uppercase;
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+
+textarea{
+  height: 16px;
+}
+.time-solid{
+  font-size: 1.7vw;
+  color: #fff;
+  position: relative;
+  top: 1.4vw !important;
+
+}
+
+.device-head{
+  li:first-child{
+    font-size: 12px!important;
+  }
+}
+

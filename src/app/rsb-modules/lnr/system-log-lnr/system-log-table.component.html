@@ -1,0 +1,164 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;" >
+
+    <div class="col-sm-12" style="min-height: 500px">
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'LNR.from-date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                                   style="direction: ltr!important;font-family:tw-regular!important;"
+                                   matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                                   [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myFromDate [startAt]="pickedFromDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements-cal"
+                         *ngIf="appService.currentCalendar=='jalali'">
+                        <p>
+                            <span class="staff-header">{{'LNR.from-date' | translate}}</span>
+                        </p>
+                        <div >
+                            <dp-date-picker
+                                    style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                              dir="rtl"
+                                              [(ngModel)]="pickedFromDate"
+                                              mode="day"
+                                              placeholder="تاریخ"
+                                              theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements">
+                        <p><span class="staff-header">{{'LNR.from-time' | translate}}</span></p>
+                        <div >
+                            <input style="direction: ltr!important;font-family:tw-regular!important;" type="time" name="fromTime" [(ngModel)]="fromTime" step="1">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'LNR.to-date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate" placeholder="{{toDate}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myToDate [startAt]="pickedToDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                        <p><span class="staff-header">{{'LNR.to-date' | translate}}</span></p>
+                        <div >
+                            <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                              dir="rtl"
+                                              [(ngModel)]="pickedToDate"
+                                              mode="day"
+                                              placeholder="تاریخ"
+                                              theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements">
+                        <p><span class="staff-header">{{'LNR.to-time' | translate}}</span></p>
+                        <div >
+                            <input style="direction: ltr!important;font-family:tw-regular!important;" type="time" name="toTime" [(ngModel)]="toTime" step="1">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-1 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="excute()" >{{'shared.execute'|translate}}</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 filter-elements" >
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <img src="../../../assets/images/CSV.png" style="height: 35px;width: 35px;float: left" class="CSV-icon" *ngIf="!disableCSV&&!appService.lightThemeC"
+                                 (click)="exportCSV()">
+                            <img  src="../../../assets/images/CSV2.png" style="height: 35px;width: 35px;float: left" class="CSV-icon" *ngIf="!disableCSV&&appService.lightThemeC"
+                                  (click)="exportCSV()">
+                            <img src="../../../assets/images/CSV-disabled.png" style="height: 35px;width: 35px;cursor: default;float: left" class="CSV-icon" *ngIf="disableCSV"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('first')" ></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"  (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage('last')" ></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="models1.length>0">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>{{'LNR.no'|translate}}</th>
+                        <th>{{'LNR.time-stamp'|translate}}</th>
+                        <th>{{'LNR.message'|translate}}</th>
+                        <th>{{'LNR.level'|translate}}</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let systemLog of models1;let i=index">
+                        <td>{{(perPage*(page-1))+i+1}}</td>
+                        <td style="text-align: left!important;direction: ltr!important">{{systemLog._source.timeStamp}}</td>
+                        <td style="text-align: left!important;direction: ltr!important;max-width:350px;">
+                            <p style="max-width: 100%;overflow-wrap: break-word;">
+                                {{systemLog._source.message}}
+                            </p>
+                            <!--<button style="height: 30px!important;float: right!important;width: auto!important;"-->
+                                    <!--(click)="changeExpand(true)"-->
+                                    <!--class="execute-btn execute-btn-search"-->
+                                    <!--*ngIf="systemLog._source.message.length>100&&expand==false">-->
+                                <!--MORE-->
+                            <!--</button>-->
+                            <!--<button  style="height: 30px!important;float: right!important;width: auto!important;"-->
+                                    <!--(click)="changeExpand(false)"-->
+                                    <!--class="execute-btn execute-btn-search"-->
+                                    <!--*ngIf="systemLog._source.message.length>100&&expand==true">-->
+                                <!--LESS-->
+                            <!--</button>-->
+                        </td>
+                        <td  ><p [ngStyle]="{'color':getColor(systemLog._source.level)}">{{systemLog._source.level}}</p></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

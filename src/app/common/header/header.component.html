@@ -1,0 +1,95 @@
+<!--<div class="home" [routerLink]='["/dashboard"]'>-->
+<!--<i class=" icon-home" aria-hidden="true"></i>-->
+<!--</div>-->
+<!--<div class="logo-wrapper" #headerWrapper>-->
+<!--<div class="logo"><img src="../../assets/images/logo.png" alt="logo" [routerLink]='["/dashboard"]' /></div>-->
+<!--</div>-->
+<!--<div class="logout" routerLink="/login">-->
+<!--&lt;!&ndash; <img src="../../assets/images/logout.png" alt="Logout" (click)="logOut()"> &ndash;&gt;-->
+<!--<i class="icon-logout_2 "></i>-->
+<!--</div>-->
+<!--style="border-bottom: solid 2px #f9961e;margin-bottom: 10px"-->
+<header class="logo-wrapper">
+    <div class="container-fluid">
+        <div class="row header-first">
+            <div class="col-sm-4 rahbar-logo">
+                <img *ngIf="!appService.lightThemeC" class="header-first__rahbar-logo"
+                     src="../../assets/images/common/header/logo.png" alt="Rahbar Logo" style="height: 50px">
+                <img *ngIf="appService.lightThemeC" class="header-first__rahbar-logo"
+                     src="../../assets/images/common/header/logo2.png" alt="Rahbar Logo" style="height: 50px">
+            </div>
+            <div class="col-sm-4 circle-logo-main" align="center" style="float: right">
+
+
+                <img src="../../../assets/images/common/header/circle-logo.png"
+                     class="circle-logo"/>
+
+                <img src="../../../assets/images/common/header/emblem-white_BG.png" class="cloud-icon"/></div>
+        </div>
+
+        <div class="row header-second">
+            <div class="col-sm-6 header-second__home-logo">
+                <a [routerLink]='["/dashboard"]'>
+                    <img *ngIf="!appService.lightThemeC" src="../../assets/images/common/header/home.png"
+                         alt="Home Logo"
+                         style="height: 40px;cursor: pointer">
+
+                    <img *ngIf="appService.lightThemeC" src="../../assets/images/common/header/home2.png"
+                         alt="Home Logo"
+                         style="height: 40px;cursor: pointer">
+                </a>
+                <a>
+
+                    <img *ngIf="!appService.lightThemeC" src="../../../assets/images/common/header/theme.png"
+                         height="40" width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeTheme()"/>
+
+                    <img *ngIf="appService.lightThemeC" src="../../../assets/images/common/header/theme2.png"
+                         height="40"
+                         width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeTheme()"/>
+                </a>
+                <a>
+                    <img *ngIf="appService.currentLang=='fa'&&!appService.lightThemeC"
+                         src="../../../assets/images/common/header/lang-fa.png" height="40" width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeLang('en')"/>
+                    <img *ngIf="appService.currentLang=='en'&&!appService.lightThemeC"
+                         src="../../../assets/images/common/header/lang-en.png" height="40" width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeLang('fa')"/>
+                    <img *ngIf="appService.currentLang=='fa'&&appService.lightThemeC"
+                         src="../../../assets/images/common/header/lang-fa2.png" height="40" width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeLang('en')"/>
+                    <img *ngIf="appService.currentLang=='en'&&appService.lightThemeC"
+                         src="../../../assets/images/common/header/lang-en2.png" height="40" width="40"
+                         style="margin-left: 10px;cursor: pointer" (click)="changeLang('fa')"/>
+                </a>
+            </div>
+            <!-- <div class="col-sm-3 col-sm-offset-2">
+                <div class="header-second__header-bar" align="center">
+                    <p class="text-center">MAIN DASHBOARD</p>
+                    <img class="img-circle" src="../../assets/images/common/header/sample.png">
+                </div>
+            </div> -->
+            <div class="col-sm-6 header-second__user-info header-second__logout" aligh="right">
+                <div class="col-sm-10 text-right">
+                    <p *ngIf="loggedInUser">{{loggedInUser.first_name}} {{loggedInUser.last_name}}</p>
+                    <p style="margin-bottom: 0px;">{{roleName}}</p>
+                </div>
+                <div class="col-sm-2 header-second__logout" align="right">
+                    <a [routerLink]='["/login"]'>
+                        <img *ngIf="!appService.lightThemeC" (click)="logOut()"
+                             src="../../assets/images/common/header/logout.png" alt="Logout Logo" style="height: 40px">
+                        <img *ngIf="appService.lightThemeC" (click)="logOut()"
+                             src="../../assets/images/common/header/logout2.png" alt="Logout Logo" style="height: 40px">
+                    </a>
+                    <a>
+                        <img class="img-responsive" [src]="profileImage" style="height: 40px;left: -40px;top: -40px;position: relative;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="../../assets/images/common/header/rsb.png" alt="RSB Logo"
+         class="rsb-logo">
+
+</header>

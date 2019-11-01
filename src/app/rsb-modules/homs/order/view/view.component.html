@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form view-order-header">
+            <div class="prepare-form-head ">
+                <span></span>
+                <h2>{{'HOMS.view-order' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form >
+                   
+                      
+                    <div class="col-sm-12 text-center texts">
+                        <h4> {{'HOMS.reserved-for' | translate}} :</h4> <span>{{data1.employeeid}}</span><br>
+                        <h4>{{'HOMS.contact-number' | translate}} :</h4> <span></span><br>
+                        <h4>{{'HOMS.from-date' | translate}} :</h4> <span>{{data1.fromdate}}</span><br>
+                        <h4>{{'HOMS.end-time' | translate}} :</h4> <span>{{data1.todate}}</span>
+
+                
+                    </div>
+                    <div class="col-sm-8 col-sm-offset-2">
+                            <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        
+                                        <th class="col-sm-12" colspan="2">{{'HOMS.menu' | translate}}</th>
+                                        
+                                        
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of showmenu; let i = index">
+                                        <td class="col-sm-6">{{item.name}}</td>
+                                        <td class="col-sm-6">{{item.amount}}</td>
+                                       
+                                      </tr>
+                                     
+                                      
+                                      
+                                      
+                                      
+                                    </tbody>
+                                  </table>
+                    </div>
+
+                    
+                    <div class="clearfix"></div>
+                    
+                   
+                        <div class="clearfix"></div>
+                        <div class="form-footer" style="margin-top: 2%">
+                                
+                                <button class="form-button-cancel pull-right" type="button" (click)='closeModal()'>{{'HOMS.cancel' | translate}}</button>
+                                <div class="clear"></div>
+                            </div>
+                        
+                      <!--   <div class="row">
+                                <div class="col-sm-12 text-right">
+                                  <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                  <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                                </div>
+                              </div> -->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+            </div>
+        </div>
+    </div>
+</div>

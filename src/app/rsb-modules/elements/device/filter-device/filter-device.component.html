@@ -1,0 +1,180 @@
+<div class="">
+    <div class="col-md-10 element-search-page">
+        <form>
+            <div class="row">
+                <div class=" col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.by-serial' | translate}}</label>
+                        <input type="text" name="searchDevice" value="" [(ngModel)]="manageDevice.serialNo"
+                               [placeholder]="'EMS.by-serial' | translate"/>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class=" col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.by-installation-label' | translate}}</label>
+                        <input type="text" name="searchDevice" value="" [(ngModel)]="manageDevice.searchName"
+                               [placeholder]="'EMS.by-installation-label' | translate"/>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.type' | translate}}</label>
+                        <select name="devicetype" #deviceType="ngModel" [(ngModel)]="manageDevice.deviceTypeId"
+                                aria-placeholder="Device type"
+                                (ngModelChange)="getSubDevice(manageDevice.deviceTypeId)">
+                            <option value="0" selected="selected">{{'SELECT.select-all' | translate}}</option>
+                            <option *ngFor="let deviceType of deviceList;" [ngValue]="deviceType.id">
+                                {{deviceType.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.sub-type' | translate}}</label>
+                        <select name="subdevicetype" #subdeviceType="ngModel" [(ngModel)]="manageDevice.subDeviceTypeId"
+                                aria-placeholder="device sub type"
+                                (ngModelChange)="getBrand(manageDevice.subDeviceTypeId)">
+                            <option value="0" selected="selected">{{'SELECT.select-all' | translate}}</option>
+                            <option *ngFor="let subDevice of subDeviceList;" [ngValue]="subDevice.id">
+                                {{subDevice.subDeviceName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.brand' | translate}}</label>
+                        <select name="brand" #brand="ngModel" [(ngModel)]="manageDevice.brandId"
+                                aria-placeholder="brand" (ngModelChange)="getModel(manageDevice.brandId)">
+                            <option value="0" selected="selected">{{'SELECT.select-all' | translate}}</option>
+                            <option *ngFor="let brand of brandList;" [ngValue]="brand.id">{{brand.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements">
+                    <div class="form-group">
+                        <label>{{'EMS.model' | translate}}</label>
+                        <select name="model" #model="ngModel" [(ngModel)]="manageDevice.modelId"
+                                aria-placeholder="model">
+                            <option value="0" selected="selected">{{'SELECT.select-all' | translate}}</option>
+                            <option *ngFor="let model of modelList;" [ngValue]="model.id">{{model.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="ems-filter" style="color: #f9961e">
+            <div class="row">
+
+
+                <div class="col-md-4 filter-elements" >
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="notinuse" [checked]="true" [(ngModel)]="manageDevice.notInUse">
+                            <span class="cr">
+                                    <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                                </span>
+                            <p>{{'EMS.not-installed' | translate}}</p>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements " >
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="inuse" [checked]="true" [(ngModel)]="manageDevice.inUse">
+                            <span class="cr">
+                                    <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                                </span>
+                            <p>{{'EMS.installed' | translate}}</p>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 filter-elements">
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="out-of-service" [checked]="true"
+                                   [(ngModel)]="manageDevice.outOfService">
+                            <span class="cr">
+                                     <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                                </span>
+                            <p>{{'EMS.out-of-service' | translate}}</p>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements" >
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="in-service" [checked]="true" [(ngModel)]="manageDevice.inService">
+                            <span class="cr">
+                                <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                            </span>
+                            <p>{{'EMS.in-service' | translate}}</p>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 filter-elements">
+                    <div class="checkbox">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="faulty" [checked]="true" [(ngModel)]="manageDevice.faulty">
+                            <span class="cr">
+                                <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                            </span>
+                            <p>{{'EMS.faulty' | translate}}</p>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="ems-filter" style="color: #f9961e">
+            <div class="row">
+                <div class="col-md-4 filter-elements" ></div>
+                <div class="col-md-4 filter-elements" style="margin-bottom: 20px;padding: 0px;" >
+                    <button class="execute-btn pull-right" (click)="getDeviceList()">{{'shared.execute' | translate}}</button>
+
+                </div>
+                <div class="col-md-4 filter-elements" ></div>
+            </div>
+
+        </form>
+
+        <div class="clearfix"></div>
+        <div class="filter-result">
+            <div class="filtered-desc">
+                <!-- <a class="glyphicon glyphicon-refresh" (click)="getDeviceList()"></a> -->
+                <ul>
+                    <!--<li>-->
+                    <!--<span>-->
+                    <!--&lt;!&ndash;<button type="button" class="execute-btn execute-btn-search wt-119" (click)="editDevice(1,'edit',deviceSearchList[0])" [disabled]="deviceSearchList.length !==1">edit</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash; <i class="icon-note-interface-symbol" (click)="editDevice(1,'edit','data')"></i> &ndash;&gt;-->
+                    <!--</span>-->
+                    <!--</li>-->
+                    <li >
+                        <p [matTooltip]="'EMS.show-results' | translate" [matTooltipPosition]="tooltipPosition"
+                           class="search-result-button"
+                           (click)="viewDeviceList()">
+                            {{deviceSearchList.length}}
+                        </p>
+                    </li>
+                    <!--<li>-->
+                    <!--<span (click)="deleteDevice(deleteDeviceList)">-->
+                    <!---->
+                    <!--&lt;!&ndash;<button type="button" class="execute-btn execute-btn-search" [disabled]="deviceSearchList.length <=1 || noDelete">delete</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash; <i class="icon-rubbish-bin"></i> &ndash;&gt;-->
+                    <!--</span>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+            <!--<h4 class="filter-msg">number of devices matching criteria</h4>-->
+            <!--<button class="filter-search" >view result set</button>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;">
+
+    <div class="col-sm-12">
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-sm-12">
+                <div class="row" >
+                    <div class="col-sm-3 input1 filter-elements">
+                        <p><span class="staff-header">{{'EMS.device-name' | translate}}</span></p>
+                        <div>
+                            <input name="search" [placeholder]="'EMS.device-name' | translate" [(ngModel)]="TName"
+                                   required class="dob-field">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="excute()">{{'shared.execute' | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 filter-elements" >
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <img src="../../../assets/images/CSV.png" style="height: 35px;width: 35px" class="CSV-icon" *ngIf="!disableCSV&&!appService.lightThemeC"
+                                 (click)="exportCSV()">
+                            <img  src="../../../assets/images/CSV2.png" style="height: 35px;width: 35px" class="CSV-icon" *ngIf="!disableCSV&&appService.lightThemeC"
+                                  (click)="exportCSV()">
+                            <img src="../../../assets/images/CSV-disabled.png" style="height: 35px;width: 35px;cursor: default" class="CSV-icon" *ngIf="disableCSV"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-right: inherit!important;" *ngIf="models1.length>0">
+            <div class="col-sm-12" style="padding-right: 0px!important;">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>{{'LNR.no'|translate}}</th>
+                        <th>{{'LNR.thermostat'|translate}}</th>
+                        <th>{{'LNR.real-time'|translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let device of models1; let i = index">
+                        <td>{{(perPage*(page-1))+i+1}}</td>
+                        <td style="text-align: left!important">{{device.devicename}}</td>
+                        <td style="direction: ltr!important;"> {{device.devicevalue ? toFixed(device.devicevalue)+" °C" : "--"}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

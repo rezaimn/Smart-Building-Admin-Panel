@@ -1,0 +1,113 @@
+@import '../../OMS';
+
+/*Add edit style*/
+.prepare-floor-head {
+    color: $primary-clr;
+    position: relative;
+    margin-left: 15px;
+    bottom: 15px;
+    .prepare-floor-head-number {
+        font-size: 70px;
+    }
+    .prepare-floor-head-type {
+        margin-left: 15px;
+        font-size: 27px;
+        position: relative;
+        bottom: 15px;
+    }
+}
+
+.prepare-floor-body {
+    position: relative;
+    // bottom: 40px;
+    padding-left: 30px;
+    span {
+        color: $primary-clr;
+        font-size: 22px;
+        font-weight: 400;
+    }
+    input {
+        color: $white;
+        text-transform: uppercase;
+        background: $inputfill;
+        border: 1px solid #4c4c4c;
+        &:focus {
+            border-color: $primary-clr;
+        }
+    }
+    .prepare-floor-type {
+        margin-top: 20px;
+    }
+}
+
+.prepare-action-button {
+    margin-top: 15%;
+}
+
+.circle-icon {
+    background: $secondary-clr;
+    padding: 30px;
+    border-radius: 50%;
+    &:hover,
+    &:active,
+    &:focus
+    {
+        outline: none;
+        outline-offset: none;
+        text-decoration: none;
+        -webkit-box-shadow: 0px 0px 10px 2px rgba(249, 150, 30, 0.3);
+        -moz-box-shadow: 0px 0px 37px 6px rgba(249, 150, 30, 0.3);
+        box-shadow: 0px 0px 37px 6px rgba(249, 150, 30, 0.3);
+        transition-duration: .5s;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+.upload-file-container {
+    width: 140px;
+    height: 200px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    top:70px;
+    label {
+        // margin-left: 30%;
+        position: relative;
+        text-align: center;
+        top: 0;
+        cursor: pointer;
+        i {
+            color: #4374bb;
+            position: relative;
+            right: 0;
+            z-index: 0;
+        }
+    }
+    i {
+        font-size: 20px;
+        position: absolute;
+        right: 0px;
+        top: 0;
+        z-index: 1;
+        color: $btnred;
+        opacity: 0.7;
+    }
+    input {
+        display: none;
+    }
+    .file-name {
+        text-align: center;
+        color: $primary-clr;
+        font-size: 19px;
+        position: relative;
+        display: block;
+        margin-top: 40px;
+    }
+}
+
+.form-footer {
+    margin-right: 5%;
+    width: 250px;
+    margin-top:100px;
+    margin-bottom: 20px;
+}

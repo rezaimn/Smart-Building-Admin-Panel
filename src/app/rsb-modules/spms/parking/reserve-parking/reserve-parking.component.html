@@ -1,0 +1,247 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="prepare-form parking-form">
+      <div class="prepare-form-head">
+        <span>{{index}}</span>
+        <h2>{{'SPMS.assign-parking' | translate}}</h2>
+      </div>
+      <div class="clear"></div>
+      <div class="prepare-form-body">
+
+          <div class="row" style="margin-bottom: 0px">
+            <div class="col-md-6 parking-form-float">
+              <div class="form-group">
+                <label>{{'SPMS.system-id' | translate}}</label>
+                <input type="text" class="inline-input" name="staffid" [(ngModel)]="staffId" #staffId1="ngModel" style="margin-bottom: 20px" required>
+                <div class="error-message-display">
+                  <div [hidden]="staffId1.valid || staffId1.untouched">
+                    <div *ngIf="staffId1.errors && staffId1.errors.required">
+                      {{'validate-message.staff-id-is-required' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="mode=='Update'">
+              <div class="col-md-3 ">
+                <div class="form-group">
+                  <button class="form-button-search-modal" (click)="getStaff(staffId1.value)" style="margin-bottom: 20px;width: 100%">{{'SPMS.searchi' | translate}}
+                                    </button>
+                </div>
+              </div>
+              <div class="col-md-3 ">
+                <div class="form-group">
+                  <button *ngIf="appService.hasAccessToWrite(6,44)" class="form-button-cancel" (click)="deleteReservation()" style="margin-bottom: 20px;width: 100%">{{'SPMS.delete' | translate}}
+                                    </button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="mode=='Assign'">
+              <div class="col-md-6 parking-form-float">
+                <div class="form-group">
+                  <button class="form-button-search-modal" (click)="getStaff(staffId1.value)" style="margin-bottom: 20px;width: 100%;height: 35px">{{'SPMS.search' | translate}}
+                                    </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+          </div>
+          <div class="row" style="margin-bottom: 0px">
+            <div class="col-md-6 translatable-float-right">
+              <div class="form-group">
+                <label>{{'SPMS.department' | translate}}</label>
+
+                <input type="text" *ngIf="appService.currentLang=='en' " name="selectedDepartment" style="margin-bottom: 20px" [(ngModel)]="departmentName.map.en" [placeholder]="'SPMS.select-department' | translate" readonly>
+                <input type="text" *ngIf="appService.currentLang=='fa' " name="selectedDepartment" style="margin-bottom: 20px" [(ngModel)]="departmentName.map.fa" [placeholder]="'SPMS.select-department' | translate" readonly>
+
+
+              </div>
+            </div>
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <label>{{'SPMS.sub-department' | translate}}</label>
+
+                <input type="text" *ngIf="appService.currentLang=='en' " name="selectedSubDepartment" style="margin-bottom: 20px" [(ngModel)]="subdepartmentName.map.en" [placeholder]="'SPMS.select-sub-department' | translate" readonly>
+                <input type="text" *ngIf="appService.currentLang=='fa' " name="selectedSubDepartment" style="margin-bottom: 20px" [(ngModel)]="subdepartmentName.map.fa" [placeholder]="'SPMS.select-sub-department' | translate" readonly>
+
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="row" style="margin-bottom: 0px">
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <label>{{'SPMS.designation' | translate}}</label>
+
+                <input name="selectedDesignation" [(ngModel)]="designationName" [placeholder]="'SPMS.select-designation' | translate" style="margin-bottom: 20px" readonly>
+
+              </div>
+            </div>
+
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <label>{{'SPMS.lg-reg-number' | translate}}</label>
+                <input type="text" #lpreg="ngModel" required class="inline-input" name="regno" [(ngModel)]="regno" style="margin-bottom: 20px">
+                <div class="error-message-display">
+                  <div [hidden]="lpreg.valid || lpreg.untouched">
+                    <div *ngIf="lpreg.errors && lpreg.errors.required">
+                      {{'validate-message.reg-required' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="row" style="margin-bottom: 0px">
+            <div class="col-md-6 ">
+              <div class="form-group" *ngIf="appService.currentLang=='en' ">
+                <label>{{'SPMS.name' | translate}}</label>
+                <input type="text"  class="inline-input" name="staffid" name="firstName" #name="ngModel" required [(ngModel)]="firstName.map.en" style="margin-bottom: 20px">
+
+                <div class="error-message-display">
+                  <div [hidden]="name.valid || name.untouched">
+                    <div *ngIf="name.errors && name.errors.required">
+                      {{'validate-message.name-required' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group" *ngIf="appService.currentLang=='fa' ">
+                <label>{{'SPMS.name' | translate}}</label>
+                <input type="text"  class="inline-input" name="staffid" name="firstName" #name="ngModel" required [(ngModel)]="firstName.map.fa" style="margin-bottom: 20px">
+
+                <div class="error-message-display">
+                  <div [hidden]="name.valid || name.untouched">
+                    <div *ngIf="name.errors && name.errors.required">
+                      {{'validate-message.name-required' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6 number-dir">
+              <div class="form-group">
+                <!--///pattern="^[\+\d]?(?:[\d-.\s()]*)$"-->
+                <label>{{'SPMS.contact-number' | translate}}</label>
+                <input  type="text" #contactNumber="ngModel" [placeholder]="'SPMS.contact-number' | translate"
+                        class="inline-input " name="contactNo"
+                        [(ngModel)]="contactNo" style="margin-bottom: 20px" required minlength="10" maxlength="15" >
+                <div class="error-message-display">
+                  <div [hidden]="contactNumber.valid || contactNumber.untouched">
+                    <div *ngIf="contactNumber.errors && contactNumber.errors.required">
+                      {{'validate-message.contact-no-is-required' | translate}}
+                    </div>
+                  </div>
+                  <div [hidden]="contactNumber.valid || contactNumber.untouched">
+                    <div *ngIf="contactNumber.errors && contactNumber.errors.pattern">
+                      {{'validate-message.contact-no-pattern-is-wrong' | translate}}
+                    </div>
+                  </div>
+                  <div [hidden]="contactNumber.valid || contactNumber.untouched">
+                    <div *ngIf="contactNumber.errors && (contactNumber.errors.maxlength|| contactNumber.errors.minlength)">
+                      {{'validate-message.length-must-be-11-digits' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="row" style="margin-bottom: 0">
+
+            <div class="col-sm-6  filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+              <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+              <div>
+                <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                       style="direction: ltr!important;font-family:tw-regular!important;"
+                       matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                       [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                       required class="dob-field" readonly="true" style="direction: ltr!important;">
+                <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                <mat-datepicker #myFromDate [startAt]="pickedFromDate"></mat-datepicker>
+              </div>
+            </div>
+            <div class="col-sm-6  filter-elements-cal"
+                 *ngIf="appService.currentCalendar=='jalali'">
+              <p>
+                <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+              </p>
+              <div>
+                <dp-date-picker
+                        style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                        dir="rtl"
+                        [(ngModel)]="pickedFromDate"
+                        mode="day"
+                        placeholder="تاریخ"
+                        theme="dp-material"
+                        (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')">
+                </dp-date-picker>
+              </div>
+            </div>
+
+            <div class="col-sm-6  filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+              <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+              <div>
+                <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')"
+                       style="direction: ltr!important;font-family:tw-regular!important;" matInput
+                       name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate"
+                       placeholder="{{toDate}}"
+                       required class="dob-field" readonly="true" style="direction: ltr!important;">
+                <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                <mat-datepicker #myToDate [startAt]="pickedToDate"></mat-datepicker>
+              </div>
+            </div>
+            <div class="col-sm-6  filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+              <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+              <div>
+                <dp-date-picker style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                dir="rtl"
+                                [(ngModel)]="pickedToDate"
+                                mode="day"
+                                placeholder="تاریخ"
+                                theme="dp-material"
+                                (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')">
+                </dp-date-picker>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-footer pull-right row " style="width: 100%;margin-top: 30px;padding: 0">
+            <div class="col-lg-6 parking-reserve-from-button" style="float: right;width: 50%;padding-right: 0;">
+              <div class="col-lg-6" style="float: right;width: 50%;padding: 5px">
+                <button class="form-button-submit " *ngIf="appService.hasAccessToWrite(6,44)" (click)="onSubmit()" style="width: 100%!important;">{{'SPMS.execute' | translate}}</button>
+
+              </div>
+              <div class="col-lg-6 parking-reserve-from-button" style="float: left;padding: 5px;width: 50%">
+                <button class="form-button-cancel " type="button" (click)="closeModal()" style="width: 100%!important;">{{'SPMS.cancel' | translate}}
+                                </button>
+              </div>
+            </div>
+
+            <div class="clear "></div>
+          </div>
+          <!--   <div class="row">
+                              <div class="col-md-12 text-right">
+                                <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                              </div>
+                            </div> -->
+
+      </div>
+      <div class="powered-by">
+        <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+        <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+      </div>
+    </div>
+  </div>
+</div>

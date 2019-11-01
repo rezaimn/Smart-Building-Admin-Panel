@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-xs-12"  style="min-height: 500px">
+        <div class="prepare-form" style="width: 100%!important;">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'HOMS.add-menu' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+
+                    <div class="col-sm-12" style="margin-bottom: 25px">
+                        <div class="row" style="">
+                            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                                <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                                <div >
+                                    <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                                           style="direction: ltr!important;font-family:tw-regular!important;"
+                                           matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                                           [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                                    <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #myFromDate [startAt]="pickedFromDate"  ></mat-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input1 filter-elements-cal"
+                                 *ngIf="appService.currentCalendar=='jalali'">
+                                <p>
+                                    <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                                </p>
+                                <div >
+                                    <dp-date-picker
+                                            style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                            dir="rtl"
+                                            [(ngModel)]="pickedFromDate"
+                                            mode="day"
+                                            placeholder="تاریخ"
+                                            theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')" >
+                                    </dp-date-picker>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                                <div >
+                                    <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate" placeholder="{{toDate}}"
+                                           required class="dob-field" readonly="true" style="direction: ltr!important;">
+                                    <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #myToDate [startAt]="pickedToDate"  ></mat-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                                <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                                <div >
+                                    <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                                      dir="rtl"
+                                                      [(ngModel)]="pickedToDate"
+                                                      mode="day"
+                                                      placeholder="تاریخ"
+                                                      theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')" >
+                                    </dp-date-picker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-5 filter-elements input1">
+                                <div class="form-group">
+                                    <label>{{'HOMS.menu-item' | translate}}</label>
+                                    <input type="text" name="menuItem" [(ngModel)]="menuItem">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-5 filter-elements input1">
+                                <div class="form-group">
+                                    <label>{{'HOMS.price' | translate}}</label>
+                                    <input type="text" name="menuPrice" [(ngModel)]="menuPrice">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-2 filter-elements ">
+                                <button class="execute-btn pull-right" (click)='addMenu()'>{{'HOMS.add' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 "
+                             style="padding:0 !important; ">
+                            <div class="col-sm-12 filter-elements ">
+                                <div class="form-group">
+                                    <div class="policy-container">
+                                        <div class="row" *ngFor="let men of menuitems; let i = index">
+                                            <div class="col-sm-4 translatable-float-right">
+                                                <span>{{men.menuitem}}</span>
+                                            </div>
+                                            <div class="col-sm-4 translatable-float-right">
+                                                <span>{{men.amount}}</span>
+                                            </div>
+                                            <div class="col-sm-4 translatable-float-right">
+                                                <button *ngIf="appService.hasAccessToWrite(11,30)" class="manage-btn pull-right" (click)='deleteItem(i)'>
+                                                    {{'HOMS.delete' |
+                                                    translate}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-footer add-planner-btn">
+
+                        <button *ngIf="appService.hasAccessToWrite(11,30)" class="form-button-submit pull-right" (click)="addMenuExe()">{{'HOMS.execute' |
+                            translate}}
+                        </button>
+                        <button class="form-button-cancel pull-right" type="button" (click)="closeModal()">
+                            {{'HOMS.cancel' | translate}}
+                        </button>
+                        <div class=" clear "></div>
+                    </div>
+                    <!--<div class="clearfix "></div>-->
+                    <!--<div class="form-footer " style="margin-top: 2% ">-->
+
+                    <!--<button class="form-button-cancel pull-right" type="button" (click)="closeModal()">{{'HOMS.cancel' | translate}}</button>-->
+                    <!--<div class="clear "></div>-->
+                    <!--</div>-->
+
+                    <!-- <div class="row ">
+                                    <div class="col-sm-12 text-right ">
+                                      <button class="form-button-submit floating-bnt " tabindex="5 " [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                      <button class="form-button-cancel floating-bnt " type="button " (click)="closeModal()
+                            " tabindex="4 ">cancel</button>
+                                    </div>
+                                  </div> -->
+                </form>
+            </div>
+            <div class="powered-by ">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+            </div>
+        </div>
+    </div>
+</div>

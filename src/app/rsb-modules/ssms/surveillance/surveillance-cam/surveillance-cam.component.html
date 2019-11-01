@@ -1,0 +1,84 @@
+<div class="row">
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-sm-12 ">
+              <div class="row ">
+                <div class="col-sm-2 input1  ">
+                    <p><span class="staff-header">{{'SSMS.campus' | translate}}</span></p>
+                  
+                  
+                    <select name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="'SSMS.campus' | translate" required (ngModelChange)="getAllBuildings($event)">
+                      <option value="0" >{{'SSMS.select-a-campus' | translate}}</option>
+                      <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">{{campus.name}}</option>
+                    </select>
+                  
+                </div>
+                <div class="col-sm-2 input1  ">
+                  <p><span class="staff-header">{{'SSMS.building' | translate}}</span></p>
+                  <select name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId" aria-placeholder="'SSMS.select-building' | translate" required (ngModelChange)="getAllFloors()">
+                        <option value="0" >{{'SSMS.select-a-building' | translate}}</option>
+                        <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">{{building.name}}</option>
+                      </select>
+                      
+                </div>
+                <div class="col-sm-2 input1  ">
+                    <p><span class="staff-header">{{'SSMS.floor-select' | translate}}</span></p>
+                    <select name="selectedFloor" #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="'SSMS.delect-floor' | translate" required>
+                      <option value="0" >{{'SSMS.select-floor' | translate}}</option>
+                      <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">{{floor.name}}</option>
+                        </select>
+                        
+                  </div>
+                
+                <div class="col-sm-2">
+                  <p><span class="staff-header">&nbsp;</span></p>
+                  <div class="filter-area">
+                      <button class="execute-btn execute-btn-search" (click)="getCameras()">{{'SSMS.execute' | translate}}</button>
+                  </div>
+                </div>
+                
+              </div>
+             
+            </div>
+          </div>
+          <div class="row" *ngIf="fileExist">
+            <div class="col-sm-12  ">
+              <div class=" ">
+                <div class="filter">
+                  <div class="pagers " >
+                    <ul>
+                        
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left filter-icon"  (click)="previouspage()"></i>
+                        </li>
+                        <li class="filter-int">
+                          <span>{{firstpage}}</span>
+                          <span>-</span>
+                          <span></span>    
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right filter-icon" (click)="nextpage()"></i>
+                        </li>
+                      
+                    </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row"  *ngIf="fileExist">
+              <div class="col-sm-4 " *ngFor="let cam of cams">
+                <div class="cam"  >
+                    <img class="camera" #camera src="{{ cam.ipaddress }}" name="image">
+                    <span>  {{ cam.name }} </span>
+                    <!--<button class="manage-btn pull-right">PTZ</button>-->
+                </div>
+                
+              </div>
+
+          </div>
+      </div>
+
+</div>
+      

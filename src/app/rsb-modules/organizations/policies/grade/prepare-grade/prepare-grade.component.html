@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="prepare-form">
+      <!-- Head -->
+      <div class="prepare-form-head">
+        <span>{{index}}</span>
+        <h2>{{mode}} Grade</h2>       
+      </div>
+      <div class="clear"></div>
+      <!-- Content -->
+      <div class="prepare-form-body">
+        <form action="" (ngSubmit)="onSubmit()" #prepareGradeForm="ngForm" method="post" autocomplete="off" novalidate="">
+          <div id="left-elements">
+            <div class="form-group">
+              <input placeholder="Grade name" type="text" name="GradeName" #GradeName="ngModel" [(ngModel)]="prepareGrade.gradeName"
+                required="true" tabindex="1" minlength="3" maxlength="30"/>
+              <div class="error-message-display">
+                <div [hidden]="GradeName.valid || GradeName.untouched">
+                  <div *ngIf="GradeName.errors && GradeName.errors.required">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="error-message-display">
+                <div [hidden]="GradeName.valid || GradeName.untouched">
+                  <div *ngIf="GradeName.errors && GradeName.errors.minlength">
+                    Minimum 3 characters required
+                  </div>
+                </div>
+              </div>
+            </div>                        
+          </div>          
+          <!-- Footer / buttons -->
+          <div class="form-footer">
+            <button class="form-button-cancel pull-left" type="button" (click)="closeModal()" tabindex="">cancel</button>
+            <button class="form-button-submit pull-right" tabindex="5" [disabled]="!prepareGradeForm.form.valid">execute</button>
+            <div class="clear"></div>
+          </div>
+          <div class="powered-by">
+            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+
+          </div>
+
+        </form>
+      </div>
+      <!-- End of form-body -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="form-group mb-30" *ngIf="filterFlag">
+
+    <select *ngIf="appService.currentLang=='en'" style="font-family: Yekan!important; font-size: 16px!important;" class="select-dropdowns" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus"
+            required (ngModelChange)="getAllBuildings($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-campus' | translate}}</option>
+        <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">{{campus.name.map.en}}</option>
+    </select>
+    <select *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan!important; font-size: 16px!important;" class="select-dropdowns" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus"
+            required (ngModelChange)="getAllBuildings($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-campus' | translate}}</option>
+        <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id" style="font-family: Yekan!important;">{{campus.name.map.fa}}</option>
+    </select>
+    <select *ngIf="appService.currentLang=='en'" style="font-family: Yekan!important; font-size: 16px!important;" class="select-dropdowns" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId"
+            aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-building' | translate}}</option>
+        <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">{{building.name.map.en}}</option>
+    </select>
+    <select *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important; font-size: 16px!important;" class="select-dropdowns" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId"
+            aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-building' | translate}}</option>
+        <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id" style="font-family: Yekan!important;">{{building.name.map.fa}}</option>
+    </select>
+    <select *ngIf="appService.currentLang=='en'"  style="font-family: Yekan!important; font-size: 16px!important;" name="selectedFloor" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="select type of building" required
+            (ngModelChange)="getAllAreas($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-floor' | translate}}</option>
+        <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">{{floor.levelName.map.en}}</option>
+    </select>
+    <select *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan!important; font-size: 16px!important;" name="selectedFloor" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+            #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="select type of building" required
+            (ngModelChange)="getAllAreas($event)">
+        <option value="0" style="font-family: Yekan!important;">{{'SELECT.select-floor' | translate}}</option>
+        <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id" style="font-family: Yekan!important;">{{floor.levelName.map.fa}}</option>
+    </select>
+</div>
+
+<div class="form-group mt-63" *ngIf="!filterFlag"></div>
+<div class="form-group">
+    <span class="pull-left area-icon"> {{'OMS.areas'|translate}}</span>
+    <span class="area-icon " style="float: right!important;" (click)="selectAllAvailableAreas()"><i
+            [ngClass]="{'activeChip' : selectAllActive}" class="glyphicon glyphicon-ok-sign"></i>{{'OMS.select-all-areas'|translate}}
+  </span>
+    <span class="previous-icon" (click)="pushSelectedAreasToPrepareDept();">
+    <i class="icon-left-arrow"></i>
+  </span>
+    <div class="clearfix"></div>
+    <!-- malihu-scrollbar [scrollbarOptions]="scrollbarOptions" -->
+    <div class="select-area-tags">
+        <div class="allocated-dept-area-name chips" *ngFor="let area of tempAreaDropdownList; let i = index;"
+             (click)="selectAreas($event, i, area)">
+            <i id="area_{{area.id}}" class="glyphicon glyphicon-ok-sign select-icon">
+
+            </i>
+            <p *ngIf="appService.currentLang=='en'">{{area.areaNameMultiLingual.map.en}}</p>
+            <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{area.areaNameMultiLingual.map.fa}}</p>
+        </div>
+    </div>
+
+    <div class="error-message-display" [hidden]="!showErrorMessage">Please select areas to add</div>
+</div>

@@ -1,0 +1,15 @@
+<div class="verification">
+  <div class="verification-content" *ngIf="showMsg">
+    <img src="../../assets/images/logo.png" alt="logo">
+    <h1>Email Verified Successfully...!</h1>
+    <p>Thank you for verifying your email address. Details of the app download and login credentials have been sent to your email
+    address. Kindly follow the steps in the email to being your experience with GRAVITON<span>10T</span>.</p>
+  </div>
+  <div class="verification-error-content text-center" *ngIf="errorMsg">
+    <img src="../../assets/images/logo.png" alt="logo">
+    <!-- <h1>{{code}}</h1> -->
+    <h4>{{Msg}}...!</h4>
+    <!-- <p>Thank you for verifying your email address. Details of the app download and login credentials have been sent to your email
+    address. Kindly follow the steps in the email to being your experience with GRAVITON<span>10T</span>.</p> -->
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="row" style="    margin-left: 0;
+    margin-right: 0;">
+    <div class="row" style="    margin-left: 0;margin-right: 0;">
+        <div class="col-sm-4 input1 filter-elements" style="margin-top: 2px">
+            <p><span class="staff-header">{{'SPAS.name' | translate}}</span></p>
+            <div>
+                <input name="search" [placeholder]="'SPAS.name' | translate" [(ngModel)]="searchValue"
+                       required class="dob-field">
+            </div>
+        </div>
+        <div class="col-md-4 visitor-list-float">
+            <div class="form-group" >
+                <label>{{'SPAS.work-group'|translate}}</label>
+                <select class="visitor-input-name" name="selectedDepartment" #selectedWG="ngModel" style="margin-top: 0px!important;"
+                        [(ngModel)]="workGroupId"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" required>
+                    <option value="0" selected>{{'SELECT.all'|translate}}</option>
+                    <option *ngFor="let workGroup of workGroups;" [ngValue]="workGroup.id">
+                        <p *ngIf="appService.currentLang=='en'">{{workGroup?.name?.map?.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'">{{workGroup?.name?.map?.fa}}</p>
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4 manage-visitor-float manage-light" style="margin-top: 25px">
+            <div class="filter-area">
+                <button class="execute-btn  execute-btn-search" (click)="getAllVisitors()">{{'SPAS.execute' |
+                    translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="totalRecordsCount > perPage">
+        <div class="col-sm-12">
+            <div class="">
+                <div class="filter">
+                    <div class="pagers">
+                        <ul>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                   (click)="setPage('first')"></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left filter-icon"
+                                   (click)="setPage('previous')"></i>
+                            </li>
+                            <li class="filter-int">
+                                <span>{{page+1}}</span>
+                                <span>-</span>
+                                <span>{{totalPages}}</span>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                   (click)="setPage('last')"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 manage-visitor-margin" *ngFor="let visitor of visitors; let i = index"
+         style="margin-right: 0;margin-left: 0 ; margin-top: 15px">
+        <div class="subsidiary-box mitoconnect-ui-listing-grid">
+
+            <div class="clearfix"></div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3 inline-elements">
+                        <span>{{'SPAS.visitor-name' | translate}}</span>
+                        <p>{{visitor?.cardholder?.firstName }} {{visitor?.cardholder?.lastName}}</p>
+                    </div>
+
+                    <div class="col-md-3 inline-elements">
+                        <span>{{'SPAS.visit-purpose-description' | translate}}</span>
+                        <p> {{visitor.purpose}}</p>
+                    </div>
+
+                    <div class="col-md-3 inline-elements">
+                        <span>{{'SPAS.work-group' | translate}}</span>
+                        <p *ngIf="appService.currentLang=='en'">{{visitor?.cardholder?.workgroup?.name?.map?.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">
+                            {{visitor?.cardholder?.workgroup?.name?.map?.fa}}</p>
+                    </div>
+
+
+                    <div class="col-md-3 inline-elements">
+
+                        <div class="col-md-4" style="padding: 3px">
+                            <button class="manage-btn pull-right" style="width: 100%"
+                                    *ngIf="appService.hasAccessToWrite(3,9)" (click)="viewVisitor(visitor)">
+                                {{'shared.edit'|translate}}
+                            </button>
+
+                        </div>
+                        <div class="col-md-4" style="padding: 3px">
+                            <button class="manage-btn pull-right" style="width: 100%"
+                                    (click)="deleteVisitorAccess(visitor)" *ngIf="appService.hasAccessToWrite(3,9)">
+                                {{'SPAS.delete' | translate}}
+                            </button>
+
+                        </div>
+                        <div class="col-md-4" style="padding: 3px" *ngIf="visitor.cardholder.enabled && appService.hasAccessToWrite(3,9)  && visitor.cardholder.loader==false">
+                            <button class="manage-btn pull-right" style="width: 100%"
+                                    (click)="enableCardHolder(false,i)"
+                                   >
+                                {{'SPAS.disable' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-4" style="padding: 3px"
+                             *ngIf="!visitor.cardholder.enabled && appService.hasAccessToWrite(3,9) &&  visitor.cardholder.loader==false">
+                            <button class="manage-btn pull-right"
+                                    style="width: 100%"
+                                    (click)="enableCardHolder(true,i)"
+                            >{{'SPAS.enable' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-4" *ngIf="visitor.cardholder.loader==true" >
+                            <img src="../../../../../assets/images/loader.gif" height="30">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>
+  

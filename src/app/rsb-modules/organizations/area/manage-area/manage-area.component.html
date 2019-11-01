@@ -1,0 +1,353 @@
+<div class="manage-area-container">
+    <!-- Create new Area header division -->
+    <div class="row" *ngIf="addClicked">
+        <div class="col-xs-offset-1 col-xs-11 create-new-area-division">
+            <span>{{'OMS.create-new-area'|translate}}</span>
+        </div>
+    </div>
+    <!-- End of create new header divison -->
+    <div class="row">
+        <div class="col-xs-2 no-padding-right" [ngClass]="{'minimize':addClicked}">
+            <div class="manage-area-container-list " malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <ul>
+                    <li class="area-list" *ngFor="let area of manageAreaList;let i=index">
+                        <div class="area-list-conatiner" id="area-list{{i}}" [ngClass]="{'active': i === 0}" (click)="showArea(area,$event)">
+                            <div class="area-number-container">
+                                <span>A{{i+1}}</span>
+                            </div>
+                            <div class="area-name-container">
+                                <span *ngIf="appService.currentLang=='en'">{{area.name.map.en}}</span>
+                                <span *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{area.name.map.fa}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-10 workspace" [ngClass]="{ 'maximize':addClicked}">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- Creating the Area Design Starts here -->
+                    <div class="add-edit-area-container" *ngIf="addClicked">
+                        <div class="add-edit-area-header">
+                            <ul>
+                                <li *ngIf="!enableThePointer && !editClicked">
+                                    <button type="button" class="start-button" (click)="startCreatingThePoints()">{{'OMS.start'|translate}}</button>
+                                </li>
+                                <li *ngIf="enableThePointer || editClicked">
+                                    <button type="button" class="cancel-button" (click)="cancelCreateArea()">{{'shared.cancel'|translate}}</button>
+                                </li>
+                                <li>
+                                    <span class="icon-Pen" (click)="startGettingTheCoOrdiantes($event)" *ngIf="!enableThePointer"> </span>
+                                </li>
+                                <!-- <li>
+                                    <span class="icon-Editor"></span>
+                                </li>
+                                <!-- <li> 
+                                <span class="icon-rubbish-bin"></span>
+                                </li> -->
+                                <li>
+                                    <button type="button" class="close-button" (click)="setDropdown()">{{'OMS.next'|translate}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End of add edit area header -->
+                        <!-- Add area form starts here -->
+                        <form action="" #prepareAreaForm="ngForm" method="post" autocomplete="off" novalidate="">
+                            <div class="add-edit-area-dropdown" *ngIf="isCloseClicked || editClicked">
+
+                                <!-- Division for Area Name Inex value -->
+                                <div class='col-lg-2 col-md-2 no-padding-left' *ngIf="!editClicked">
+                                    <h1>a{{manageAreaList.length+1}}</h1>
+                                </div>
+                                <div class='col-lg-2 col-md-2 no-padding-left' *ngIf="editClicked">
+                                    <h1>a{{indexArea}}</h1>
+                                </div>
+                                <!-- End of area name index division -->
+                                <div class='col-lg-10 col-md-10 no-padding-right'>
+                                    <!-- Custom color picker selector division -->
+                                    <div class="btn-group colors custom-group-btns" data-toggle="buttons">
+                                        <label class="btn btn-primary active radio-control">
+                                            <input type="radio" value="#43bb7b" name="areaColor">
+                                        </label>
+                                        <label class="btn btn-primary radio-control">
+                                            <input type="radio" value="#bc39e1" name="areaColor">
+                                        </label>
+                                        <label class="btn btn-primary radio-control">
+                                            <input type="radio" value="#5539e1" name="areaColor">
+                                        </label>
+                                        <label class="btn btn-primary radio-control">
+                                            <input type="radio" value="#39a8e1" name="areaColor">
+                                        </label>
+                                        <label class="btn btn-primary radio-control">
+                                            <input type="radio" value="#e18039" name="areaColor">
+                                        </label>
+                                    </div>
+                                    <!-- End of color selector divison -->
+                                </div>
+
+                                <div class="area-name">
+                                    <!-- en -->
+                                    <span class="col-lg-12 no-padding-left">
+                                      AREA NAME
+                                    </span>
+                                    <span *ngIf="!editClicked">
+                                    <input type="text" class="" [(ngModel)]="prepareArea.nameMultiLingual.map.en" #name="ngModel" required="true" name="name">
+                                    <div class="error-message-display" style="right: auto; left: 15px">
+                                        <div [hidden]="name.valid || name.untouched">
+                                            <div *ngIf="name.errors && name.errors.required">
+                                                {{'validate-message.area-name-required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+
+                                    <!-- fa -->
+                                    <span class="col-lg-12 no-padding-left" style="font-family: yekan!important ; direction: rtl">
+                                        نام محل
+                                    </span>
+                                    <span *ngIf="!editClicked">
+                                    <input style="font-family: Yekan!important;" type="text" class="" [(ngModel)]="prepareArea.nameMultiLingual.map.fa" #name="ngModel" required="true" name="name">
+                                    <div class="error-message-display">
+                                        <div [hidden]="name.valid || name.untouched">
+                                            <div *ngIf="name.errors && name.errors.required">
+                                                {{'validate-message.area-name-required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+
+
+                                    <!-- Edit area view -->
+                                    <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                            name="name" id="" [(ngModel)]="prepareArea.name" #name="ngModel" required="true" *ngIf="editClicked" (change)="changeAreaData(prepareArea.name)">
+                                            <option *ngFor="let area of manageAreaList; let i=index" [ngValue]="area">
+                                                <p *ngIf="appService.currentLang=='en'">{{area.name.map.en}}</p>
+                                                <p *ngIf="appService.currentLang=='fa'" >{{area.name.map.fa}}</p>
+                                            </option>
+                                    </select>
+                                </div>
+
+                                <!-- EN -->
+                                <div class="area-description">
+                                    <span class="col-lg-12 no-padding-left">
+                                      AREA DESCRIPTION
+                                    </span>
+                                    <input type="text" class="" [(ngModel)]="prepareArea.descriptionMultiLingual.map.en" #description="ngModel" required="true" name="description">
+                                    <div class="error-message-display" style="right: auto; left: 15px">
+                                        <div [hidden]="description.valid || description.untouched">
+                                            <div *ngIf="description.errors && description.errors.required">
+                                                {{'validate-message.area-description-required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- FA -->
+                                <div class="area-description">
+                                    <span class="col-lg-12 no-padding-left" style="font-family: yekan!important ;direction: rtl">
+                                      توضیحات ناحیه
+                                    </span>
+                                    <input type="text" class="" style="direction: rtl;font-family: Yekan!important;" [(ngModel)]="prepareArea.descriptionMultiLingual.map.fa" #description="ngModel" required="true" name="description">
+                                    <div class="error-message-display">
+                                        <div [hidden]="description.valid || description.untouched">
+                                            <div *ngIf="description.errors && description.errors.required">
+                                                {{'validate-message.area-description-required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!-- EN -->
+                                <div class="area-type" style="margin-top: 5px" *ngIf="appService.currentLang=='en'">
+                                    <span class="col-lg-12 no-padding-left">
+                                      AREA TYPE
+                                    </span>
+                                    <select class="" [(ngModel)]="prepareArea.typeMultiLingual.map.en" #type="ngModel" required="true" name="prepareType">
+                                            <option value="Common Area">Common Area</option>
+                                            <option value="Workarea">Workarea</option>
+                                            <option value="Manager Cabin">Camera</option>
+                                            <option value="Restricted">Restricted</option>
+                                            <option value="Secure area">Secure area</option>
+                                            <option value="Conference">Conference</option>
+                                            <option value="Cafeteria">Cafeteria</option>
+                                            <option value="Reception">Reception</option>
+                                            <option value="Visitors Lounge">Visitors Lounge</option>
+                                            <option value="Data Center">Data Center</option>
+                                            <option value="Server Room">Server Room</option>
+                                            <option value="Parking Area">Parking Area</option>
+                                            <option value="Vistor Parking">Visitor Parking</option>
+                                                                
+                                    </select>
+                                </div>
+
+                                <!-- FA -->
+
+                                <div class="area-type" style="margin-top: 5px" *ngIf="appService.currentLang=='fa'">
+                                    <span class="col-lg-12 no-padding-left" style=" font-family: Yekan!important; ;direction: rtl">
+                                            نوع ناحیه
+                                    </span>
+                                    <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                            class="" [(ngModel)]="prepareArea.typeMultiLingual.map.fa" #type="ngModel" required="true" name="prepareType " style="direction: rtl">
+                                        <option value="Common Area">فضای مشترک</option>
+                                        <option value="Workarea">فضای کار</option>
+                                        <option value="Manager Cabin">دوربین</option>
+                                        <option value="Restricted">محصور</option>
+                                        <option value="Secure area">منطقه امن</option>
+                                        <option value="Conference">کنفرانس</option>
+                                        <option value="Cafeteria">کافه تریا</option>
+                                        <option value="Reception">پذیرش</option>
+                                        <option value="Visitors Lounge">سالن میهمانان</option>
+                                        <option value="Data Center">دیتا سنتر</option>
+                                        <option value="Server Room">اتاق سرور</option>
+                                        <option value="Parking Area">پارکینگ</option>
+                                        <option value="Vistor Parking">پارکینگ میهمان</option>
+
+                                    </select>
+                                </div>
+                                <button type="submit" class="save-area-button" [disabled]="!prepareAreaForm.form.valid" (click)="drawArea(prepareArea,editClicked)">{{'OMS.save-area'|translate}}</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End of Create Area division -->
+                    <div class="delete-area-container" *ngIf="addClicked&&appService.spaceIsAvailable('AREA')">
+                        <button type="button" class="delete-area-button" (click)="showAreasToDelete()">{{'OMS.delete-area'|translate}}</button>
+                    </div>
+
+                    <!-- Delete area division -->
+                    <div class="delete-edit-area-container" *ngIf="deleteState">
+                        <form action="" method="post" autocomplete="off" novalidate="" #deleteAreaForm="ngForm" >
+                            <div class="add-edit-area-dropdown">
+                                <div class="area-type">
+                                    <span class="col-lg-12 no-padding-left">
+                                       {{'OMS.select-area-delete'|translate}}
+                                    </span>
+                                    <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                            class="" (ngModelChange)="previewDeleteArea($event)" [(ngModel)]="areaToDelete" #areadel="ngModel" required="true" name="areaToDelete">
+                                        <option *ngFor="let area of manageAreaList;" [ngValue]="area">
+                                            <p *ngIf="appService.currentLang=='en'">{{area.name.map.en}}</p>
+                                            <p *ngIf="appService.currentLang=='fa'" >{{area.name.map.fa}}</p>
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class='col-lg-6 col-md-6 no-padding'>
+                                        <button type="button" (click)="cancelDelete()" class="cancel-area-button">{{'shared.cancel'|translate}}</button>
+                                    </div>
+                                    <div class='col-lg-6 col-md-6 no-padding'>
+                                        <button type="submit" class="save-area-button" [disabled]="!deleteAreaForm.valid" (click)="deleteArea()">{{'OMS.delete-area'|translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Access point creation division -->
+                    <div class="add-edit-area-container installation-points-container" *ngIf="addAccess">
+                        <div class="add-edit-area-header">
+                            <ul>
+                                <li>
+                                    <button type="button" class="start-button" (click)="startCreatingThePoints()">{{'OMS.start'|translate}}</button>
+                                </li>
+                                <li>
+                                    <span class="icon-Pen"></span>
+                                </li>
+                                <li>
+                                    <span class="icon-Editor"></span>
+                                </li>
+                                <li>
+                                    <span class="icon-rubbish-bin"></span>
+                                </li>
+                                <li>
+                                    <button type="button" class="close-button" (click)="setAccessPointDropdown()"> {{'OMS.next'|translate}}</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <form action="" method="post" autocomplete="off" novalidate="" #prepareAccessPoint="ngForm">
+                            <div class="add-edit-area-dropdown" *ngIf="isCloseClicked">
+                                <div class='col-lg-2 col-md-2 no-padding-left'>
+                                    <h1>{{installationPointCode}}{{manageDeviceList.length + 1}}</h1>
+                                </div>
+                                <div class="area-type">
+                                    <span class="col-lg-12 no-padding-left">
+                                        {{'OMS.device-type'|translate}}
+                                    </span>
+                                    <select class="" (ngModelChange)="updateInstallationDeviceCode($event)" [(ngModel)]="prepareAccess.deviceType" #deviceType="ngModel" required="true" name="deviceType">
+                                            <option *ngFor="let deviceType of deviceList;" [ngValue]="deviceType">{{deviceType.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="area-description">
+                                    <span class="col-lg-12 no-padding-left">
+                                       {{'OMS.access-description'|translate}}
+                                    </span>
+                                    <input type="text" class="" [(ngModel)]="prepareAccess.description" #description="ngModel" required="true" name="description">
+                                    <div class="error-message-display">
+                                        <div [hidden]="description.valid || description.untouched">
+                                            <div *ngIf="description.errors && description.errors.required">
+                                                {{'validate-message.access-description-required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="save-area-button" (click)="drawDevicePoint()">{{'OMS.save-device-point'|translate}}</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="svg-area-map-container">
+                        <embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" style="width:inherit;height:inherit;" type="image/svg+xml">
+                        <!-- Adding custom contoll icons -->
+                        <div class="custom-pan-zoom-controlls" style="z-index: 100">
+                            <!-- Zoom in icon -->
+                            <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                                <span class="icon-zoom-in"></span>
+                            </div>
+                            <!-- reset icon -->
+                            <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                                <span class="icon-crop-button"></span>
+                            </div>
+                            <!-- Zoom out icon -->
+                            <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                                <span class="icon-zoom-out"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="create-access-point-container">
+                        <ul >
+                            <li *ngFor="let ip of manageDeviceList;let i=index">
+                                <div class="create-access-point">
+                                    <span [ngStyle]="{ 'background-color' : ip.deviceColor }">{{ip.deviceCode}}{{i+1}}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="create-access-point create-new-point" (click)="createNewInstallationPoint()" [hidden]="this.manageAreaList.length<=0">
+                                    <span class="icon-add"></span>
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tooltip-container" *ngIf="tipActive" [style.left]="tipX+'px'" [style.top]="tipY+'px'">
+                <div class=tooltip-head>
+                    <h6>{{pointName}}</h6>
+                    <!-- <i class="icon-rubbish-bin"></i>
+                    <i class="icon-note-interface-symbol"></i> -->
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="tooltip-desc">
+                    <p>{{pointDesc}}</p>
+                    <i class="pull-left glyphicon glyphicon-fullscreen"></i>
+                    <i class="pull-right icon-rubbish-bin" (click)="deleteDevicePoint(devicePointId)"></i>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->

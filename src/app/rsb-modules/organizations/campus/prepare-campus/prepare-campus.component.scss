@@ -1,0 +1,110 @@
+@import '../../OMS';
+
+/*Add edit style*/
+
+
+
+.prepare-campus-head {
+    color: $primary-clr;
+    position: relative;
+    margin-left: 15px;
+    bottom: 15px;
+    .prepare-campus-head-number {
+        font-size: 70px;
+    }
+    .prepare-campus-head-type {
+        margin-left: 15px;
+        font-size: 27px;
+        position: relative;
+        bottom: 15px;
+    }
+}
+
+
+
+.circle-icon {
+    background: #081224;
+    padding: 30px;
+    border-radius: 50%;
+    &:hover,
+    &:active,
+    &:focus
+    {
+        outline: none;
+        outline-offset: none;
+        text-decoration: none;
+        -webkit-box-shadow: 0px 0px 10px 2px rgba(67, 116, 187, 0.3);
+        -moz-box-shadow: 0px 0px 37px 6px rgba(67, 116, 187, 0.3);
+        box-shadow: 0px 0px 37px 6px rgba(67, 116, 187, 0.3);
+        transition-duration: .5s;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+.upload-file-container {
+    width: 140px;
+    height: 200px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    label {
+        // margin-left: 30%;
+        position: relative;
+        text-align: center;
+        top: 0;
+        cursor: pointer;
+        i {
+            color: #4374bb;
+            position: relative;
+            right: 0;
+            z-index: 0;
+        }
+    }
+    i {
+        font-size: 20px;
+        position: absolute;
+        right: 0px;
+        top: 0;
+        z-index: 1;
+        color: #AC4349;
+        opacity: 0.7;
+    }
+    input {
+        display: none;
+    }
+    .file-name {
+        text-align: center;
+        color: #f9961e;
+        font-size: 19px;
+        position: relative;
+        display: block;
+        margin-top: 40px;
+    }
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.form-align {
+    padding-left: 60px;
+}
+
+.form-footer {
+    margin-right:5%;
+    width: 250px;
+}
+
+@media screen and (min-width:1900px) {
+    .prepare-campus-phone {
+        input {
+            width: 90% !important;
+        }
+    }
+    .add-edit-container {
+        min-height: 600px !important;
+    }
+    .prepare-action-button {
+        // margin-top: 17% !important;
+    }
+}

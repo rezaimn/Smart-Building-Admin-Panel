@@ -1,0 +1,75 @@
+@import '../../OMS';
+.msg {
+    font-size: 30px;
+    color: $white;
+    padding: 30px 0;
+    margin-bottom: 0;
+}
+.row{
+    margin: 0px!important;
+}
+#accordion {
+    margin-right: 10px;
+}
+
+.accordion-toggle.collapsed i {
+    transform: rotate(180deg);
+}
+
+.subdept-accordion {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    &.invert-brd {
+        .panel-heading {
+            // @include invert-border-gradient($primary-clr);
+            border: 1px solid $primary-clr;
+        }
+    }
+    .panel-heading {
+        background: transparent;
+        border: none;
+        border-radius: none;
+        cursor: pointer; // @include border-gradient($primary-clr);
+        border: 1px solid $primary-clr;
+        h4 {
+            color: $white;
+            font-size: 32px;
+            padding: 0;
+            a {
+                display: block;
+                i {
+                    color: $primary-clr;
+                    font-size: 18px;
+                    margin-top: 10px; // transform: rotate(180deg);
+                    transition-duration: 0.6s;
+                    transition-timing-function: ease-in-out
+                }
+                &.opened {
+                    i {
+                        transform: rotate(180deg)
+                    }
+                } // &.collapsed{
+                //     transform: rotate(0deg);
+                // }
+            }
+        }
+    }
+    .panel-body {
+        border: none;
+        padding: 20px 0;
+    }
+    .collapsing {
+        transition-duration: 0.6s;
+    }
+}
+
+.department-btns {
+    margin: 10px;
+    width: 100%!important;
+}
+
+.height-auto {
+    height: auto !important;
+}

@@ -1,0 +1,114 @@
+@import '../../../../OMS';
+.common-area-head {
+    span {
+        font-size: 24px;
+        color: $primary-clr;
+    }
+}
+
+.common-area-view-container {
+    height: 400px;
+    ul {
+        padding: 0;
+    }
+    background-color: $tile-blue;
+    width: 100%;
+    .single-common-area-group {
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 10px;
+        span {
+            cursor: pointer;
+            font-size: 22px;
+            color: $white;
+            padding: 0 10px;
+            height: 50px;
+            line-height: 50px;
+            display: block;
+            background-color: $primary-clr;
+        }
+    }
+}
+
+.arrow-div {
+    // width: 25%;
+    // position: relative;
+    // background: #0C141F;
+    // border: 2px solid #f9961e;
+    position: absolute;
+    border: 0.1px solid $primary-clr;
+    background: #0C141F; //#ffffff;
+    left: 20px;
+    padding: 10px;
+    text-transform: uppercase;
+    z-index: 999999;
+    //top: 0;
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-div:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow-div:after {
+    border-color: rgba(12, 20, 31, 0);
+    border-bottom-color: #0C141F;
+    border-width: 20px;
+    margin-left: -20px;
+}
+
+.arrow-div:before {
+    border-color: rgba(249, 150, 30, 0);
+    border-bottom-color: #f9961e;
+    border-width: 23px;
+    margin-left: -23px;
+}
+
+.popup-container {
+    // width: 250px;
+}
+
+ul {
+    li {
+        list-style: none;
+    }
+}
+
+.area-container {
+    // width: 25%;
+    background-color: #0F1824;
+    .single-area-container {
+        span {
+            cursor: pointer;
+            font-size: 18px;
+            color: $white;
+            margin: 10px;
+            padding: 5px 10px;
+            display: inline-block;
+            background-color: #007871;
+        }
+    }
+}
+
+.popup-head {
+    padding-left: 10px;
+    color: $primary-clr;
+    font-size: 22px;
+}
+
+.action-button-container {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: table;
+    button {
+        margin-left: 20px;
+        display: table-cell;
+    }
+}

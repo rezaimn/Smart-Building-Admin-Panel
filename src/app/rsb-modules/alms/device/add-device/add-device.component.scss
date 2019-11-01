@@ -1,0 +1,248 @@
+@import '../../../sp/SP';
+label {
+    font-size: 16px;
+    color: $primary-clr;
+    display: block;
+    margin: 0;
+    padding: 0 0 2px 0;
+    text-transform: uppercase;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.frequency{
+    width: 100%!important;
+    display: inline-block;
+}
+.frequency-label-min{
+    display: inline-block !important;
+    margin: 0 5px;
+    font-size: 16px;
+    position: absolute;
+    top: 32px;
+    right: -50px;
+}
+.frequency-label-sec{
+    display: inline-block !important;
+    margin: 0 5px;
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    right: -50px;
+}
+td{
+    border: 1px solid #f9961e !important;
+    background-color: #04142b !important;
+    color: #fff !important;
+    padding: 0.2vw !important;
+    text-align: center;
+    font-size: 1.3vw !important;
+}
+th{
+    border: 1px solid #f9961e !important;
+    background-color: #04142b !important;
+    color: #fff !important;
+    text-align: center;
+    padding: 0.2vw !important;
+    font-size: 1.3vw !important;
+    font-weight: bolder;
+}
+.manage-btn{
+    background-color: #f9961e;
+    height: 2.2vw;
+    font-size: 1.3vw !important;
+    padding: 0 0.3vw !important;
+    margin-top: 1.7vw;
+    width: 60%;
+}
+
+textarea{
+    height: 8vw;
+}
+.etc input{
+    width: 50% !important;
+}
+
+.etc span{
+    font-size: 0.8vw !important;
+}
+
+select{
+    height: 35px;
+    font-size: 16px ;
+    padding: 0.3vw;
+}
+input{
+    height: 35px;
+    font-size: 16px !important;
+    padding: 0.3vw;
+}
+option{
+    font-size: 16px !important;
+}
+.prepare-form {
+    background: #04142b;
+
+    text-transform: uppercase;
+    border: 3px solid $primary-clr; // border-bottom: 1px solid $secondary-clr-alpha;
+    // background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(67, 116, 187, 1)));
+    // background-image: -webkit-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: -moz-linear-gradient(transparent, rgba(67, 116, 187, 1)), -moz-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: -o-linear-gradient(transparent, rgba(67, 116, 187, 1)), -o-linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // background-image: linear-gradient(transparent, rgba(67, 116, 187, 1)), linear-gradient(transparent, rgba(67, 116, 187, 1));
+    // -moz-background-size: 1px 100%;
+    // background-size: 1px 100%;
+    // background-position: 0 0, 100% 0;
+    // background-repeat: no-repeat;
+    padding: 0 70px 70px;
+    position: relative;
+    .prepare-form-head {
+        span {
+            position: absolute;
+            left: 5px;
+            font-size: 46px;
+            top: 5px;
+        }
+        h2 {
+            padding: 15px 0 5px 0px;
+            font-size: 40px;
+        }
+    }
+    .prepare-form-body {
+        .form-group {
+            margin-bottom: 15px;
+            .name-input {
+                float: left;
+                width: 60%;
+                margin-right: 5px;
+                position: relative;
+            }
+            .phone-input {
+                float: left;
+                width: 39%;
+                margin-top: 22px;
+                position: relative;
+            }
+            .inline-label {
+                float: left;
+                width: auto;
+                padding-right: 10px;
+                padding-top: 5px;
+            }
+            .inline-input {
+                float: left;
+                width: 86.3333%;
+            }
+        }
+    }
+}
+
+.blur-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.blur-overlay:before {
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: -1;
+}
+
+.input-group {
+    position: relative;
+    height: 35px;
+    width: 100%;
+    display: block;
+}
+
+.image-preview-filename {
+    background: #000;
+    border: none;
+    color: #333;
+}
+
+.image-preview-input input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background: $primary-clr;
+}
+
+.image-preview-input-title {
+    margin-left: 2px;
+}
+
+.image-preview-input {
+    background: #0a2347;
+    border-radius: 0;
+    position: absolute;
+    left: 0;
+    z-index: 9999;
+    border: none;
+    top: 0px;
+    color: #fff;
+    width: 100%;
+    height: 42px;
+    padding-right: 5px;
+    border:1px solid $primary-clr;
+    i {
+        float: right;
+        font-size: 24px;
+        color: $primary-clr;
+    }
+    span {
+        float: left;
+        font-size: 20px;
+        text-overflow: ellipsis;
+        width: 230px;
+        display: block;
+        overflow: hidden;
+    }
+}
+.table{
+    margin-top: 1.7vw;
+    span {
+        font-size: 1.1vw;
+        position: relative;
+    display: inline-block;
+    top: 0.2vw;
+    }
+}
+.table .radio{
+    width: 1vw;
+    height: auto;
+    position: relative;
+    display: inline-block;
+    top: 0.25vw;
+    margin-right: 1vw;
+}
+@media screen and (min-width: 1024px){
+    textarea{
+        height: 8vw;
+    }
+}
+@media screen and (max-width: 1024px){
+    textarea{
+        height: 9vw;
+    }
+}

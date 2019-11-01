@@ -1,0 +1,46 @@
+@import "../../variables";
+@import "../../common";
+
+.mat-card{
+  background:#040b18;
+}
+.lnr-cancel-btn{
+  width: 100%;
+  max-width: 150px;
+  background: #c8373c;
+  border: 0;
+  color: #fff;
+  float: right;
+  margin-right: 20px;
+  height: 45px;
+  position: relative;
+  right: -150px;
+}
+.lnr-execute-btn{
+  width: 100%;
+  max-width: 150px;
+  background: #058141;
+  border: 0;
+  color: #fff;
+  float: right;
+  margin-right: 20px;
+  height: 45px;
+  position: relative;
+  right: -150px;
+}
+.report-logo{
+  position: relative;
+  right: -60px;
+}
+.powered-by-lnr{
+  position: absolute;
+  bottom: 10px;
+  top: 40px;
+  right: 10px;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  img{
+    float: right;
+    width: 150px;
+  }
+}

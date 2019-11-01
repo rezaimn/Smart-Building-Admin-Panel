@@ -1,0 +1,99 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;">
+    <div class="col-sm-12">
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col-sm-12">
+                <div class="row" *ngFor="let report of allList;let i=index">
+                    <div class="subsidiary-box mitoconnect-ui-listing-grid"
+                         style="margin-bottom: 10px!important;margin-top: 5px!important; padding: 10px; width: 95%;">
+                        <div class="box-body" [style.font-size]="appService.currentLang=='fa'?'14px':'18px'">
+                            <div class="row" style="margin-left: 0px;margin-right: 0px">
+                                <div class="col-md-2 inline-elements manage-staff-name"  style=";padding-left: 5px;padding-right: 5px"
+                                     [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">
+                                    <span style="width: 100%">{{'LNR.report-name' | translate}}</span>
+                                    <p>{{report.name}}</p>
+                                </div>
+                                <div class="col-md-2 inline-elements manage-staff-name" style=";padding-left: 5px;padding-right: 5px"
+                                     [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">
+                                    <div class="translatable-float-right" style=" float: left;">
+                                        <span style="width: 100%">{{'LNR.description' | translate}}</span>
+                                        <p style="width: 100%">{{report.decsription}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 sk-manage-float inline-elements" style=";padding-left: 5px;padding-right: 5px">
+                                    <span style="width: 100%" class="">{{'LNR.report-type' | translate}}</span>
+                                    <select [name]="'selectformat'+i" #selectformat="ngModel"
+                                            style="width: 100%; direction: ltr; position: relative;"
+                                            [(ngModel)]="format[i].selectedFromat" required>
+                                        <option value="html">HTML</option>
+                                        <option value="pdf">PDF</option>
+                                        <option value="csv">CSV</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-1 inline-elements" style=";padding-left: 5px;padding-right: 5px" >
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style=";padding-left: 5px;padding-right: 5px">
+                                        <span style="width: 100%">{{'LNR.report-page' | translate}}</span>
+                                        <input type="number" placeholder="page" [name]="'page'+i" #pageInput="ngModel"
+                                               [(ngModel)]="page[i].pageInput">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 inline-elements manage-staff-name translatable-float-right" style=";padding-left: 5px;padding-right: 5px;margin-top: 16px">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-left-check" style=";padding-left: 5px;padding-right: 5px">
+                                        <button style="position: relative;  top: 15px;width: 100%;"
+                                                class="manage-btn  lnr-config-btn" (click)="showCronWindow(report, i)">
+                                            {{'LNR.schedule' | translate}}
+                                        </button>
+
+                                        <!--<input type="text"-->
+                                               <!--[name]="'cronExpression'+i"-->
+                                               <!--placeholder="cronExpression"-->
+                                               <!--#cronText="ngModel"-->
+                                               <!--id="cronExpression"-->
+                                               <!--style="width:100%;margin-top: 28px"-->
+                                               <!--[(ngModel)]="cronExpression[i].cronText"-->
+                                               <!---->
+                                        <!--&gt;-->
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-left-check"  style="padding-left: 5px;padding-right: 5px">
+                                        <button style="position: relative;  top: 15px;width: 100%;"
+                                                class="manage-btn  lnr-config-btn" (click)="editReport(report, i)">
+                                            {{'LNR.config' | translate}}
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-left-check" style="padding-left: 5px;padding-right: 5px">
+                                        <button style=" position: relative; top: 15px;width: 100%;"
+                                                [class.disabled]="reportData.length == 0" class="manage-btn "
+                                                (click)="getReportOffline(format[i].selectedFromat , report.id, report.type, page[i].pageInput, report.name, cronExpression[i].cronText )">
+                                            {{'LNR.send-mail' | translate}}
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-right" style="padding-left: 5px;padding-right: 5px">
+                                        <button style=" position: relative; top: 15px;width: 100%;"
+                                                [class.disabled]="reportData.length == 0" class="manage-btn "
+                                                (click)="getReport(format[i].selectedFromat , report.id, report.type, page[i].pageInput, report.name)">
+                                            {{'LNR.execute' | translate}}
+                                        </button>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="prepare-form" *ngIf="">
+    <div class="view-staff-overlay">
+        <div class="row spas-staff-edit-header">
+        </div>
+    </div>
+</div>

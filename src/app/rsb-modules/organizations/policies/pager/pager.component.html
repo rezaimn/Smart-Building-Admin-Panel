@@ -1,0 +1,31 @@
+<div class="policy-pager" *ngIf="isPager">
+  <div class="pager-items">
+    <div class="close-page" *ngIf="isClose">
+      <a href="javascript:void(0);" [routerLink]="['/rsb-modules/organization/dept/policies/allpolicies']">
+      <i class="glyphicon glyphicon-remove-sign"></i>
+      </a>
+    </div>
+    <div class="page-stepper row" >
+      <div class="col-lg-6 " style="float: right;margin-bottom: 10px">
+
+        <div  class="col-lg-4" style="float: right" *ngIf="isEdit">
+          <button class="execute-btn " style="font-size: 16px!important;"  [routerLink]="editRoute">edit</button>
+
+        </div>
+
+        <div  class="col-lg-4" style="float: right"  *ngIf="isStep">
+          <button class="execute-btn  "  style="font-size: 16px!important;" [routerLink]="stepRoute">Go to {{stepperTxt}} </button>
+          <span class="triangle"></span>
+        </div>
+        <div  class="col-lg-4"style="float: right" *ngIf="isCreate">
+          <button class="execute-btn " style="font-size: 16px!important;"  [routerLink]="createRoute">create</button>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<router-outlet></router-outlet>

@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-sm-12" 	style="min-height: 500px">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myDate)" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedDate" [(ngModel)]="pickedDate" [matDatepicker]="myDate" placeholder="{{date}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myDate [startAt]="pickedDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                        <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                        <div >
+                            <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;font-size: 14px!important;"
+                                              dir="rtl"
+                                              [(ngModel)]="pickedDate"
+                                              mode="day"
+                                              placeholder="تاریخ"
+                                              theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedDate)" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-2 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="execute(1)">{{'HOMS.execute' |
+                                translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search full-width" (click)="consolidatedMenu()">
+                                {{'HOMS.consolidated-menu' | translate}}
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <br>
+
+
+                <div class="row" *ngIf="orders.length>0">
+                    <div class="col-sm-12 order-list-table-float">
+                        <div class="subsidiary-box " *ngFor="let order of orders; let i = index">
+                            <div class="fs-23 staff-header">
+                                <span class="header-number">{{(perPage*(page-1))+i+1}}</span>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-s-1 inline-elements">
+                                            <span>{{'HOMS.reserved-for' | translate}}</span><br>
+                                            <p>{{order.employeeid}}</p>
+                                        </div>
+
+                                        <div class="col-s-2 inline-elements">
+                                            <span>{{'HOMS.no-of-people' | translate}}</span><br>
+                                            <p>{{order.noofpeople}}</p>
+                                        </div>
+                                        <div class="col-s-3 inline-elements">
+                                            <span>{{'HOMS.table' | translate}}</span><br>
+                                            <p>{{order.tables.length}}</p>
+                                        </div>
+
+                                        <div class="col-s-6 inline-elements  pull-right" style="width: 33%!important;">
+                                            <button *ngIf="appService.hasAccessToWrite(11,30)" class="manage-btn pull-right" style="width: 30%!important; margin-left:2px!important; margin-right: 2px!important;"  (click)='deleteOrder(order)'>{{'HOMS.delete' |
+                                                translate}}
+                                            </button>
+                                            <button class="manage-btn pull-right" style="width: 30%!important; margin-left:2px!important; margin-right: 2px!important;"  (click)="editOrder(order)">{{'HOMS.edit' |
+                                                translate}}
+                                            </button>
+                                            <button class="manage-btn pull-right" style="width: 30%!important; margin-left:2px!important; margin-right: 2px!important;"  (click)="viewOrder(order)">{{'HOMS.view' |
+                                                translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

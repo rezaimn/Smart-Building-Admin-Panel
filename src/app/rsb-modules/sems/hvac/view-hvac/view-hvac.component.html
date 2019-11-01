@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span>{{index}}</span>
+                <h2>{{mode}} {{'SEMS.temperature' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form >
+                    <div class="col-md-6 translatable-float-right">
+                        <div class="form-group">
+                            <label>{{'SEMS.point' | translate}}</label>
+                            <input type="number"
+                                   required
+                                   pattern="^[1-2][0-9](\.[0-9])?$"
+                                   class="inline-input" placeholder="POINTS"
+                                   name="point" [(ngModel)]="point"
+                                   #PointT="ngModel"
+                            >
+                            <div class="error-message-display">
+                                <div [hidden]="PointT.valid || PointT.untouched">
+                                    <div *ngIf="PointT.errors && PointT.errors.required">
+                                        {{'validate-message.point-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message-display">
+                                <div [hidden]="PointT.valid || PointT.untouched">
+                                    <div *ngIf="PointT.errors && PointT.errors.pattern">
+                                        {{'validate-message.point-pattern'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'SEMS.select-mode' | translate}}</label>
+                            <select class="select-dropdowns area-filters" name="selectedArea" #selectedArea="ngModel"
+                                    [(ngModel)]="selectedMode"
+                                    placeholder="Select a working point" required>
+
+                                <option [ngValue]="0">Auto</option>
+                                <option [ngValue]="1">Comfort</option>
+                                <option [ngValue]="2">Precomfort</option>
+                                <option [ngValue]="3">Economy</option>
+                                <option [ngValue]="4">Protect</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                       <div class="form-group">
+                          <div class="btn-icons">
+                            <span class="glyphicon glyphicon-plus"></span><br>
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </div>
+                       </div>
+                    </div> -->
+
+                    <div class="clearfix"></div>
+                    <div class="form-footer">
+                        <button
+                                class="form-button-submit pull-right"
+                                *ngIf="appService.hasAccessToWrite(9,24)"
+                                (click)="execute()"
+                                [disabled]="(selectedMode==hvacData?.mode && point==hvacData?.comforrtsetpoint)"
+                        >
+                            {{'shared.execute' | translate}}
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-footer" style="margin-top: 2%">
+                        <button class="form-button-cancel pull-right" type="button" (click)="closeModal(false)">
+                            {{'shared.cancel' | translate}}
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                    <!--   <div class="row">
+                       <div class="col-md-12 text-right">
+                         <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                         <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                       </div>
+                       </div> -->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+
+            </div>
+        </div>
+    </div>
+</div>

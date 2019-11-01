@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-group" id="accordion">
+            <!-- sub departments -->
+            <div class="panel panel-default subdept-accordion">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <!-- TODO: (click)="toggleArrow()" -->
+                        <a class="accordion-toggle translatable" data-toggle="collapse" data-parent="#accordion" data-target="#subdepartment">
+                            {{'OMS.sub-department'|translate}}
+                            <i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="subdepartment" class="panel-collapse collapse" [ngClass]='{"in": manageSubDepartments.length >= 0 }'>
+                    <div class="panel-body">
+                        <div *ngIf="manageSubDepartments.length > 0">
+                            <div class="subsidiary-box height-auto" *ngFor="let subdepts of  manageSubDepartments;let i=index;">
+
+                                <div class="box-header">
+                                    <h4 *ngIf="appService.currentLang=='en'"><span class="index">{{i+1}}</span><span class="name">{{subdepts.deptnameMultiLingual.map.en}}</span>
+                                    <div class="clearfix"></div></h4>
+                                    <h4 *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;"><span class="index">{{i+1}}</span><span class="name">{{subdepts.deptnameMultiLingual.map.fa}}</span>
+                                        <div class="clearfix"></div></h4>
+                                </div>
+                                <div class="department-content-wrapper">
+                                    <!-- first row -->
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="col-lg-8 col-md-8 no-padding-left translatable-float-right">
+                                                <div class="col-lg-4 col-md-4 translatable-float-right">
+                                                    <span class="sub-head translatable">{{'OMS.code'|translate}}</span>
+                                                    <span class="main-text">{{ subdepts.departmentCode }}</span>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <span class="sub-head translatable">{{'OMS.designation'|translate}}</span>
+                                                    <span class="main-text">{{ subdepts.designations.length }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <div class="department-box-footer pull-right">
+                                                    <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                                        <button class="box-button department-btns" (click)="deleteSubdepartment(subdepts.id)" *ngIf="appService.hasAccessToWrite(1,2)">{{'shared.delete'|translate}}</button>
+
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                                        <button class="box-button department-btns" (click)="prepareSubDepartment('edit', i+1, subdepts)">{{'shared.edit'|translate}}</button>
+
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                                        <button class="box-button department-btns" (click)="saveSubDept(subdepts)" routerLink="/rsb-modules/organization/dept/designation/manage">{{'shared.manage'|translate}}</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Allocated area's -->
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="col-lg-4 col-md-4 translatable-float-right" style="margin-bottom: 15px;">
+                                                <span class="sub-head translatable">{{'OMS.allocated-area'|translate}}</span>
+                                                <span class="main-text">{{subdepts.areas.length}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Allocated boxes -->
+                                    <div class="">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="allocated-dept-area-name" *ngFor="let area of subdepts.areas;let i=index">
+                                                {{area.areaCode}}
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                <!--<ng-template #showMsg>-->
+                                    <!--<p class="msg text-center">{{'OMS.name'|translate}}There are no sub-departments available...!</p>-->
+                                <!--</ng-template>-->
+                    </div>
+                </div>
+            </div>
+            <!-- eof subdepartments -->
+            <!-- designation -->
+            <div class="panel panel-default subdept-accordion invert-brd">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle translatable" data-toggle="collapse" data-parent="#accordion" data-target="#designations">
+                            {{'OMS.designation'|translate}}
+                            <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="designations" class="panel-collapse collapse" [ngClass]='{"in": designation.length > 0  && manageSubDepartments.length <= 0}'>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let desgn of designation; let i = index">
+                                <!-- desgn-ht -->
+                                <div class="subsidiary-box">
+                                    <div class="box-header">
+                                        <h4><span class="index">{{i+1}}</span><span class="name">{{desgn.designation}}</span>
+                                        <div class="clearfix"></div></h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="desgn-label">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="translatable">
+                                                        <i class="glyphicon glyphicon-remove-circle text-danger" *ngIf="!worktime"></i>
+                                                        <i class=" glyphicon glyphicon-ok-circle text-success" *ngIf="worktime"></i>
+                                                        {{'OMS.work-time'|translate}}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="translatable">
+                                                        <i class="glyphicon glyphicon-ok-circle text-success"></i>{{'OMS.access-policy'|translate}}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="translatable">
+                                                        <i class="glyphicon glyphicon-remove-circle text-danger"></i>{{'OMS.allowance'|translate}}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="translatable">
+                                                        <i class="glyphicon glyphicon-remove-circle text-danger"></i>{{'OMS.grades'|translate}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="box-footer">
+                                        <span><button class="execute-btn exe-sm exe-block" (click)="deleteDesignation(desgn.id)" *ngIf="appService.hasAccessToWrite(1,2)">{{'shared.delete'|translate}}</button></span>
+                                        <span class=" middle-staff-btn" ><button class="execute-btn exe-sm exe-block" (click)="prepareDesignation('edit',i+1,desgn,'subdepartment')">{{'shared.edit'|translate}}</button></span>
+                                        <span><button class="execute-btn exe-sm exe-block" routerLink="/rsb-modules/organization/dept/policies/allpolicies" (click)="saveDesignation(desgn)">{{'shared.manage'|translate}}</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- add Designation -->
+                            <div class="col-md-3">
+                                <!-- TODO:(click)="prepareDesgn('new', (manageDesgination.length + 1), {})" -->
+                                <div class="subsidiary-add-box desgn-ht" (click)="prepareDesignation('new',designation.length+1,{},'department')" style="margin-top: 0px!important;height: 200px!important;">
+                                    <div class="box-body">
+                                        <span>{{designation.length+1}}</span>
+                                        <i class="icon-add"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- eof designation -->
+        </div>
+    </div>
+</div>

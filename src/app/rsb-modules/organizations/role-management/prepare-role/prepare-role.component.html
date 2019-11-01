@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-xs-12" style="min-height: 400px;">
+        <div class="prepare-form" style="min-height: 400px;width: 100%">
+            <!-- Head -->
+            <div class="prepare-form-head">
+                <div class="row" style="margin-top: 10px;margin-bottom: 5px">
+                    <div class="col-lg-3 module-list">
+                        <h2 *ngIf="appService.currentLang=='en'">{{'OMS.role'|translate}}:
+                            {{role.roleMultiLingual.map.en}}</h2>
+                        <h2 *ngIf="appService.currentLang=='fa'">{{'OMS.role'|translate}}:
+                            {{role.roleMultiLingual.map.fa}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" style="height: 450px">
+                <div class="row" style="padding-top: 30px">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" *ngFor="let staff of staffs;let i=index">
+                        <input *ngIf="staff?.roles[0]==null||staff.roles!=null"
+                               [name]="'staff'+i" type="checkbox"
+                               class="pull-left"
+                               [ngModel]="staff.hasRole" #hasRole
+                               style="height: 16px;"
+                               [disabled]="(staff?.roles[0]!=null&&staff.roles!=null)&& staff?.roles[0]?.id!=role?.id"
+                               (change)="attachOrDetachStaffToRole($event,staff)">
+                        <label *ngIf="appService.currentLang=='en'"
+                               [style.color]="staff.roles[0]!=null&&staff.roles!=null? staff.roles[0].id==role.id?'#059c13':'#787878':'#f9961e'"
+                               class="staff-name">
+                            {{staff.firstNameMultiLingual.map.en}} {{staff.lastNameMultiLingual.map.en}}
+                        </label>
+                        <label *ngIf="appService.currentLang=='fa'"
+                               [style.color]="staff.roles[0]!=null&&staff.roles!=null? staff.roles[0].id==role.id?'#059c13':'#787878':'#f9961e'"
+                               class="staff-name">
+                            {{staff.firstNameMultiLingual.map.fa}} {{staff.lastNameMultiLingual.map.fa}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="bottom: 65px;padding: 0px 70px 0px;width: 100%;">
+                <div class="form-footer" style="width: 100%;">
+                    <button class="form-button-cancel pull-right" type="button" (click)="closeModal()" tabindex="4">
+                        {{'shared.cancel'|translate}}
+                    </button>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

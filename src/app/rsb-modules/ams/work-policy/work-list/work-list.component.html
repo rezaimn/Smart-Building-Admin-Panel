@@ -1,0 +1,101 @@
+<div class="row" style="margin-left: 0px;margin-right: 0px">
+    <div class="col-sm-12">
+        <!--<div class="row" *ngIf="totalRecordsCount > perPage">-->
+        <!--<div class="col-sm-12">-->
+        <!--<div class="col-sm-offset-8">-->
+        <!--<div class="filter">-->
+        <!--<div class="pagers">-->
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<i class="glyphicon glyphicon-menu-left-d filter-icon"-->
+        <!--(click)="setPage('first')"></i>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<i class="glyphicon glyphicon-menu-left filter-icon"-->
+        <!--(click)="setPage('previous')"></i>-->
+        <!--</li>-->
+        <!--<li class="filter-int">-->
+        <!--<span>{{page}}</span>-->
+        <!--<span>-</span>-->
+        <!--<span>{{totalPages}}</span>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<i class="glyphicon glyphicon-menu-right-d filter-icon"-->
+        <!--(click)="setPage('last')"></i>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row" *ngFor="let policy of policyList;let i=index">
+            <div class="col-sm-12">
+                <div class="subsidiary-box ">
+                    <div class="fs-23 staff-header">
+                        <span class="header-number">{{(perPage*(page-1))+i+1}}</span>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-1 inline-elements">
+                                    <span>{{'AMS.name' | translate}}</span><br>
+                                    <p>{{policy.name}}</p>
+                                </div>
+
+                                <div class="col-sm-2 inline-elements" *ngIf="appService.currentLang=='fa'">
+                                    <span>{{'AMS.type-of-shift' | translate}}</span><br>
+                                    <p style="font-family: Yekan!important; font-size: 14px!important;">
+                                        {{policy.shifttype.nameMultiLingual.map.fa}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements" *ngIf="appService.currentLang=='en'">
+                                    <span>{{'AMS.type-of-shift' | translate}}</span><br>
+                                    <p >
+                                        {{policy.shifttype.nameMultiLingual.map.en}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements" *ngIf="appService.currentLang=='en'">
+                                    <span>{{'AMS.day' | translate}}</span>
+                                    <p *ngFor="let day of policy.day">{{day.dayfromMultiLingual.map.en}} - {{day.daytoMultiLingual.map.en}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements" *ngIf="appService.currentLang=='fa'">
+                                    <span>{{'AMS.day' | translate}}</span>
+                                    <p *ngFor="let day of policy.day" style="font-family: Yekan!important;font-size: 14px!important;"> {{day.dayfromMultiLingual.map.fa}} - {{day.daytoMultiLingual.map.fa}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'AMS.time' | translate}}</span>
+                                    <p *ngFor="let day of policy.day">{{day.time.starttime}} -{{day.time.endtime}}</p>
+                                </div>
+
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'AMS.meal-time' | translate}}</span>
+                                    <p>{{policy.mealtime.starttime}} - {{policy.mealtime.endtime}}</p>
+                                </div>
+                                <div class="col-sm-3 inline-elements pull-right">
+                                    <div class="col-sm-6">
+                                        <button class="execute-btn pull-left" (click)="enterPolicy(policy)">{{'AMS.edit'
+                                            | translate}}
+                                        </button>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button *ngIf="appService.hasAccessToWrite(5,15)" class="execute-btn pull-right"
+                                                (click)="deletePolicy(policy.id)">{{'AMS.delete' | translate}}
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+  

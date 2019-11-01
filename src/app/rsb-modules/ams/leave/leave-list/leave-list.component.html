@@ -1,0 +1,196 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;margin-bottom: 20px">
+    <div class="col-sm-12" style="min-height: 500px">
+
+        <div class="row" style="margin: 0px">
+
+                <div class="col-sm-3 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                    <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                    <div >
+                        <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                               style="direction: ltr!important;font-family:tw-regular!important;"
+                               matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                               [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                               required class="dob-field" readonly="true" style="direction: ltr!important;">
+                        <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #myFromDate [startAt]="pickedFromDate"  ></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3 input1 filter-elements-cal"
+                     *ngIf="appService.currentCalendar=='jalali'">
+                    <p>
+                        <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                    </p>
+                    <div >
+                        <dp-date-picker
+                                style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                dir="rtl"
+                                [(ngModel)]="pickedFromDate"
+                                mode="day"
+                                placeholder="تاریخ"
+                                theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')" >
+                        </dp-date-picker>
+                    </div>
+                </div>
+                <div class="col-sm-3 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                    <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                    <div >
+                        <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate" placeholder="{{toDate}}"
+                               required class="dob-field" readonly="true" style="direction: ltr!important;">
+                        <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                        <mat-datepicker #myToDate [startAt]="pickedToDate"  ></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                    <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                    <div >
+                        <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                          dir="rtl"
+                                          [(ngModel)]="pickedToDate"
+                                          mode="day"
+                                          placeholder="تاریخ"
+                                          theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')" >
+                        </dp-date-picker>
+                    </div>
+                </div>
+
+                <!--<div class="col-sm-3 no-left-padding select input1 filter-elements" *ngIf="showDesignation">-->
+                    <!--<p>-->
+                        <!--<span class="staff-header">{{'AMS.status' | translate}}</span>-->
+                    <!--</p>-->
+                    <!--<select #statusid [(ngModel)]="employeeDate.statusid" name="status" required>-->
+                        <!--<option [value]="0" [selected] > Select Status </option>-->
+                        <!--<option [value]="leave.id" *ngFor="let leave of leaveStatus">-->
+                            <!--{{leave.name}}-->
+                        <!--</option>-->
+                    <!--</select>-->
+                    <!--<div class="error-message-display">-->
+                        <!--<div [hidden]="statusid.valid || statusid.untouched">-->
+                            <!--<div *ngIf="statusid.errors && statusid.errors.required">-->
+                                <!--End Date is required-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="col-sm-3 translatable-float-right filter-elements">
+                    <p><span class="staff-header">&nbsp;</span></p>
+                    <div class="filter-area">
+                        <button class="execute-btn execute-btn-search" (click)="getLeaves(1);"
+                              >{{'AMS.execute' | translate}}
+                        </button>
+                    </div>
+                </div>
+
+
+        </div>
+<br>
+
+        <div class="row" *ngIf="totalRecordsCount > perPage" style="margin-right: 0;margin-left: 0">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-right: 0px;margin-left: 0px">
+            <div class="col-sm-12">
+                <div class="subsidiary-box " *ngFor="let leave of leaveList; let i = index">
+
+                    <div class="fs-23 staff-header">
+                        <span class="header-number">{{(i + 1) + ((page-1) * perPage)}}</span>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'AMS.name' | translate}}</span>
+                                    <br>
+                                    <p *ngIf="appService.currentLang=='en'">{{leave.staffNameMultiLingualMap.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;direction: ltr!important;">{{leave.staffNameMultiLingualMap.map.fa}}</p>
+                                </div>
+
+                                <div class="col-sm-1 inline-elements">
+                                    <span>{{'AMS.type' | translate}}</span>
+                                    <br>
+                                    <p>{{leave.leavetype}}</p>
+                                </div>
+
+                                <div class="col-sm-2 inline-elements pl0">
+                                    <span>{{'AMS.start-date-time' | translate}}</span>
+                                    <p>{{leave.leavefromj}}</p>
+                                </div>
+
+                                <div class="col-sm-2 inline-elements pl0">
+                                    <span>{{'AMS.end-date-time' | translate}}</span>
+                                    <p>{{leave.leavetoj}}</p>
+                                </div>
+
+                                <div class="col-sm-1 inline-elements">
+                                    <span>{{'AMS.leave-days' | translate}}</span>
+                                    <p>{{leave.leavedays}}</p>
+                                </div>
+
+                                <div class="col-sm-1 inline-elements">
+                                    <span>{{'AMS.hours' | translate}}</span>
+                                    <p>{{leave.leavehours}}</p>
+                                </div>
+
+                                <div class="col-sm-3 inline-elements  pull-right sub_btns">
+                                    <div class="col-sm-4 ">
+                                        <button class="execute-btn pull-right" (click)="approveReject(leave, 0,1)">{{'AMS.view' | translate}}
+                                        </button><!--leave.id-->
+                                    </div>
+
+                                    <div *ngIf="leave.leavestatus !=='Submitted'" class="col-sm-4 ">
+                                        <button *ngIf="showSubmit" class="execute-btn pull-right"
+                                                (click)="submitLeave(leave)">{{'AMS.submit' | translate}}
+                                        </button>
+                                    </div>
+                                    <div *ngIf="leave.leavestatus !=='Rejected'" class="col-sm-4 ">
+                                        <button *ngIf="showReject" class="execute-btn pull-right"
+                                                (click)="approveReject(leave, 2,3)">{{'AMS.reject' | translate}}
+                                        </button>
+                                    </div>
+                                    <div *ngIf="leave.leavestatus !=='Approved'" class="col-sm-4 ">
+                                        <button *ngIf="showReject && !leaveStatuS" class="execute-btn pull-right "
+                                                (click)="approveReject(leave, 1,2)">{{'AMS.approve' | translate}}
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

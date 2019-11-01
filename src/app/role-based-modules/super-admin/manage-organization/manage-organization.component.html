@@ -1,0 +1,274 @@
+<div class="main-wrapper">
+	<div class="data-container">
+		<div class="list-menu-container">
+			<div class="list-menu-header">
+				<div *ngIf="currentContent != 'list'" (click)="showList()" class="back-button"></div>
+				<div class="header-text">{{headerText}}</div>
+			</div>
+			<div *ngIf="currentContent == 'list'" class="list-menu-body">
+				<p (click)="showUpdateOrganization()" class="list-item">Update Organization</p>
+				<p (click)="showCreateOnMAdmin()" class="list-item"><span *ngIf="adminCreated">Update</span><span *ngIf="!adminCreated">Create</span> O&M Admin</p>
+				<p class="list-item">Set License</p>
+			</div>
+			<div *ngIf="currentContent == 'uo'" class="update-organization">
+				<form action="" method="post" autocomplete="off" novalidate="" #updateOrganization="ngForm" (ngSubmit)="updateOrganizationData()">
+					<div class="complete-list">
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Name:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Organization name" name="organization_name" #organization_name="ngModel" required="true" minlength="3"
+									maxlength="30" [(ngModel)]="organization.name" pattern="^[a-zA-Z\s]+$" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="organization_name.valid || organization_name.untouched">
+									<div *ngIf="organization_name.errors && organization_name.errors.required">
+										Organization Name is required
+									</div>
+								</div>
+								<div [hidden]="organization_name.valid || organization_name.untouched">
+									<div *ngIf="organization_name.errors && organization_name.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Office Name:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Office Name" name="office_name" #office_name="ngModel" required="true" minlength="6"
+									maxlength="30" [(ngModel)]="organization.office_name" pattern="^[a-zA-Z\s]+$" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="office_name.valid || office_name.untouched">
+									<div *ngIf="office_name.errors && office_name.errors.required">
+										Office Name is required
+									</div>
+									<div *ngIf="office_name.errors && office_name.errors.minlength">
+                                        Office Name should be minimum 6 characters
+                                    </div>
+								</div>
+								<div [hidden]="office_name.valid || office_name.untouched">
+									<div *ngIf="office_name.errors && office_name.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Address:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Address" name="organization_address" #organization_address="ngModel" required="true" minlength="6"
+									maxlength="250" [(ngModel)]="organization.address" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="organization_address.valid || organization_address.untouched">
+									<div *ngIf="organization_address.errors && organization_address.errors.required">
+										Organization Address is required
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Region:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Region" pattern="^[a-zA-Z\s]+$" name="region" #region="ngModel" required="true" minlength="3" maxlength="30" [(ngModel)]="organization.region" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="region.valid || region.untouched">
+									<div *ngIf="region.errors && region.errors.required">
+										Region is required
+									</div>
+								</div>
+								<div [hidden]="region.valid || region.untouched">
+									<div *ngIf="region.errors && region.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">City:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="City" pattern="^[a-zA-Z\s]+$" name="city" #city="ngModel" required="true" minlength="3" maxlength="30" [(ngModel)]="organization.city" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="city.valid || city.untouched">
+									<div *ngIf="city.errors && city.errors.required">
+										City is required
+									</div>
+								</div>
+								<div [hidden]="city.valid || city.untouched">
+									<div *ngIf="city.errors && city.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Country:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Country" pattern="^[a-zA-Z\s]+$" name="country" #country="ngModel" required="true" minlength="3" maxlength="30" [(ngModel)]="organization.country" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="country.valid || country.untouched">
+									<div *ngIf="country.errors && country.errors.required">
+										Country is required
+									</div>
+								</div>
+								<div [hidden]="country.valid || country.untouched">
+									<div *ngIf="country.errors && country.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Contact Person Name:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Contact Person Name" pattern="^[a-zA-Z\s]+$" name="contact_person_name" #contact_person_name="ngModel" required="true" minlength="3" maxlength="30" [(ngModel)]="organization.contact_person_name" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="contact_person_name.valid || contact_person_name.untouched">
+									<div *ngIf="contact_person_name.errors && contact_person_name.errors.required">
+										Contact Person Name is required
+									</div>
+								</div>
+								<div [hidden]="contact_person_name.valid || contact_person_name.untouched">
+									<div *ngIf="contact_person_name.errors && contact_person_name.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Contact Person Email Id:</div>
+							<div class="col-md-8 uo-value">
+								<input type="email" style="font-family: tw-regular!important;direction: ltr!important;" placeholder="Contact Person Email Id" name="contact_person_email_id" #contact_person_email_id="ngModel" required="true" maxlength="30"
+								pattern="^\w+([\._]?\w+)*@\w+([\._]?\w+)*(\.\w{2,3})+$" [(ngModel)]="organization.contact_person_email_id" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="contact_person_email_id.valid || contact_person_email_id.untouched">
+									<div *ngIf="contact_person_email_id.errors && contact_person_email_id.errors.required">
+										Contact Person Email is required
+									</div>
+								</div>
+								<div [hidden]="contact_person_email_id.valid || contact_person_email_id.untouched">
+									<div *ngIf="contact_person_email_id.errors && contact_person_email_id.errors.pattern">
+										Please enter valid email
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-4 uo-key">Contact Person Mobile #:</div>
+							<div class="col-md-8 uo-value">
+								<input type="text" placeholder="Contact Person Mobile #" name="contact_person_mobile" #contact_person_mobile="ngModel" required="true"
+									pattern="^[0-9]+$" minlength="10" maxlength="10" [(ngModel)]="organization.contact_person_mobile" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="contact_person_mobile.valid || contact_person_mobile.untouched">
+									<div *ngIf="contact_person_mobile.errors && contact_person_mobile.errors.required">
+										Contact Person Mobile is required
+									</div>
+								</div>
+								<div [hidden]="contact_person_mobile.valid || contact_person_mobile.untouched">
+									<div *ngIf="contact_person_mobile.errors && contact_person_mobile.errors.pattern">
+										Please enter valid mobile number
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="submit-button" [disabled]="!updateOrganization.valid">Submit</button>
+				</form>
+			</div>
+
+			<div *ngIf="currentContent == 'coa'" class="update-organization">
+
+				<form action="" method="post" autocomplete="off" novalidate="" #createUpdateOrganization="ngForm" (ngSubmit)="createOnMAdmin()">
+					<div class="complete-list">
+						<div class="row list-item">
+							<div class="col-md-3 uo-key">First Name:</div>
+							<div class="col-md-9 uo-value">
+								<input type="text"  pattern="^[a-zA-Z\s]+$" placeholder="Enter First Name" name="adminFirstName" #adminFirstName="ngModel" required="true" minlength="3"
+									maxlength="30" [(ngModel)]="admin.name" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="adminFirstName.valid || adminFirstName.untouched">
+									<div *ngIf="adminFirstName.errors && adminFirstName.errors.required">
+										First Name is required
+									</div>
+								</div>
+								<div [hidden]="adminFirstName.valid || adminFirstName.untouched">
+									<div *ngIf="adminFirstName.errors && adminFirstName.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-3 uo-key">Last Name:</div>
+							<div class="col-md-9 uo-value">
+								<input type="text" pattern="^[a-zA-Z\s]+$" placeholder="Enter Last Name" name="adminLastName" #adminLastName="ngModel" required="true" minlength="3"
+									maxlength="30" [(ngModel)]="admin.family_name" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="adminLastName.valid || adminLastName.untouched">
+									<div *ngIf="adminLastName.errors && adminLastName.errors.required">
+										Last Name is required
+									</div>
+								</div>
+								<div [hidden]="adminLastName.valid || adminLastName.untouched">
+									<div *ngIf="adminLastName.errors && adminLastName.errors.pattern">
+										No digits and Special characters allowed
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-3 uo-key">Email ID:</div>
+							<div class="col-md-9 uo-value">
+								<input type="email" pattern="^\w+([\._]?\w+)*@\w+([\._]?\w+)*(\.\w{2,3})+$"
+									   placeholder="Enter Email ID" name="adminEmail"
+									   style="font-family: tw-regular!important;direction: ltr!important;"
+									#adminEmail="ngModel" required="true" [(ngModel)]="admin.email" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="adminEmail.valid || adminEmail.untouched">
+									<div *ngIf="adminEmail.errors && adminEmail.errors.required">
+										Email is required
+									</div>
+								</div>
+								<div [hidden]="adminEmail.valid || adminEmail.untouched">
+									<div *ngIf="adminEmail.errors && adminEmail.errors.pattern">
+										Please enter valid email
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row list-item">
+							<div class="col-md-3 uo-key">Mobile #:</div>
+							<div class="col-md-9 uo-value">
+								<input type="text" placeholder="Enter Mobile Number" name="adminPhoneNumber" #adminPhoneNumber="ngModel" required="true"
+									pattern="^[0-9]+$" minlength="10" maxlength="10" [(ngModel)]="admin.phone_number" />
+							</div>
+							<div class="error-message-display">
+								<div [hidden]="adminPhoneNumber.valid || adminPhoneNumber.untouched">
+									<div *ngIf="adminPhoneNumber.errors && adminPhoneNumber.errors.required">
+										Mobile number is required
+									</div>
+								</div>
+								<div [hidden]="adminPhoneNumber.valid || adminPhoneNumber.untouched">
+									<div *ngIf="adminPhoneNumber.errors && adminPhoneNumber.errors.pattern">
+										Please enter valid mobile number
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="submit-button" [disabled]="!createUpdateOrganization.valid">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

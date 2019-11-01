@@ -1,0 +1,69 @@
+<div class="policy-tiles">
+    <ul>
+        <li>
+            <div class="policy-bg">
+
+                <h4>
+                    <i *ngIf="!showData" class="glyphicon glyphicon-remove-sign red"></i>
+                    <i *ngIf="showData" class="glyphicon glyphicon-ok-sign custom-glyph-color"></i> Work time policy
+                </h4>
+                <div class="policy-content" *ngIf="!showData">
+                    <p>there is no policy available.<br/>kindly create and assign the same</p>
+                </div>
+                <div class="policy-content-data" *ngIf="showData"><span>Assigned</span>
+                    <p>{{workTimeAssignedCount}}</p><span>Total</span>
+                    <p>{{allWorkTimeCount}}</p>
+                </div>
+                <button class="pull-right create-policy" *ngIf="!showData" [routerLink]="['/rsb-modules/organization/dept/policies/work-time/prepare']">Create</button>
+                <button class="pull-right manage-policy" *ngIf="showData" [routerLink]="['/rsb-modules/organization/dept/policies/work-time/manage']">Manage</button>
+            </div>
+        </li>
+        <li>
+            <div class="policy-bg">
+                <h4><i class="glyphicon glyphicon-remove-sign red"></i>common area access policy</h4>
+                <div class="policy-content">
+                    <p>there is no policy available.<br/>kindly create and assign the same</p>
+                </div>
+                <button class="pull-right create-policy">Create</button>
+            </div>
+        </li>
+        <li>
+            <div class="policy-bg">
+                <h4><i class="glyphicon glyphicon-remove-sign red"></i>specific area access policy</h4>
+                <div class="policy-content">
+                    <p>there is no policy available.<br/>kindly create and assign the same</p>
+                </div>
+                <button class="pull-right create-policy" [routerLink]="['/rsb-modules/organization/dept/policies/specific-area/manage']">Create</button>
+            </div>
+        </li>
+        <li>
+            <div class="policy-bg">
+                <h4><i *ngIf="manageGrades.length < 1" class="glyphicon glyphicon-remove-sign red"></i><i *ngIf="manageGrades.length>=1" class="glyphicon glyphicon-ok-sign custom-glyph-color"></i>grade policy</h4>
+                <div class="policy-content" *ngIf="!gradePresent">
+                    <p>there is no policy available.<br/>kindly create and assign the same</p>
+                </div>
+                <div class="policy-content-data" *ngIf="gradePresent"><span>Assigned</span>
+                    <p>{{manageGrades.length}}</p><span>TOTAL</span>
+                    <p>{{allManageGrades.length}}</p>
+                </div>
+                <button class="pull-right create-policy" [routerLink]="['/rsb-modules/organization/dept/policies/grade/manage']" *ngIf="!gradePresent">Create</button>
+                <button class="pull-right manage-policy" *ngIf="gradePresent" [routerLink]="['/rsb-modules/organization/dept/policies/grade/manage']">Manage</button>
+            </div>
+        </li>
+        <li>
+            <div class="policy-bg">
+                <h4><i *ngIf="manageAllowance.length < 1" class="glyphicon glyphicon-remove-sign red"></i><i *ngIf="manageAllowance.length >= 1" class="glyphicon glyphicon-ok-sign custom-glyph-color"></i>allowance policy</h4>
+                <div class="policy-content" *ngIf="!allwancePresent">
+                    <p>there is no policy available.<br/>kindly create and assign the same</p>
+                </div>
+                <div class="policy-content-data" *ngIf="allwancePresent"><span>Assigned</span>
+                    <p>{{manageAllowance.length}}</p>
+                </div>
+                <button class="pull-right create-policy" *ngIf="!allwancePresent" [routerLink]="['/rsb-modules/organization/dept/policies/allowance/manage']">Create</button>
+                <button class="pull-right manage-policy" *ngIf="allwancePresent" [routerLink]="['/rsb-modules/organization/dept/policies/allowance/manage']">Manage</button>
+            </div>
+        </li>
+        <div class="clearfix"></div>
+    </ul>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,261 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'AMS.new-edit-work-policy' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+
+            <div class="prepare-form-body">
+                <form #prepareworkTimeForm="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-sm-7 translatable-float-right">
+                            <div class="form-group">
+                                <label> {{'AMS.policy-name' | translate}}</label>
+                                <input type="text" name="policyName" #policyname=ngModel
+                                       [(ngModel)]="workTime.policyName"
+                                       [placeholder]="'AMS.enter-work-time-policy-name' | translate" minlength="3"
+                                       maxlength="150" required/>
+                                <div class="error-message-display">
+                                    <div [hidden]="policyname.valid || policyname.untouched">
+                                        <div *ngIf="policyname.errors && policyname.errors.required">
+                                            {{'validate-message.name-required' | translate }}
+                                        </div>
+                                    </div>
+                                    <div [hidden]="policyname.valid || policyname.untouched">
+                                        <div *ngIf="policyname.errors && policyname.errors.minlength">
+                                            {{'validate-message.minimum-3-char-required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 translatable-float-right">
+                            <div class="form-group">
+                                <label>{{'AMS.type-of-shift' | translate}}</label>
+                                <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" [(ngModel)]="workTime.shifttype" name="Shiftmodel" required >
+                                    <option [value]="0" [selected] >{{'SELECT.select-shift' | translate}}</option>
+                                    <option [value]="shift.id" *ngFor="let shift of shiftTypes">
+                                       <p *ngIf="appService.currentLang=='en'">{{shift.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'">{{shift.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 translatable-float-right" style="padding: 0 !important">
+                        <div class="row">
+                            <div  class="col-sm-4 translatable-float-right add-work-date-move">
+                                <div class="form-group">
+                                    <label>{{'AMS.from-day' | translate}}</label>
+                                    <select [(ngModel)]="workTime.dayfrom" [disabled]="policyvalidate" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                            name="fromdaymodel"
+                                            required>
+                                        <option [value]="0" [selected] >{{'SELECT.select-day' | translate}}</option>
+                                        <option [value]="day.value" *ngFor="let day of dayList" [selected]="day">
+                                            <p *ngIf="appService.currentLang=='en'">{{day.name}}</p>
+                                            <p *ngIf="appService.currentLang=='fa'">{{day.faName}}</p>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 translatable-float-right add-work-date-move">
+                                <div class="form-group">
+                                    <label>{{'AMS.to-day' | translate}}</label>
+                                    <select  [(ngModel)]="workTime.dayto" [disabled]="policyvalidate" name="tdaymodal" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                            required>
+                                        <option [value]="0" [disabled]="policyvalidate" [selected] > {{'SELECT.select-day' | translate}}
+                                        </option>
+                                        <option [value]="day.value" [disabled]="policyvalidate"
+                                                *ngFor="let day of dayList"
+                                                [selected]="day">
+                                           <p *ngIf="appService.currentLang=='en'" >{{day.name}}</p>
+                                            <p *ngIf="appService.currentLang=='fa'" >{{day.faName}}</p>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 translatable-float-right " style="top: 1.5vw;">
+                                <button *ngIf="isselectedType; else add"
+                                        class="manage-btn pull-right add-work-modal-update"
+                                        (click)="updateTime(workTime,index)">{{'AMS.update' | translate}}
+                                </button>
+                                <ng-template #add>
+                                    <button class="manage-btn pull-right" [disabled]="!prepareworkTimeForm.valid"
+                                            (click)="addTime(workTime)">{{'AMS.add' | translate}}
+                                    </button>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-6 ">
+                                <div class="form-group">
+                                    <label>{{'AMS.start-time' | translate}}</label>
+                                    <input style="direction: ltr!important;" type="text" [disabled]="policyvalidate" name="workStartTime"
+                                           #workStartTime=ngModel [(ngModel)]="workTime.workStartTime"
+                                           placeholder="00:00:00" required
+                                           pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                           maxlength=8 (ngModelChange)="formatTime($event,workStartTime,'workstart')">
+                                    <div class="clearfix"></div>
+                                    <div class="error">
+                                        <div [hidden]="workStartTime.valid || workStartTime.untouched">
+                                            <div *ngIf="workStartTime.errors && workStartTime.errors.required">
+                                                {{'validate-message.start-time-is-required' | translate }}
+                                            </div>
+                                        </div>
+                                        <div [hidden]="workStartTime.valid || workStartTime.untouched">
+                                            <div *ngIf="workStartTime.errors && workStartTime.errors.pattern">
+                                                {{'validate-message.not-valid-format' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" calendar-icon1">
+                                    <div class="form-group">
+                                        <i class="glyphicon glyphicon-time timer-work-add" id="timepicker1"
+                                           (click)="openTimer(workStartTime,'timepicker1')"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 ">
+                                <div class="form-group">
+                                    <label>{{'AMS.end-time' | translate}}</label>
+                                    <input style="direction: ltr!important;" type="text" [disabled]="policyvalidate" name="workEndTime"
+                                           #workEndTime="ngModel"
+                                           [(ngModel)]="workTime.workEndTime" placeholder="00:00:00" required
+                                           pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                           maxlength=8 (ngModelChange)="formatTime($event,workEndTime,'workend')">
+                                    <div class="clearfix"></div>
+                                    <div class="error">
+                                        <div [hidden]="workEndTime.valid || workEndTime.untouched">
+                                            <div *ngIf="workEndTime.errors && workEndTime.errors.required">
+                                                {{'validate-message.end-time-required' | translate }}
+                                            </div>
+                                        </div>
+                                        <div [hidden]="workEndTime.valid || workEndTime.untouched">
+                                            <div *ngIf="workEndTime.errors && workEndTime.errors.pattern">
+                                                {{'validate-message.not-valid-format' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calendar-icon1">
+                                    <div class="form-group">
+                                        <i class="glyphicon glyphicon-time timer-work-add" id="timepicker2"
+                                           (click)="openTimer(workEndTime,'timepicker2')"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="form-group">
+                                    <label>{{'AMS.meal-start-time' | translate}}</label>
+                                    <input style="direction: ltr!important;" type="text" name="mealStartTime" #mealStartTime=ngModel
+                                           placeholder="00:00:00"
+                                           [(ngModel)]="workTime.mealStartTime" required
+                                           pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                           maxlength=8 (ngModelChange)="formatTime($event,mealStartTime,'mealstart')">
+                                    <div class="clearfix"></div>
+                                    <div class="error">
+                                        <div [hidden]="mealStartTime.valid || mealStartTime.untouched">
+                                            <div *ngIf="mealStartTime.errors && mealStartTime.errors.required">
+                                                {{'validate-message.start-time-is-required' | translate }}
+                                            </div>
+                                        </div>
+                                        <div [hidden]="mealStartTime.valid || mealStartTime.untouched">
+                                            <div *ngIf="mealStartTime.errors && mealStartTime.errors.pattern">
+                                                {{'validate-message.not-valid-format' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calendar-icon1 cal-icon-float">
+                                    <div class="form-group">
+                                        <i class="glyphicon glyphicon-time timer-work-add" id="timepicker3"
+                                           (click)="openTimer(mealStartTime,'timepicker3')"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 ">
+                                <div class="form-group">
+                                    <label>{{'AMS.meal-end-time' | translate}}</label>
+                                    <input style="direction: ltr!important;" type="text" name="mealEndTime" #mealEndTime=ngModel
+                                           [(ngModel)]="workTime.mealEndTime" placeholder="00:00:00" required
+                                           pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8
+                                           maxlength=8 (ngModelChange)="formatTime($event,mealEndTime,'mealend')">
+                                    <div class="clearfix"></div>
+                                    <div class="error">
+                                        <div [hidden]="mealEndTime.valid || mealEndTime.untouched">
+                                            <div *ngIf="mealEndTime.errors && mealEndTime.errors.required">
+                                                {{'validate-message.end-time-required' | translate }}
+                                            </div>
+                                        </div>
+                                        <div [hidden]="mealEndTime.valid || mealEndTime.untouched">
+                                            <div *ngIf="mealEndTime.errors && mealEndTime.errors.pattern">
+                                                {{'validate-message.not-valid-format' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calendar-icon1 cal-icon-float">
+                                    <div class="form-group">
+                                        <i class="glyphicon glyphicon-time timer-work-add" id="timepicker4"
+                                           (click)="openTimer(mealEndTime,'timepicker4')"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <div class="policy-container">
+                                <div *ngFor="let day of days">
+                                    <button class="manage-btn pull-right" (click)="getDayTime(day)">
+                                        {{day.dayfrom}}-{{day.dayto}} : {{day.time.starttime}}-{{day.time.endtime}}
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-footer">
+
+                        <button *ngIf="appService.hasAccessToWrite(5,15)" class="form-button-submit pull-right" (click)="updatePolicy(workTime)"
+                                [disabled]="!prepareworkTimeForm.valid">{{'AMS.execute' | translate}}
+                        </button>
+                        <button class="form-button-cancel pull-right" (click)="closeModal()" type="button">
+                            {{'AMS.cancel' | translate}}
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+
+                    <!--<div class="clearfix"></div>-->
+                    <!--<div class="form-footer" style="margin-top: 2%">-->
+                    <!--<button class="form-button-cancel pull-right" (click)="closeModal()" type="button">{{'AMS.cancel' | translate}}</button>-->
+                    <!--<div class="clear"></div>-->
+                    <!--</div>-->
+
+                </form>
+
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+            </div>
+        </div>
+    </div>
+</div>

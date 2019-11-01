@@ -1,0 +1,198 @@
+<div class="row" style="margin-left: 0px;margin-right: 0px">
+    <div class="col-sm-12" style="min-height: 500px">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 filter-elements">
+                        <p><span class="staff-header">{{'ALMS.department'|translate}}</span></p>
+                        <select name="department"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                #department required (change)="getSubDepartment(department.value)">
+                            <option value="0"  *ngIf="appService.currentLang=='en'" selected >{{'SELECT.select-department' | translate}}</option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" selected >{{'SELECT.select-department' | translate}}</option>
+                            <option *ngFor="let department of departmentList" [value]="department.id">
+                              <p value="0"  *ngIf="appService.currentLang=='en'" >   {{department.nameMultiLingual.map.en}} </p>
+                                <p value="0"  *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" > {{department.nameMultiLingual.map.fa}}</p>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 filter-elements">
+                        <p><span class="staff-header">{{'ALMS.sub-department'|translate}}</span></p>
+                        <select name="subdepartment"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                #subdepartment required [(ngModel)]="subDepartmentId">
+                            <option [ngValue]="undefined" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-sub-department' | translate}}</option>
+                            <option [ngValue]="undefined" selected *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important">{{'SELECT.select-sub-department' | translate}}</option>
+
+                            <option *ngFor="let subdepartment of subDepartmentList" [value]="subdepartment.id">
+                            <p *ngIf="appService.currentLang=='en'" > {{subdepartment.nameMultiLingual.map.en}} </p>
+                                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important"> {{subdepartment.nameMultiLingual.map.fa}} </p>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                                   style="direction: ltr!important;font-family:tw-regular!important;"
+                                   matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                                   [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myFromDate [startAt]="pickedFromDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements-cal"
+                         *ngIf="appService.currentCalendar=='jalali'">
+                        <p>
+                            <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                        </p>
+                        <div >
+                            <dp-date-picker
+                                    style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                    dir="rtl"
+                                    [(ngModel)]="pickedFromDate"
+                                    mode="day"
+                                    placeholder="تاریخ"
+                                    theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate" placeholder="{{toDate}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myToDate [startAt]="pickedToDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                        <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                        <div >
+                            <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                              dir="rtl"
+                                              [(ngModel)]="pickedToDate"
+                                              mode="day"
+                                              placeholder="تاریخ"
+                                              theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="execute(1);resetPage()">
+                                {{'shared.execute'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" *ngFor=" let alert of alertList; let i = index ">
+                <div class="subsidiary-box">
+                    <div class="fs-23 staff-header" style="margin-left: 0px;">
+                        <span class="header-number">{{(i + 1) + ((page-1) * perPage)}}</span>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="row" style="margin-left: 0px;margin-right: 0px">
+                            <div class="col-sm-10 inline-elements">
+                                <div class="row">
+
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.system'|translate}}</span>
+                                        <br>
+                                        <p>{{alert.module.name}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.department'|translate}}</span>
+                                        <br>
+                                        <p>{{alert.department.name}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.sub-department'|translate}}</span>
+                                        <br>
+                                        <p>{{alert.subdepartment.name}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.subject'|translate}}</span>
+                                        <br>
+                                        <p>{{alert.subject}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.etc-date-time'|translate}}</span>
+                                        <br>
+                                        <p *ngIf="appService.currentCalendar=='jalali'">{{alert.etcdatetimej}}</p>
+                                        <p *ngIf="appService.currentCalendar=='gregorian'">{{alert.etcdatetime}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.status'|translate}}</span>
+                                        <br>
+                                        <p class="translate" *ngIf="alert.status == 1">{{'ALMS.open'|translate}}</p>
+                                        <p class="translate" *ngIf="alert.status == 0">{{'ALMS.close'|translate}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.severity'|translate}}</span>
+                                        <br>
+                                        <p class="translate" *ngIf="alert.severity == 1">{{'ALMS.low'|translate}}</p>
+                                        <p class="translate" *ngIf="alert.severity == 2">{{'ALMS.medium'|translate}}</p>
+                                        <p class="translate" *ngIf="alert.severity == 3">{{'ALMS.high'|translate}}</p>
+                                    </div>
+                                    <div class="col-sm-3 inline-elements">
+                                        <span>{{'ALMS.owner'|translate}}</span>
+                                        <br>
+                                        <p>{{alert.owner.name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 inline-elements  " style="float: right;width: 14%">
+                                <button class="manage-btn pull-right" (click)="editTicket(alert)"
+                                        style="margin: 20px;width: 100%!important;">{{'shared.edit'|translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

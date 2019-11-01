@@ -1,0 +1,70 @@
+@import '../../AMS';
+.policy-container{
+    min-height: 8vw;
+    margin-top: 1.55vw;
+    padding: 0.2vw 0.5vw;
+    background: #0a2347;
+    text-transform: uppercase;
+    border: 1px solid #333;
+    span {
+        font-size: 1.5vw;
+        
+        color: #000;
+        background: #f9961e;
+        padding: 0.2vw 0.5vw;
+    }
+    .cross-btn{
+        cursor: pointer;
+        margin-top: 0.4vw;
+        position: relative;
+        top: 0.3vw;
+    }
+}
+.calendar-icon1{
+    top: 33px !important;
+    z-index: 100 !important;
+    float: right !important;
+    position: absolute!important;
+    right: 22px!important;
+}
+.col-sm-c-1{
+    padding-left: 0 !important;
+    width: 40.9%;
+    min-height: 1px;
+    float: left;
+    padding-right:15px;
+    position: relative;
+}
+.col-sm-c-2{
+    padding-left: 0 !important;
+    width: 18%;
+    min-height: 1px;
+    float: left;
+    position: relative;
+}
+.col-sm-c-01{
+    padding-left: 0 !important;
+    width: 30.9%;
+    min-height: 1px;
+    float: left;
+    padding-right: 8px;
+    position: relative;
+}
+.col-sm-c-0{
+    padding-left: 0 !important;
+    width: 9.9%;
+    min-height: 1px;
+    float: left;
+    padding-right:15px;
+    position: relative;
+}
+@media screen and (min-width: 1024px){
+    .policy-container{
+        height: 13.5vw;
+    }
+}
+@media screen and (max-width: 1024px){
+    .policy-container{
+        height: 15.6vw;
+    }
+}

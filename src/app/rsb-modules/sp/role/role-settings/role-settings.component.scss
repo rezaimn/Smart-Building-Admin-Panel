@@ -1,0 +1,30 @@
+@import '../../../organizations/OMS';
+.no-dept-availble {
+    text-align: center;
+    padding: 15%;
+    color: #fff;
+}
+.row{
+    margin: 0px!important;
+}
+.height-auto {
+    height: auto !important;
+}
+
+.manage-btn{
+    width: 100%!important;
+}
+
+.subsidiary-box{
+    background: #04142b;
+    text-transform: uppercase;
+    border: 0.1px solid #f9961e;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: auto;
+}
+.role-index{
+    color: $primary-clr;
+    font-size: 30px;
+}

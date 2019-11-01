@@ -1,0 +1,112 @@
+<div class="row" style="margin-left: 0px;margin-right: 0px">
+  <!--<div *ngIf="model.devicetypename == 'SPD' || model.devicetypename == 'TRM' || model.devicetypename == 'LTN'; else othertype">-->
+ 
+    <div class="col-lg-4 add-scenario-margin translatable-float-right">
+    <div class="form-group">
+      <label>{{'SP.output-type'|translate}}</label>
+      <select placeholder="DEVICE TYPE" [(ngModel)]="outputtypeid" name="outputtypeid" required #OutputType="ngModel" (change)="getOutputdevice()">
+                <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}-->
+                  <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                  <option *ngFor="let devicetype of outputtype" name="" [value]="devicetype.id">
+                    {{devicetype.name}}
+                </option>
+            </select>
+      <div class="error-message-display">
+        <div [hidden]="OutputType.valid || OutputType.untouched">
+          <div *ngIf="OutputType.errors && OutputType.errors.required">
+            {{'validate-message.output-type-required'|translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 add-scenario-margin translatable-float-right">
+    <div class="form-group">
+      <label>{{'SP.output-device'|translate}}</label>
+      <select placeholder="DEVICE TYPE" [(ngModel)]="outputdevice" name="outputdevice" required #OutputDevice="ngModel">
+                <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}-->
+                  <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                  <option *ngFor="let devicetype of outputdevices" name="" [value]="devicetype.id">
+                    {{devicetype.name}}
+                </option>
+            </select>
+      <div class="error-message-display">
+        <div [hidden]="OutputDevice.valid || OutputDevice.untouched">
+          <div *ngIf="OutputDevice.errors && OutputDevice.errors.required">
+            {{'validate-message.output-device-required'|translate}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 add-scenario-margin translatable-float-right" *ngIf="showOutputtext == false&&(outputtypeid==15||outputtypeid==14)">
+    <div class="form-group">
+      <label>{{'SP.output-value'|translate}}</label>
+      <select placeholder="DEVICE TYPE" [(ngModel)]="outputvalue" name="outputvalue1" required #OutputValue1="ngModel">
+        <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+        <option  *ngFor="let inpu of skStatus" name="" [value]="inpu.id">
+                    {{inpu.value}}
+                </option>
+
+            </select>
+      <div class="error-message-display">
+        <div [hidden]="OutputValue1.valid || OutputValue1.untouched">
+          <div *ngIf="OutputValue1.errors && OutputValue1.errors.required">
+            {{'validate-message.output-value-required'|translate}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 add-scenario-margin translatable-float-right" *ngIf="showOutputtext == false&&!(outputtypeid==15||outputtypeid==14)">
+    <div class="form-group">
+      <label>{{'SP.output-value'|translate}}</label>
+      <select placeholder="DEVICE TYPE" [(ngModel)]="outputvalue" name="outputvalue1" required #OutputValue1="ngModel">
+        <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+        <option  *ngFor="let inpu of inputSelections" name="" [value]="inpu.id">
+          {{inpu.value}}
+        </option>
+
+      </select>
+      <div class="error-message-display">
+        <div [hidden]="OutputValue1.valid || OutputValue1.untouched">
+          <div *ngIf="OutputValue1.errors && OutputValue1.errors.required">
+            {{'validate-message.output-value-required'|translate}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 translatable-float-right" *ngIf="showOutputtext == true">
+    <div class="form-group">
+      <label>{{'SP.output-mode'|translate}}</label>
+      <select placeholder="DEVICE TYPE" [(ngModel)]="outputvalue" name="ouputvalue2"  #OutputValue2="ngModel">
+        <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+        <option *ngFor="let inpu of inputHVACSelections" name="" [value]="inpu.id">
+                    {{inpu.name}}
+                </option>
+            </select>
+    </div>
+  </div>
+  <div>
+  </div>
+
+  <div class="col-lg-4 translatable-float-right" *ngIf="showOutputtext == true">
+    <div class="form-group">
+      <label>{{'SP.output-set-point'|translate}}</label>
+      <input class="frequency" type="text" [(ngModel)]="outputtextvalue" name="outname"  #OutputValue3="ngModel" >
+    </div>
+  </div>
+  <div class="pull-right delete-output" (click)="removeObject()" style="width: 0%"><i class="fa fa-close fa-add-device-close" style="font-size:32px;color:red"></i></div>
+
+  <div class="clearfix"></div>
+  <div>
+
+   
+  </div>
+
+
+</div>

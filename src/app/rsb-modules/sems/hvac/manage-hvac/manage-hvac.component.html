@@ -1,0 +1,147 @@
+<!-- manage hvac component -->
+<div class="row" style="margin-right: 0px;margin-left: 0px;">
+    <div class="col-sm-12 ">
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-sm-12">
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">{{'SEMS.campus' | translate}}</span></p>
+                    <select name="selectedCampus" #selectedCampus="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                            [(ngModel)]="selectedCampusId"
+                            aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                        <option value="0" >{{'SELECT.select-campus' | translate}}</option>
+                        <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                            <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                            <p *ngIf="appService.currentLang=='fa'">{{campus.name.map.fa}}</p>
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">{{'SEMS.building' | translate}}</span></p>
+                    <select name="selectedBuilding" #selectedBuilding="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                            [(ngModel)]="selectedBuildingId"
+                            aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+                        <option value="0" >{{'SELECT.select-building' | translate}}</option>
+                        <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                            <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                            <p *ngIf="appService.currentLang=='fa'">{{building.name.map.fa}}</p>
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">{{'SEMS.floor-level' | translate}}</span></p>
+                    <select name="selectedFloor" #selectedFloor="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                            [(ngModel)]="selectedFloorId"
+                            aria-placeholder="Select a Level / Floor" required >
+                        <option value="0" >{{'SELECT.select-floor' | translate}}</option>
+                        <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">
+                            <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                            <p *ngIf="appService.currentLang=='fa'">{{floor.levelName.map.fa}}</p>
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">{{'SEMS.working-status' | translate}}</span></p>
+                    <select name="selectedArea" #selectedArea="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                            [(ngModel)]="selectedAreaId"
+                            placeholder="Select a working status" required>
+                        <option value="0" >{{'SELECT.select-working-status' | translate}}</option>
+
+                        <option [ngValue]="1">{{'SELECT.in-service' | translate}}</option>
+                        <option [ngValue]="2">{{'SELECT.out-of-service' | translate}}</option>
+                        <option [ngValue]="3">{{'SELECT.all' | translate}}</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">&nbsp;</span></p>
+                    <div class="filter-area">
+                        <button class="execute-btn execute-btn-search" (click)="getHvacList()">{{'shared.execute' | translate}}</button>
+                    </div>
+                </div>
+                <div class="col-sm-2 filter-elements">
+                    <p><span class="staff-header">&nbsp;</span></p>
+                    <div class="filter-area">
+                        <button class="execute-btn execute-btn-search" (click)="editHvac(null,null)">{{'SEMS.edit-all' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" *ngIf="totalElements > size" >
+            <div class="col-sm-12" >
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('first')" ></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"  (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page+1}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage('last')" ></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-sm-12" *ngFor="let hvac of showList; let i = index ">
+            <div class="subsidiary-box mitoconnect-ui-listing-grid">
+                <div class="fs-23 staff-header">
+                    <span>{{i+1}}</span>
+                    <!-- <span>{{i+1}} {{ staff.employmentDetails.employeeId }}</span> -->
+                </div>
+
+
+                <div class="box-body">
+                    <div class="row">
+
+                        <div class="col-sm-3  inline-elements">
+                            <span>{{'SEMS.name' | translate}}</span>
+                            <p>{{hvac.devicename}}</p>
+                            <!-- <p>{{staff.firstName }} {{ cardHolder.lastName }}</p> -->
+                        </div>
+
+
+                        <div class="col-sm-2 inline-elements">
+                            <span>{{'SEMS.serial' | translate}}</span>
+                            <p>{{hvac.serialnumber}}</p>
+                        </div>
+                        <div class="col-sm-2  inline-elements">
+                            <span>{{'SEMS.temperature' | translate}}</span>
+                            <p>{{hvac.devicevalue}}ºC</p>
+                            <!-- <p>{{staff.cardNumber }}</p> -->
+                        </div>
+                        <div class="col-sm-2  inline-elements" >
+                            <img *ngIf="hvac.isProcessing" src="../../../../../assets/images/processing.svg" style="height: 50px" />
+                        </div>
+                        <div class="col-sm-2  inline-elements">
+
+                            <button [disabled]="hvac.isProcessing" class="manage-btn pull-right" (click)="editHvac(hvac,i)">{{'shared.edit' | translate}}</button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,161 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-3 input1">
+                  <p><span class="staff-header">{{'SSMS.campus' | translate}}</span></p>
+                  
+                  
+                  <select name="selectedCampus" #selectedCampus="ngModel"
+                          [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                          [(ngModel)]="selectedCampusId" aria-placeholder="'SSMS.campus' | translate" required (ngModelChange)="getAllBuildings($event)">
+                    <option value="0" *ngIf="appService.currentLang=='en'" >{{'SSMS.select-a-campus' | translate}}</option>
+                      <option value="0" *ngIf="appService.currentLang=='fa'">{{'SSMS.select-a-campus' | translate}}</option>
+                    <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                        <p *ngIf="appService.currentLang=='en'">{{campus.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{campus.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                  </select>
+              </div>
+              <div class="col-sm-3 input1">
+                <p><span class="staff-header">{{'SSMS.building' | translate}}</span></p>
+                <select name="selectedBuilding" #selectedBuilding="ngModel"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        [(ngModel)]="selectedBuildingId" aria-placeholder="'SSMS.select-building' | translate" required (ngModelChange)="getAllFloors()">
+                      <option  *ngIf="appService.currentLang=='en'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option  *ngIf="appService.currentLang=='fa'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                        <p *ngIf="appService.currentLang=='en'">{{building.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{building.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                    </select>
+                    
+              </div>
+              <div class="col-sm-2 input1">
+                  <p><span class="staff-header">{{'SSMS.floor-level' | translate}}</span></p>
+                  <select name="selectedFloor" #selectedFloor="ngModel"
+                          [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                          [(ngModel)]="selectedFloorId" aria-placeholder="'SSMS.select-floor' | translate" required>
+                      <option value="0" *ngIf="appService.currentLang=='en'" >{{'SELECT.select-floor' | translate}}</option>
+                      <option value="0" *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan" >{{'SELECT.select-floor' | translate}}</option>
+                    <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">
+                        <p *ngIf="appService.currentLang=='en'">{{floor.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{floor.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                      </select>
+                      
+                </div>
+              
+              
+                <div class="col-sm-4 input1">
+                  <p><span class="staff-header">&nbsp;</span></p>
+                  <div class="filter-area">
+                      <div class="col-sm-6 translatable-float-right">
+                          <button class="execute-btn execute-btn-search" (click)="getCameras()">{{'SSMS.execute' | translate}}</button>
+
+                      </div>
+                      <div class="col-sm-6">
+                          <button class="execute-btn execute-btn-search" *ngIf="camList" (click)="hideList()">{{'SSMS.view-camera' | translate}}</button>
+                          <button class="execute-btn execute-btn-search" *ngIf="!camList"  (click)="hideCam()">{{'SSMS.view-list' | translate}}</button>
+                      </div>
+
+                  </div>
+                </div>
+                
+              </div>
+             
+            </div>
+          </div>
+
+            <div class="row" *ngIf="totalRecordsCount > perPage">
+                <div class="col-sm-12">
+                    <div class="">
+                        <div class="filter">
+                            <div class="pagers surv-move-pager" style="margin-right: 4%">
+                                <ul>
+                                    <li>
+                                        <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('firstpage')" ></i>
+                                      </li>
+                                    
+                                    <li>
+                                        <i class="glyphicon glyphicon-menu-left filter-icon"
+                                           (click)="previouspage()"></i>
+                                    </li>
+                                    <li class="filter-int">
+                                        <span>{{firstpage}}</span>
+                                        <span>-</span>
+                                        <span>{{totalPages}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="glyphicon glyphicon-menu-right filter-icon" (click)="nextpage()"></i>
+                                    </li>
+
+                                    <li>
+                                        <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage1('firstpage')" ></i>
+                                      </li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          <div>
+          <div class="row" *ngIf="fileExist && !camList">
+            <div class="col-sm-4 surv-cam" *ngFor="let cam of cams">
+              <div class="cam"  >
+                  <img class="camera" #camera src="{{'http://' + cam.ipaddress }}" name="image">
+                  <span>  {{ cam.name }} </span>
+                  <a [href]="sanitize(cam.rtspaddress)" target="_blank"> Full Preview</a>
+                  <!--<button class="manage-btn pull-right" *ngIf="cam.type.indexOf(ptz) == -1">PTZ</button>-->
+              </div>
+              
+            </div>
+          
+        
+     </div >  
+          <div class="row" *ngIf="fileExist && camList">
+                <div class="col-sm-12" >
+                    <div class="subsidiary-box surv-sub-box" *ngFor="let cam of cams; let i = index">
+                         <div class="fs-23 staff-header">
+                             <span class="header-number">{{(perPage*(page-1))+i+1}}</span>
+                        </div>
+        
+                          <div class="box-body" >        
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="col-sm-4 inline-elements">
+                                  <span>{{'SSMS.name' | translate}}</span><br>
+                                  <p>{{ cam.name }}</p>
+                                </div>
+              
+                                <div class="col-sm-4 inline-elements">
+                                  <span>{{'SSMS.type' | translate}}</span><br>
+                                  <p>{{ cam.type }}</p>
+                                </div>
+              
+                                
+              
+                                <div class="col-sm-4 inline-elements">
+                                  <span>{{'SSMS.status' | translate}}</span><br>
+                                  <p class="status-success" *ngIf="cam.status == 1">{{'SSMS.type' | translate}}</p>
+                                  <p class="status-fail" *ngIf="cam.status == 2">{{'SSMS.out-of-service' | translate}}</p>
+                                  <p class="status-fail" *ngIf="cam.status == 3">{{'SSMS.faulty' | translate}}</p>
+                                  
+                                </div>
+              
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+            
+        </div>
+      </div>
+        
+      </div>
+
+</div>
+      

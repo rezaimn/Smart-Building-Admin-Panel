@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="worktime-box" *ngFor="let workTime of manageWorkTime;let i=index;">
+      <div class="box-header">
+        <h4>
+          <span class="index">{{i+1}}</span>
+          <span class="name">{{workTime.policyName}} <i *ngIf="workTime.isFirstDefault ===1" class="chip">Default</i></span>
+          
+        </h4>
+      </div>
+      <div class="box-body">
+        <div class="box-select">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="assigned{{i}}" id="" [checked]="workTime.isFirstAssisgned === 1" (click)="assignWorkTimePolicy(workTime,$event)" [disabled]="workTime.isFirstDefault ===1">
+              <span class="cr">
+                <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div class="box-aside">
+          <!-- <h4>work</h4> -->
+          <ul>
+            <li>
+              <span>work start time</span>
+              <p>{{workTime.workStartTime}}</p>
+            </li>
+            <li>
+              <span>work end time</span>
+              <p>{{workTime.workEndTime}}</p>
+            </li>
+            <li>
+              <span>work duration</span>
+              <p>{{workTime.workDuration}}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="box-aside">
+          <!-- <h4>meal</h4> -->
+          <ul>
+            <li>
+              <span>meal start time</span>
+              <p>{{workTime.mealStartTime}}</p>
+            </li>
+            <li>
+              <span>meal end time</span>
+              <p>{{workTime.mealEndTime}}</p>
+            </li>
+            <li>
+              <span>meal duration</span>
+              <p>{{workTime.mealDuration}}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+        <button class="default-btn" *ngIf="(workTime.isFirstAssisgned === 1 && workTime.isFirstDefault === 0)" (click)="makeDefaultWorkTimePolicy(workTime,$event)">mark as default</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="worktime-box default">
+  <div class="box-header">
+    <h4>
+      <span>1</span>shift 1
+    </h4>
+  </div>
+  <div class="box-body">
+    <div class="box-select">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="o3" value="">
+          <span class="cr">
+            <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="box-aside">
+      <h4>work</h4>
+      <ul>
+        <li>
+          <span>start</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>end</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>duration</span>
+          <p>09:30 am</p>
+        </li>
+      </ul>
+    </div>
+    <div class="box-aside">
+      <h4>meal</h4>
+      <ul>
+        <li>
+          <span>start</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>end</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>duration</span>
+          <p>09:30 am</p>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="worktime-box">
+  <div class="box-header">
+    <h4>
+      <span>1</span>shift 1
+    </h4>
+  </div>
+  <div class="box-body">
+    <div class="box-select">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="o2" value="">
+          <span class="cr">
+            <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="box-aside">
+      <h4>work</h4>
+      <ul>
+        <li>
+          <span>start</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>end</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>duration</span>
+          <p>09:30 am</p>
+        </li>
+      </ul>
+    </div>
+    <div class="box-aside">
+      <h4>meal</h4>
+      <ul>
+        <li>
+          <span>start</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>end</span>
+          <p>09:30 am</p>
+        </li>
+        <li>
+          <span>duration</span>
+          <p>09:30 am</p>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <button class="default-btn">mark as default</button>
+  </div>
+</div> -->

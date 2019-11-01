@@ -1,0 +1,203 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span>{{index}}</span>
+                <h2 *ngIf="mode=='new'">{{'OMS.add-subsidiary'|translate}}</h2>
+                <h2 *ngIf="mode=='edit'">{{'OMS.edit-subsidiary'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form action="" (ngSubmit)="onSubmit()" #prepareSubsidiaryForm="ngForm" method="post" autocomplete="off"
+                      novalidate="">
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-6">
+                            <label style="font-family: tw-regular!important;">SUBSIDIARY NAME</label>
+                            <input style="font-family: tw-regular!important;" type="text" name="subsidairyName" #subsidairyName="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.nameMultiLingual.map.en" required="true" placeholder="SUBSIDIARY NAME"
+                                   minlength="3" maxlength="50"/>
+                            <div class="error-message-display">
+                                <div [hidden]="subsidairyName.valid || subsidairyName.untouched">
+                                    <div *ngIf="subsidairyName.errors && subsidairyName.errors.required">
+                                       NAME IS REQUIRED
+                                    </div>
+                                </div>
+                                <div [hidden]="subsidairyName.valid || subsidairyName.untouched">
+                                    <div *ngIf="subsidairyName.errors && subsidairyName.errors.minlength">
+                                        MIN LENGTH IS 3
+                                    </div>
+                                </div>
+                                <!--<div [hidden]="subsidairyName.valid || subsidairyName.untouched">-->
+                                <!--<div *ngIf="subsidairyName.errors && subsidairyName.errors.pattern">-->
+                                <!--only Alphanumeric are allowed-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="form-group filter-elements col-lg-6">
+                            <label style="font-family: Yekan!important;float: right">نام </label>
+                            <input style="font-family: Yekan!important;direction: rtl" type="text" name="faSubsidairyName" #faSubsidairyName="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.nameMultiLingual.map.fa" required="true" placeholder="نام"
+                                   minlength="3" maxlength="50"/>
+                            <div class="error-message-display" style="font-family: Yekan!important;">
+                                <div [hidden]="faSubsidairyName.valid || faSubsidairyName.untouched">
+                                    <div *ngIf="faSubsidairyName.errors && faSubsidairyName.errors.required">
+                                        درج نام ضروری است
+                                    </div>
+                                </div>
+                                <div [hidden]="faSubsidairyName.valid || faSubsidairyName.untouched">
+                                    <div *ngIf="faSubsidairyName.errors && faSubsidairyName.errors.minlength">
+                                        درج حداقل 3 کاراکتر ضروری است
+                                    </div>
+                                </div>
+                                <!--<div [hidden]="subsidairyName.valid || subsidairyName.untouched">-->
+                                <!--<div *ngIf="subsidairyName.errors && subsidairyName.errors.pattern">-->
+                                <!--only Alphanumeric are allowed-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-12">
+                            <label style="font-family: tw-regular!important;">ADDRESS</label>
+                            <textarea style="font-family: tw-regular!important;" rows="3" name="subsidiaryAddress" #subsidiaryAddress="ngModel"
+                                      [(ngModel)]="prepareSubsidairy.addressMultiLingual.map.en" required="true" minlength="6"
+                                      maxlength="250"></textarea>
+                            <div class="error-message-display" style="right: auto; left: 5px;">
+                                <div [hidden]="subsidiaryAddress.valid || subsidiaryAddress.untouched">
+                                    <div *ngIf="subsidiaryAddress.errors && subsidiaryAddress.errors.required">
+                                        ADDRESS IS REQUIRED
+                                    </div>
+                                    <div *ngIf="subsidiaryAddress.errors && subsidiaryAddress.errors.minlength">
+                                        MIN LENGTH IS 6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-12">
+                            <label style="font-family: Yekan!important; right: 16px; left: auto;top: -31px;">آدرس</label>
+                            <textarea style="direction: rtl;font-family: Yekan!important;" rows="3" name="faSubsidiaryAddress" #faSubsidiaryAddress="ngModel"
+                                      [(ngModel)]="prepareSubsidairy.addressMultiLingual.map.fa" required="true" minlength="6"
+                                      maxlength="250"></textarea>
+                            <div class="error-message-display"  style="font-family: Yekan!important;">
+                                <div [hidden]="faSubsidiaryAddress.valid || faSubsidiaryAddress.untouched">
+                                    <div *ngIf="faSubsidiaryAddress.errors && faSubsidiaryAddress.errors.required">
+                                        درج آدرس ضروری است
+                                    </div>
+                                    <div *ngIf="faSubsidiaryAddress.errors && faSubsidiaryAddress.errors.minlength">
+                                        درج حداقل ۶ کاراکتر ضروری است
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-6">
+
+                            <label>CONTACT PERSON</label>
+                            <input class="" type="text" name="name" #personName="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.subsidiaryContactPersonNameMultiLingual.map.en" placeholder="CONTACT PERSON"
+                                   required="true" />
+                            <div class="error-message-display">
+                                <div [hidden]="personName.valid || personName.untouched">
+                                    <div *ngIf="personName.errors && personName.errors.required">
+                                       CONTACT PERSON NAME IS REQUIRED
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group filter-elements col-lg-6">
+
+                            <label style="font-family: Yekan!important;float: right;text-align:right!important; ">مسئول پشتیبانی</label>
+                            <input style="font-family: Yekan!important;direction: rtl" class="" type="text" name="name" #personName="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.subsidiaryContactPersonNameMultiLingual.map.fa" placeholder="مسئول پشتیبانی"
+                                   required="true" />
+                            <div class="error-message-display" style="font-family: Yekan!important;">
+                                <div [hidden]="personName.valid || personName.untouched">
+                                    <div *ngIf="personName.errors && personName.errors.required">
+                                        درج نام مسئول پشتیبانی ضروری است
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-12">
+                            <label>{{'OMS.phone'|translate}}</label>
+                            <input type="text" name="personMobile" [placeholder]="'OMS.phone'|translate" #personMobile="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.subsidiaryContactPersonMobile" minlength="10"
+                                   maxlength="10" pattern="^[0-9]+$" required/>
+                            <div class="error-message-display">
+                                <div [hidden]="personMobile.valid || personMobile.untouched">
+                                    <div *ngIf="personMobile.errors && personMobile.errors.required">
+                                        {{'validate-message.phone-required'|translate}}
+                                    </div>
+                                </div>
+                                <div [hidden]="personMobile.valid || personMobile.untouched">
+                                    <div *ngIf="personMobile.errors && personMobile.errors.minlength">
+                                        {{'validate-message.min-height10'|translate}}
+                                    </div>
+                                </div>
+                                <div [hidden]="personMobile.valid || personMobile.untouched">
+                                    <div *ngIf="personMobile.errors && personMobile.errors.pattern">
+                                        {{'validate-message.only-digits-allowed'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group filter-elements col-lg-12">
+                            <label>{{'OMS.email'|translate}}</label>
+                            <input style="font-family: tw-regular!important;direction: ltr!important;" type="email" name="personEmail"
+                                   placeholder="enter email ID" #personEmail="ngModel"
+                                   [(ngModel)]="prepareSubsidairy.subsidiaryContactPersonEmail" required="true"
+                                   pattern="^[a-zA-Z]+\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+                            <div class="error-message-display">
+                                <div [hidden]="personEmail.valid || personEmail.untouched">
+                                    <div *ngIf="personEmail.errors && personEmail.errors.required">
+                                        {{'validate-message.email-required'|translate}}
+                                    </div>
+                                </div>
+                                <div [hidden]="personEmail.valid || personEmail.untouched">
+                                    <div *ngIf="personEmail.errors && personEmail.errors.pattern">
+                                        {{'validate-message.email-pattern-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <button class="form-button-cancel pull-left" type="button" (click)="closeModal()">
+                            {{'shared.cancel'|translate}}
+                        </button>
+                        <button class="form-button-submit pull-right" *ngIf="appService.hasAccessToWrite(1,42)" [disabled]="!prepareSubsidiaryForm.form.valid">
+                            {{'shared.execute'|translate}}
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+
+            </div>
+        </div>
+    </div>
+</div>

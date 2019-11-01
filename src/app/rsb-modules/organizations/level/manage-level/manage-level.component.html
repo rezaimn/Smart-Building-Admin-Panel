@@ -1,0 +1,73 @@
+<div class="manage-level-container">
+    <div class="">
+        <div class="col-xs-3 floor-detail-container" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height+'px'">
+            <div *ngFor="let level of manageLevelList;let i=index">
+                <div class="single-floor" [ngClass]="{'active' : i===0}" id="singlefloor{{i}}" (click)="getFileDetail(level,$event)">
+                    <div class="floor-head">
+                        <span *ngIf="appService.currentLang=='en'">{{level.levelName.map.en}}</span>
+                        <span *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{level.levelName.map.fa}}</span>
+                        <span class="floor-head-number">{{i+1}}</span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="single-floor-inner-container">
+                        <div class="type-head">
+                            <h5>{{'OMS.type'|translate}}</h5>
+                        </div>
+                        <div class="type-description">
+                            <p *ngIf="appService.currentLang=='en'">{{level.levelType.map.en}}</p>
+                            <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{level.levelType.map.fa}}</p>
+                        </div>
+                        <div class="area-di-points">
+                            <span class="area-point-head">{{'OMS.areas'|translate}}</span>
+                            <span class="area-value">{{ level.childCount}}</span>
+                            <span class="di-point-head">{{'OMS.device-points'|translate}}</span>
+                            <span class="di-value">{{level.levelDiPoint}}</span>
+                        </div>
+                        <!-- <div class="action-button-container">
+                            <span class="icon-rubbish-bin" (click)="deleteLevel(level.id)"></span>
+                            <span class="icon-note-interface-symbol" (click)="editLevel(level,i+1)"></span>
+                            <button class="btn manage-button" routerLink="/rsb-modules/organization/space/area/manage/{{level.id}}" (click)="storeLevel(level)">MANAGE</button>
+                        </div> -->
+                        <div class="box-footer row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding: 3px!important;"><button *ngIf="appService.hasAccessToWrite(1,1)&&appService.spaceIsAvailable('LEVEL')" class="execute-btn exe-sm exe-block" (click)="deleteLevel(level.id)">{{'shared.delete'|translate}}</button></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding: 3px!important;"><button class="execute-btn exe-sm exe-block" (click)="editLevel(level,i+1)">{{'shared.edit'|translate}}</button></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding: 3px!important;"><button class="execute-btn exe-sm exe-block" routerLink="/rsb-modules/organization/space/area/manage" (click)="storeLevel(level)">{{'shared.manage'|translate}}</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-9 workspace" [style.height]="appService.layout_height-15+'px'">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="svg-area-map-container" [hidden]="addClicked==true" style="width: 100%; height: 62vh; border:1px solid black; overflow:hidden;" *ngIf="fileExist">
+                        <embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" style="width:inherit;height:inherit;" type="image/svg+xml">
+                        <!-- Adding custom contoll icons -->
+                        <div class="custom-pan-zoom-controlls">
+                            <!-- Zoom in icon -->
+                            <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                                <span class="icon-zoom-in"></span>
+                            </div>
+                            <!-- reset icon -->
+                            <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                                <span class="icon-crop-button"></span>
+                            </div>
+                            <!-- Zoom out icon -->
+                            <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                                <span class="icon-zoom-out"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="create-area-action" [hidden]="addClicked==true">
+                        <button class="btn create-area-button" (click)="navigateToCreateArea()">CREATE AREA</button>
+                    </div>-->
+                    <app-prepare-level [hidden]="addClicked==false" [prepareComponent]="prepareComponent" [fileData]="fileData"></app-prepare-level>
+
+                    <div *ngIf="this.manageLevelList.length==0">
+                        <h2 style="color: white">{{'OMS.no-area-available'|translate}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

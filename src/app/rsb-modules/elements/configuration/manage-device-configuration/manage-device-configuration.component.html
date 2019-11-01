@@ -1,0 +1,150 @@
+<div class="manage-area-container">
+    <div class="row">
+        <div class="col-md-12 ems-device-status-main-container">
+            <div class="col-md-3 filter-elements">
+                <label>{{'EMS.campus'|translate}}</label>
+                <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                    <option value="0" *ngIf="appService.currentLang=='en'" >{{'SELECT.select-campus' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" >{{'SELECT.select-campus' | translate}}</option>
+                    <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                        <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;" >{{campus.name.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 filter-elements">
+                <label>{{'EMS.building'|translate}}</label>
+                <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" class="select-dropdowns area-filters" name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId" aria-placeholder="building / structure" required (ngModelChange)="getAllFloors()">
+                    <option value="0" *ngIf="appService.currentLang=='en'" >{{'SELECT.select-building' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{'SELECT.select-building' | translate}}</option>
+                    <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                        <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{building.name.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 filter-elements">
+                <label>{{'EMS.floor-level'|translate}}</label>
+                <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="Select a Level / Floor" required>
+                    <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;">{{'SELECT.select-floor' | translate}}</option>
+                    <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">
+                        <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan!important;">{{floor.levelName.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 filter-elements">
+                <button class="execute-btn find-floor-button" (click)="getFileDetail()">{{'shared.execute'|translate}}</button>
+            </div>
+        </div>
+        <div class="col-md-12 workspace" *ngIf="fileExist1">
+            <div class="col-md-9 no-padding-right map-area">
+                <div #dataContainer class="svg-area-map-container">
+                    <!--<img src="/src/assets/images/loading.svg"/>-->
+                    <embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" class="svg-map-style" type="image/svg+xml">
+                    
+                    <div class="custom-pan-zoom-controlls" *ngIf="fileExist">
+                    
+                        <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                            <span class="icon-zoom-in"></span>
+                        </div>
+                    
+                        <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                            <span class="icon-crop-button"></span>
+                        </div>
+                    
+                        <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                            <span class="icon-zoom-out"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-access-point-container">
+                    <ul>
+                        <li *ngFor="let ip of manageDeviceList;let i=index">
+                            <div class="create-access-point">
+                                <span [ngStyle]="{ 'background-color' : ip.deviceColor }">{{ip.deviceCode}}{{i+1}}</span>
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+                <div class="tooltip-container" *ngIf="tipActive" [style.left]="tipX+'px'" [style.top]="tipY+'px'">
+                    <div class="tooltip-head">
+                        <h6>{{deviceData.point.deviceCode}}{{deviceData.index + 1}}</h6>
+                        <button style="height: 25px" (click)="deleteConfig()" *ngIf="appService.hasAccessToWrite(2,6)" >{{'shared.delete'|translate}}</button>
+                        <button style="height: 25px" (click)="editConfig();">{{'shared.edit'|translate}}</button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="tooltip-desc">
+                        <ul>
+                            <li><span>{{'EMS.type'|translate}}</span>
+                                <p>{{configList[0].type_name }}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.sub-type'|translate}}</span>
+                                <p>{{configList[0].sub_type_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.brand'|translate}}</span>
+                                <p>{{configList[0].brand_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.model'|translate}}</span>
+                                <p>{{configList[0].model_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.serial-no'|translate}}</span>
+                                <p>{{configList[0].serial_no}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.ip-address'|translate}}</span>
+                                <p style="word-break: break-all">{{configList[0].ip_address}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>{{'EMS.installation-label'|translate}}</span>
+                                <p>{{configList[0].installation_label}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 manage-area-container-list" *ngIf="areaExist && !addDeviceDetail" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <ul >
+                    <li *ngFor="let area of areaDropdownList;let i=index" class="active">
+                        <div class="area-list-conatiner single-device" style="padding: 0px!important;" (click)="showArea(area,$event)">
+                            <div class="row area-tile">
+                                <div class="col-md-1 col-lg-1 area-serial" [style.color]="area.color">
+                                    A{{i+1}}
+                                </div>
+                                <div class="col-md-10 col-lg-10 area-desc">
+                                    <div class="area-name-head">
+                                        {{'EMS.area-name'|translate}}
+                                    </div>
+                                    <div class="area-name-value">
+                                        <p *ngIf="appService.currentLang=='en'">{{area.name.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan">{{area.name.map.fa}}</p>
+                                    </div>
+                                    <div class="area-code-head">
+                                        {{'EMS.area-code'|translate}}
+                                    </div>
+                                    <div class="area-code-value">
+                                        {{area.code}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="scroll-ems-config">
+                <div  class="col-md-3 slide-menu-container" *ngIf="addDeviceDetail" [ngClass]="{'animateSlider':addDeviceDetail}" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                    <app-device-point [deviceData]="deviceData"></app-device-point>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

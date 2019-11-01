@@ -1,0 +1,48 @@
+<div class="main-container row" *ngIf="entityTypeList.length > 0;then dataBlock else emptyTextBlock">
+</div>
+<br>
+
+<ng-template #dataBlock>
+    <br>
+
+    <div class="wrapper col-lg-6 col-md-6" *ngFor="let type of entityTypeList; let i = index">
+        <div class="subsidiary-box height-auto">
+            <div class="box-header">
+
+            </div>
+            <div class="role-content-wrapper">
+                <!-- first row -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-9 col-md-9 no-padding-left box-elements" style="margin-top: 16px">
+                            <div class="col-lg-12 col-md-12 role-name">
+                                <span class="sub-head">{{'SP.type-name'|translate}}</span>
+                                <span class="main-text" style="padding-left: 20px!important;
+                                padding-right: 20px!important;font-family: tw-regular"> {{ type}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 box-elements" style="margin-top: 16px">
+                            <div class="role-box-footer pull-right" style="width: 100%">
+
+                                <div class="col-lg-12 col-md-12 pull-right" style="padding: 3px">
+                                    <button class="manage-btn pull-right" (click)="editTypeEntity(type)" style="width: 100%" >
+                                        {{'shared.edit'|translate}}
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #emptyTextBlock>
+    <div class="role-box">
+        <div class="no-dept-availble fs-23">
+            {{'OMS.no-role-available'|translate}}
+        </div>
+    </div>
+</ng-template>
+

@@ -1,0 +1,62 @@
+@import '../../../OMS';
+.create-form {
+    padding: 6px 70px 40px;
+    position: relative;
+    span.number-index {
+        color: #f9961e;
+        font-size: 5em;
+        position: absolute;
+        left: 0;
+        top: -10px;
+        width: 70px;
+        text-align: center;
+    }
+    label {
+        font-size: 30px;
+        color: #f9961e;
+        position: relative;
+        top: 0;
+    }
+    input {
+        height: 46px;
+    }
+    .form-group {
+        margin-bottom: 30px;
+        .split-input {
+            span {
+                color: $primary-clr;
+                font-size: 22px;
+                display: block;
+            }
+            input {
+                position: relative;
+                width: 140px;
+                float: left;
+            }
+            i {
+                position: relative;
+                font-size: 27px;
+                padding: 0 10px;
+                font-style: normal;
+                color: $primary-clr;
+                line-height: 46px;
+                float: left;
+                cursor: pointer;
+            }
+        }
+    }
+    .form-footer {
+        margin-top: 50px;
+        width: 200px;
+    }
+}
+
+.error {
+    color: #f00;
+    position: absolute;
+    bottom: -20px;
+    right: 80px;
+    z-index: 9999;
+    text-align: right;
+}
+

@@ -1,0 +1,114 @@
+<div class="row" style="    margin-right: 0px;
+    margin-left: 0px;">
+    <div class="col-sm-12" *ngIf="models.length>0">
+        <!--
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="">
+            <div class="filter">
+                <div class="pagers">
+                    <ul>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left-d filter-icon"  ></i>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-left filter-icon"  ></i>
+                        </li>
+                        <li class="filter-int">
+                          <span>1</span>
+                          <span>-</span>
+                          <span>5</span>    
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right filter-icon" ></i>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-menu-right-d filter-icon" ></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      
+      <div class="row" *ngFor="let model of models; let i= index">
+            <div class="col-sm-12">
+                <div class="subsidiary-box ">
+                     <div class="fs-23 staff-header">
+                         <span class="header-number">{{i+1}}</span>
+                    </div>
+    
+                      <div class="box-body">        
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="col-sm-2 inline-elements">
+                              <span></span><br>
+                             <!-- <p>APPLICATION DATABASE</p>-->
+                             <p>{{model.type}}</p>
+                            </div>
+
+                            <div class="col-sm-3 inline-elements">
+                                <span>{{'SP.name'|translate}}</span><br>
+                                <p>{{model.dbname}}</p>
+                              </div>
+                            <div class="col-sm-7 inline-elements  pull-right">
+                      
+                              <button  class="manage-btn pull-right" (click)="editDb(model)">{{'shared.edit'|translate}}</button>
+               
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+        
+    </div>
+    <!--
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="subsidiary-box ">
+               <div class="fs-23 staff-header">
+                   <span class="header-number">2</span>
+              </div>
+
+                <div class="box-body">        
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="col-s-1 inline-elements">
+                        <span></span><br>
+                        <p>DEVICE DATABASE</p>
+                      </div>
+
+                      <div class="col-s-2 inline-elements">
+                          <span>URL</span><br>
+                          <p>RSBDBDEVICE</p>
+                        </div>
+                      
+                          
+        
+                      <div class="col-s-6 inline-elements btns pull-right">
+                
+                        <button class="manage-btn pull-right" (click)="editDb(db)">EDIT</button>
+         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+  
+</div>-->
+
+
+    
+    
+    
+  </div>
+
+    <!--<div *ngIf="models.length==0">-->
+        <!--<h2 style="text-align: center;color: white;">No data to show</h2>-->
+    <!--</div>-->
+
+</div>
+  

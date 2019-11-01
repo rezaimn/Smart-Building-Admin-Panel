@@ -1,0 +1,66 @@
+@import '../../_variables';
+.verification {
+    width: 800px;
+    margin: 0 auto;
+    display: table;
+    height: 100%;
+    .verification-content {
+        display: table-cell;
+        vertical-align: top;
+        height: 100%;
+        width: 100%;
+        img {
+            width: 300px;
+            display: block;
+            margin: 200px 0 10px;
+        }
+        h1 {
+            color: #23da78;
+        }
+        p {
+            color: #fff;
+            font-size: 15px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            letter-spacing: 1px;
+            text-transform: none;
+            span {
+                position: relative;
+                top: -7px;
+                font-size: 8px;
+            }
+        }
+    }
+    .verification-error-content {
+        display: table-cell;
+        vertical-align: top;
+        height: 100%;
+        width: 100%;
+        img {
+            width: 300px;
+            display: block;
+            margin: 200px auto 200px;
+        }
+        h1 {
+            color: $primary-clr;
+            font-size: 20em; // padding:40px 0;
+        }
+        h4 {
+            color: #ff2727;
+            font-size: 3em;
+            border: 2px solid;
+            border-radius: 100px;
+        }
+        p {
+            color: #fff;
+            font-size: 15px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            letter-spacing: 1px;
+            text-transform: none;
+            span {
+                position: relative;
+                top: -7px;
+                font-size: 8px;
+            }
+        }
+    }
+}

@@ -1,0 +1,386 @@
+<div class="manage-area-container">
+    <div class="row" style="margin-left: 0px;
+    margin-right: 0px;">
+        <div class="col-md-12 ems-device-status-main-container">
+            <div class="col-md-3 parking-form-float-right">
+                <label> {{'SPMS.campus' | translate}}</label>
+                <select class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        [(ngModel)]="selectedCampusId"  required
+                        (ngModelChange)="getAllBuildings($event)">
+                    <option value="0" *ngIf="appService.currentLang=='en'" >{{'SSMS.select-a-campus' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'" >{{'SSMS.select-a-campus' | translate}}</option>
+                    <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                        <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'">{{campus.name.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 parking-form-float-right">
+                <label> {{'SPMS.building' | translate}}</label>
+                <select class="select-dropdowns area-filters" name="selectedBuilding" #selectedBuilding="ngModel"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        [(ngModel)]="selectedBuildingId"  required
+                        (ngModelChange)="getAllFloors()">
+                    <option  *ngIf="appService.currentLang=='en'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option  *ngIf="appService.currentLang=='fa'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                        <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" >{{building.name.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 parking-form-float-right">
+                <label> {{'SPMS.floor-level' | translate}}</label>
+                <select class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        [(ngModel)]="selectedFloorId"  id="selectedFloor"
+                        required>
+                    <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-floor' | translate}}</option>
+                    <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">
+                        <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" >{{floor.levelName.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3 parking-form-float-right">
+                <button class="execute-btn find-floor-button" (click)="getFloorInfo()" style="font-size: 18px;width: 100%!important;height: 35px" [disabled]="selectedFloorId==0"> {{'SPMS.execute' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12 workspace" *ngIf="fileExist">
+            <div class="container-fluid">
+                <div class="parking-area">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="parkings-container"  *ngIf="p1!=null">
+                                <p class="designation">{{ p1.areaName }}</p>
+                                <!--<p class="designation" *ngIf="p1.reserved">{{ p1.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p1.reserved" style="margin-top: 9.5vw!important;">{{ p1.staffDesignation }}</p>
+                                <div class="parkings" (click)="p1.reserved ? openModalE(p1) : openModalNew(p1)">
+                                    <img draggable="false" *ngIf="p1.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p1.occupied, 'light' : !p1.occupied ,'light-grey' : p1.deviceId < 0}"></p>
+                            </div>
+                            <!-- <div class="parkings-container">
+                               <p class="designation" >{{ p2.areaName }}</p><br>
+                               <p class="designation" *ngIf="p2.reserved">{{ p2.reservationBy }}</p><br>
+                                <p class="designation" *ngIf="p2.reserved">{{ p2.staffDesignation }}</p>
+
+                                    <div class="parkings" (click)="p2.occupied ? openModalE() : openModalNew(p2)">
+                                        <img draggable="false" *ngIf="p2.occupied" src="../../../../../../assets/images/parking/car-top.png"  alt="">
+                                    </div>
+
+                                <p [ngClass]="{'light-red-top' : p2.occupied, 'light' : !p2.occupied, 'light-grey' : p2.deviceId < 0 }"></p>
+                            </div> -->
+                            <div class="parkings-container"  *ngIf="p2!=null">
+                                <p class="designation">{{ p2.areaName }}</p>
+                                <!--<p class="designation" *ngIf="p2.reserved">{{ p2.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p2.reserved " style="margin-top: 9.5vw!important;">{{ p2.staffDesignation }}</p>
+                                <div class="parkings" (click)="p2.reserved ? openModalE(p2) : openModalNew(p2)">
+                                    <img draggable="false" *ngIf="p2.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p2.occupied, 'light' : !p2.occupied, 'light-grey' : p2.deviceId < 0 }"></p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p3!=null">
+                                <p class="designation">{{ p3.areaName }}</p>
+                                <!-- <p class="designation" *ngIf="p3.reserved">{{ p3.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p3.reserved" style="margin-top: 9.5vw!important;"> {{ p3.staffDesignation }}</p>
+                                <div class="parkings" (click)="p3.reserved ? openModalE(p3) : openModalNew(p3)">
+                                    <img draggable="false" *ngIf="p3.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p3.occupied, 'light' : !p3.occupied, 'light-grey' : p3.deviceId < 0 }"></p>
+                            </div>
+
+                            <div class="parkings-container"  *ngIf="p4!=null">
+                                <p class="designation">{{ p4.areaName }}</p>
+                                <!-- <p class="designation" *ngIf="p4.reserved">{{ p4.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p4.reserved" style="margin-top: 9.5vw!important;">{{ p4.staffDesignation }}</p>
+                                <div class="parkings" (click)="p4.reserved ? openModalE(p4) : openModalNew(p4)">
+                                    <img draggable="false" *ngIf="p4.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p4.occupied, 'light' : !p4.occupied, 'light-grey' : p4.deviceId < 0 }"></p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p5!=null">
+                                <p class="designation">{{ p5.areaName }}</p>
+                                <!-- <p class="designation" *ngIf="p5.reserved">{{ p5.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p5.reserved" style="margin-top: 9.5vw!important;">{{ p5.staffDesignation }}</p>
+                                <div class="parkings" (click)="p5.reserved ? openModalE(p5) : openModalNew(p5)">
+                                    <img draggable="false" *ngIf="p5.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p5.occupied, 'light' : !p5.occupied, 'light-grey' : p5.deviceId < 0 }"></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="parkings-container"  *ngIf="p6!=null">
+                                <p class="designation">{{ p6.areaName }}</p>
+                                <p class="designation" *ngIf="p6.reserved">{{ p6.staffDesignation }}</p>
+                                <p class="designation" *ngIf="p6.reserved" style="margin-top: 9.5vw!important;">{{ p6.staffDesignation }}</p>
+                                <div class="parkings" (click)="p6.reserved ? openModalE(p6) : openModalNew(p6)">
+                                    <img draggable="false" *ngIf="p6.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p6.occupied, 'light' : !p6.occupied, 'light-grey' : p6.deviceId < 0 }"></p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p7!=null">
+                                <p class="designation">{{ p7.areaName }}</p>
+                                <!-- <p class="designation" *ngIf="p7.reserved">{{ p7.reservationBy }}</p> -->
+                                <p class="designation" *ngIf="p7.reserved" style="margin-top: 9.5vw!important;">{{ p7.staffDesignation }}</p>
+                                <div class="parkings" (click)="p7.reserved ? openModalE(p7) : openModalNew(p7)">
+                                    <img draggable="false" *ngIf="p7.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p [ngClass]="{'light-red-top' : p7.occupied, 'light' : !p7.occupied, 'light-grey' : p7.deviceId < 0 }"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row"  *ngIf="p8!=null" style="margin-top: 20px">
+                        <div class="col-xs-2 col-xs-offset-8 ">
+                            <p [ngClass]="{'light-side-red' : p8.occupied, 'light-side' : !p8.occupied, 'light-side-grey' : p16.deviceId < 0  }"
+                               class="pull-right"></p>
+                        </div>
+                        <div class="col-xs-2 ">
+                            <div class="parkings-side" (click)="p8.reserved ? openModalE(p8) : openModalNew(p8)">
+                                <img draggable="false" *ngIf="p8.occupied"
+                                     src="../../../../../../assets/images/parking/car-routated.png" alt="">
+                            </div>
+                            <p class="designation-right">{{ p8.areaName }}</p>
+                            <!-- <p class="designation-right" *ngIf="p8.reserved">{{ p8.reservationBy }}</p> -->
+                            <p class="designation-right" *ngIf="p8.reserved" style="left: -9.5vw;top: -4vw;">{{ p8.staffDesignation }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row"  *ngIf="p9!=null">
+                        <div class="col-xs-2 col-xs-offset-8 ">
+                            <p [ngClass]="{'light-side-red' : p9.occupied, 'light-side' : !p9.occupied,'light-side-grey' : p16.deviceId < 0 }"
+                               class="pull-right"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="parkings-side" (click)="p9.reserved ? openModalE(p9) : openModalNew(p9)">
+                                <img draggable="false" *ngIf="p9.occupied"
+                                     src="../../../../../../assets/images/parking/car-routated.png" alt="">
+                            </div>
+                            <p class="designation-right">{{ p9.areaName }}</p>
+                            <!-- <p class="designation-right" *ngIf="p9.reserved">{{ p9.reservationBy }}</p> -->
+                            <p class="designation-right" *ngIf="p9.reserved" style="left: -9.5vw;top: -4vw;">{{ p9.staffDesignation }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-sm-7">
+                            <div class="parkings-container"  *ngIf="p16!=null">
+                                <p  style="margin-bottom:7px!important;" [ngClass]="{'light-red' : p16.occupied,'light': !p16.occupied, 'light-grey' : p16.deviceId < 0}"></p>
+                                <div class="parkings" style="border-color: #c81ef9!important; z-index:10;"
+                                     (click)="p16.reserved ? openModalE(p16) : openModalNew(p16)">
+                                    <img draggable="false" *ngIf="p16.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p16.areaName }}</p>
+                                <p class="designation-visitor">VISITOR</p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p10!=null">
+                                <p style="margin-bottom:7px!important;" [ngClass]="{'light-red' : p10.occupied, 'light' : !p10.occupied , 'light-grey' : p10.deviceId < 0}"></p>
+                                <div class="parkings" (click)="p10.reserved ? openModalE(p10) : openModalNew(p10)">
+                                    <img draggable="false" *ngIf="p10.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p10.areaName }}</p>
+                                <!--<p class="designation-bottom" *ngIf="p10.reserved">{{ p10.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p10.reserved">{{ p10.staffDesignation }}</p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p11!=null">
+                                <p style="margin-bottom:7px!important;"  [ngClass]="{'light-red' : p11.occupied, 'light' : !p11.occupied, 'light-grey' : p11.deviceId < 0 }"></p>
+                                <div class="parkings" (click)="p11.reserved ? openModalE(p11) : openModalNew(p11)">
+                                    <img draggable="false" *ngIf="p11.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p11.areaName }}</p>
+                                <!--<p class="designation-bottom" *ngIf="p11.reserved">{{ p11.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p11.reserved" >{{ p11.staffDesignation }}</p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p12!=null">
+                                <p style="margin-bottom:7px!important;" [ngClass]="{'light-red' : p12.occupied, 'light' : !p12.occupied, 'light-grey' : p12.deviceId < 0 }"></p>
+                                <div class="parkings" (click)="p12.reserved ? openModalE(p12) : openModalNew(p12)">
+                                    <img draggable="false" *ngIf="p12.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p12.areaName }}</p>
+                                <!-- <p class="designation-bottom" *ngIf="p12.reserved">{{ p12.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p12.reserved" >{{ p12.staffDesignation }}</p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p13!=null">
+                                <p style="margin-bottom:7px!important;" [ngClass]="{'light-red' : p13.occupied, 'light' : !p13.occupied, 'light-grey' : p13.deviceId < 0 }"></p>
+                                <div class="parkings" (click)="p13.reserved ? openModalE(p13) : openModalNew(p13)">
+                                    <img draggable="false" *ngIf="p13.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p13.areaName }}</p>
+                                <!-- <p class="designation-bottom" *ngIf="p13.reserved">{{ p13.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p13.reserved">{{ p13.staffDesignation }}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="parkings-container"  *ngIf="p14!=null">
+                                <p style="margin-bottom:7px!important;"   [ngClass]="{'light-red' : p14.occupied, 'light' : !p14.occupied ,'light-grey' : p14.deviceId < 0}"></p>
+                                <div class="parkings" (click)="p14.reserved ? openModalE(p14) : openModalNew(p14)">
+                                    <img draggable="false" *ngIf="p14.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p14.areaName }}</p>
+                                <!-- <p class="designation-bottom" *ngIf="p14.reserved">{{ p14.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p14.reserved">{{ p14.staffDesignation }}</p>
+                            </div>
+                            <div class="parkings-container"  *ngIf="p15!=null">
+                                <p style="margin-bottom:7px!important;" [ngClass]="{'light-red' : p15.occupied, 'light' : !p15.occupied , 'light-grey' : p15.deviceId < 0}"></p>
+                                <div class="parkings" (click)="p15.reserved ? openModalE(p15) : openModalNew(p15)">
+                                    <img draggable="false" *ngIf="p15.occupied"
+                                         src="../../../../../../assets/images/parking/car-top.png" alt="">
+                                </div>
+                                <p class="designation-bottom">{{ p15.areaName }}</p>
+                                <!-- <p class="designation-bottom" *ngIf="p15.reserved">{{ p15.reservationBy }}</p> -->
+                                <p class="designation-bottom" *ngIf="p15.reserved">{{ p15.staffDesignation }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="parking-guide" >
+                    <div class="row " >
+                        <div class="legend"
+                             style="height: 12px;width: 12px;
+                             background-color: #f9961e;
+                             float: left;margin-top: 4px;
+                             margin-right: 5px">
+
+                        </div>
+                        <p style="color:  #f9961f;margin-bottom: 2px">
+                            {{'SPMS.staff' | translate}}
+                        </p>
+                    </div>
+                    <div class="row ">
+                        <div class="legend"  style="height: 12px;width: 12px;background-color: #c81ef9;float: left;margin-top: 4px;margin-right: 5px"></div>
+                        <p style="color:  #f9961f;margin-bottom: 2px"> {{'SPMS.visitor' | translate}}</p></div>
+                    <div class="row "><div class="legend" style="height: 12px;width: 12px;background-color: #1eb80b;border-radius: 50%;float: left;margin-top: 4px;margin-right: 5px"></div>
+                        <p style="color:  #f9961f;margin-bottom: 2px"> {{'SPMS.vacant' | translate}}</p></div>
+                    <div class="row "><div class="legend" style="height: 12px;width: 12px;background-color: #cf0d01;border-radius: 50%;float: left;margin-top: 4px;margin-right: 5px"></div>
+                        <p style="color:  #f9961f;margin-bottom: 2px"> {{'SPMS.occupied' | translate}}</p></div>
+
+                    <!--<img draggable="false" src="../../../../../../assets/images/parking/parking-right-bottom.png" alt="">-->
+
+                </div>
+
+            </div>
+
+
+            <!-- <div class="col-md-9 no-padding-right map-area">
+                <div #dataContainer class="svg-area-map-container">
+                    <embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" class="svg-map-style" type="image/svg+xml">
+
+                    <div class="custom-pan-zoom-controlls" *ngIf="fileExist">
+
+                        <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                            <span class="icon-zoom-in"></span>
+                        </div>
+
+                        <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                            <span class="icon-crop-button"></span>
+                        </div>
+
+                        <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                            <span class="icon-zoom-out"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-access-point-container">
+                    <ul>
+                        <li *ngFor="let ip of manageDeviceList;let i=index">
+                            <div class="create-access-point">
+                                <span [ngStyle]="{ 'background-color' : ip.deviceColor }">{{ip.deviceCode}}{{i+1}}</span>
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+                <div class="tooltip-container" *ngIf="tipActive" [style.left]="tipX+'px'" [style.top]="tipY+'px'">
+                    <div class="tooltip-head">
+                        <h6>{{deviceData.point.deviceCode}}{{deviceData.index + 1}}</h6>
+                        <button>DELETE</button>
+                        <button (click)="editConfig()">EDIT</button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="tooltip-desc">
+                        <ul>
+                            <li><span>type</span>
+                                <p>{{configList[0].type_name }}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>subtype</span>
+                                <p>{{configList[0].sub_type_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>brand</span>
+                                <p>{{configList[0].brand_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>model</span>
+                                <p>{{configList[0].model_name}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>serial no</span>
+                                <p>{{configList[0].serial_no}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>ip address</span>
+                                <p>{{configList[0].ip_address}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li><span>installation label</span>
+                                <p>{{configList[0].installation_label}}</p>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 manage-area-container-list" *ngIf="areaExist && !addDeviceDetail" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <ul class="light">
+                    <li *ngFor="let area of areaDropdownList;let i=index" class="active">
+                        <div class="area-list-conatiner single-device" (click)="showArea(area,$event)">
+                            <div class="row area-tile">
+                                <div class="col-md-1 col-lg-1 area-serial" [style.color]="area.color">
+                                    A{{i+1}}
+                                </div>
+                                <div class="col-md-10 col-lg-10 area-desc">
+                                    <div class="area-name-head">
+                                        <span>Area Name</span>
+                                    </div>
+                                    <div class="area-name-value">
+                                        {{area.name}}
+                                    </div>
+                                    <div class="area-code-head">
+                                        Area Code
+                                    </div>
+                                    <div class="area-code-value">
+                                        {{area.code}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 slide-menu-container" *ngIf="addDeviceDetail" [ngClass]="{'animateSlider':addDeviceDetail}" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <app-device-point [deviceData]="deviceData"></app-device-point>
+                <div class="clearfix"></div>
+            </div> -->
+
+        </div>
+    </div>
+</div>

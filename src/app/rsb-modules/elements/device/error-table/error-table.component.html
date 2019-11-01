@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <h3 class="holiday-header" style="color: #c72d2a">{{'EMS.errors-count' |
+                    translate}}: {{errorData.registeredDeviceCount}}</h3>
+                <h3 class="holiday-header" style="color: #05a814">{{'EMS.success-count' |
+                    translate}}: {{errorData.unregisteredRows.length}}</h3>
+                <h3 class="holiday-header">{{'EMS.bulk-add-errors' | translate}}</h3>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body" style="height: 500px" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <div class="row" style="margin-left: 0px;margin-right: 0px">
+                    <div class="col-sm-12" style="padding: 0px">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered"
+                                       [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-sm-2">{{'EMS.row-id' | translate}}</th>
+                                        <th class="col-sm-10">{{'EMS.message' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let error of errorData.unregisteredRows">
+                                        <td style="color: #f9961e">{{error.rowId}}</td>
+                                        <td style="color: #c62d2a">{{error.message}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="bottom: 65px;padding: 0px 70px 0px;width: 100%;margin-top: 15px">
+                <div class="form-footer" style="width: 100%;">
+                    <button class="form-button-cancel pull-right" type="button" (click)="closeModal()" tabindex="4">
+                        {{'shared.close'|translate}}
+                    </button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="powered-by" >
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+
+            </div>
+        </div>
+    </div>
+</div>

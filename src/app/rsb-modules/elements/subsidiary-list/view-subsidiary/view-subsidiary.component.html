@@ -1,0 +1,46 @@
+<div class="">
+    <div class="col-md-3 subsidiary-grid translatable-float-right" *ngFor="let subsidiary of subsidiaries; let i = index">
+        <div class="subsidiary-box">
+            <div class="box-header">
+                <h4>
+                    <!-- <span>{{i + 1}}</span>{{ subsidiary.name }}</h4> -->
+                    <span class="index " style="font-family:tw-regular !important; ">{{i+1}}</span>
+                    <span style="font-family: tw-regular !important; padding-bottom: 5px" class="name" *ngIf="appService.currentLang=='en'">{{ subsidiary.name.map.en }}</span>
+                    <span style="padding-bottom: 5px;font-family: Yekan!important;" class="name" *ngIf="appService.currentLang=='fa'" >{{subsidiary.name.map.fa}}</span>
+                    <div class="clearfix"></div>
+                </h4>
+            </div>
+            <div class="box-body">
+                <div class="block-elements">
+                    <span *ngIf="appService.currentLang=='en'" style="text-align: left!important;">{{'subsidiary.address' | translate}}</span>
+                    <span *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan;text-align: right!important;">{{'subsidiary.address' | translate}}</span>
+                    <p class="shrink-line" *ngIf="appService.currentLang=='en'" style="text-align: left!important;direction: ltr!important;">{{ subsidiary.address.map.en }}.</p>
+                    <p class="shrink-line" *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan;text-align: right!important;">{{ subsidiary.address.map.fa }}.</p>
+                </div>
+                <div class="clear"></div>
+                <div class="inline-elements">
+                    <span class="width-controller-campus">{{'subsidiary.campus-count' | translate}}</span>
+                    <p>{{ subsidiary.childCount }} </p>
+
+                    <h6 class="translatable">{{'subsidiary.contact-person' | translate}}</h6>
+                    <span class="width-controller">{{'subsidiary.name' | translate}}</span>
+                    <p *ngIf="appService.currentLang=='en'">{{ subsidiary.subsidiaryContactPersonName.map.en }} </p>
+                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;direction: rtl!important;;text-align: right!important;">{{ subsidiary.subsidiaryContactPersonName.map.fa }} </p>
+                    <div class="clear"></div>
+                    <span class="translatable width-controller">{{'subsidiary.phone' | translate}}</span>
+                    <p>{{ subsidiary.subsidiaryContactPersonMobile }}</p>
+
+                    <div class="clear"></div>
+                    <span class="width-controller-email">{{'subsidiary.email' | translate}}</span>
+                    <p>{{ subsidiary.subsidiaryContactPersonEmail }}</p>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="box-footer ">
+                <button class="manage-btn pull-right" (click)="storeSubsidiary(subsidiary)">{{'subsidiary.select' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

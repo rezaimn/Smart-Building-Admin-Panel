@@ -1,0 +1,55 @@
+@import '../../../OMS';
+.worktime-box {
+    position: relative;
+    background: #04142b; // @include angle-gradient(rgba(3, 15, 26, 0), rgba(18, 78, 151, 0.3), -180deg);
+    text-transform: uppercase;
+    padding: 10px;
+    margin-bottom: 15px;
+    height: auto;
+    border: 1px solid $primary-clr;
+}
+.golden-heading{
+    color: $primary-clr;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.grade-heading {
+    padding-left: 30px;
+}
+.convey-text {
+    font-size: 14px;
+}
+.add-padding-left {
+    padding-left: 30px;
+}
+.no-allowance-availble{ 
+    // padding: 50%;
+    text-align: center;
+    // padding: 14%;
+    color: $primary-clr;    
+}
+.create-btn {
+    position: absolute;
+    right: 30px;
+    top: 40px;
+    // font-weight: 600;
+    // font-size: 18px;
+    // padding: 3px 20px;
+    // background: transparent;
+    // border: 1px solid $primary-clr;
+    // color: $primary-clr;
+    // text-transform: uppercase;
+    // &:hover,
+    // &:active,
+    // &:focus {
+    //     -webkit-box-shadow: 0px 0px 10px 2px $primary-clr;
+    //     -moz-box-shadow: 0px 0px 10px 2px $primary-clr;
+    //     box-shadow: 0px 0px 10px 2px $primary-clr;
+    //     transition-duration: .5s;
+    //     transition-timing-function: ease-in-out;
+    // }
+}
+.grade-policy-main-container{
+    min-height: 35vh;    
+}

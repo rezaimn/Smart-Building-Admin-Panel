@@ -1,0 +1,89 @@
+<div class="row" style="    margin-left: 0;
+    margin-right: 0;">
+
+    <div class="col-sm-4 input1 filter-elements">
+        <p><span class="staff-header">{{'SPAS.access-group' | translate}}</span></p>
+        <div>
+            <input name="search" [placeholder]="'SPAS.access-group' | translate" [(ngModel)]="accessGroupName"
+                   required class="dob-field">
+        </div>
+    </div>
+    <div class="col-sm-3 filter-elements">
+        <p><span class="staff-header">&nbsp;</span></p>
+        <div class="filter-area">
+            <button class="execute-btn execute-btn-search" (click)="getAllAccessGroups()">{{'shared.execute'|translate}}</button>
+        </div>
+    </div>
+    <br>
+    <div class="row" *ngIf="totalRecordsCount > perPage" style="margin: 0px">
+        <div class="col-sm-12">
+            <div class="">
+                <div class="filter">
+                    <div class="pagers">
+                        <ul>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                   (click)="setPage('first')"></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left filter-icon"
+                                   (click)="setPage('previous')"></i>
+                            </li>
+                            <li class="filter-int">
+                                <span>{{page+1}}</span>
+                                <span>-</span>
+                                <span>{{totalPages}}</span>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                   (click)="setPage('last')"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix" style="margin-bottom: 10px"></div>
+    <div class="col-md-12 manage-visitor-margin" *ngFor="let accessGroup of accessGroups; let i = index" style="margin-right: 0;margin-left: 0 ; margin-top: 5px">
+        <div class="subsidiary-box mitoconnect-ui-listing-grid">
+
+            <div class="clearfix"></div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div *ngIf="appService.currentLang=='en'" class="col-md-6 inline-elements translatable-float-right">
+                        <h4 class="access-edit-titles" style="color:#f9961e ;margin-bottom: 5px!important;">{{'SEMS.name'|translate}}</h4>
+                        <p>{{accessGroup?.name?.map?.en}}</p>
+                    </div>
+                    <div *ngIf="appService.currentLang=='fa'" class="col-md-6 inline-elements translatable-float-right" style="font-family: Yekan!important;">
+                        <h4 class="access-edit-titles" style="color:#f9961e;margin-bottom: 5px!important ">{{'SEMS.name'|translate}}</h4>
+                        <p >{{accessGroup?.name?.map?.fa}}</p>
+                    </div>
+                    <!--<div *ngIf="appService.currentLang=='en'" class="col-md-4 inline-elements translatable-float-right">-->
+                        <!--<h4 class="access-edit-titles" style="color:#f9961e ;margin-bottom: 5px!important">TIME SCHEDULE</h4>-->
+                    <!--</div>-->
+                    <!--<div *ngIf="appService.currentLang=='en'" class="col-md-4 inline-elements">-->
+                    <!--<p>{{accessGroup.timeschedule.map.en}}</p>-->
+                    <!--</div>-->
+                    <!--<div *ngIf="appService.currentLang=='fa'" class="col-md-4 inline-elements" style="font-family: Yekan!important;">-->
+                    <!--<p>{{accessGroup.timeschedule.map.fa}}</p>-->
+                    <!--</div>-->
+                    <div class="col-md-6 inline-elements">
+                        <button class="manage-btn pull-right "style="margin-right: 5px" (click)="deleteAccessGroup(accessGroup)" *ngIf="appService.hasAccessToWrite(3,9)">  {{'shared.delete'|translate}}</button>
+                        <button class="manage-btn pull-right" style="margin-right: 5px" *ngIf="appService.hasAccessToWrite(3,9)" (click)="editAccessGroup(accessGroup)">  {{'shared.edit'|translate}}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+  

@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form" style="padding: 0px 40px 70px!important;height: 700px"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+            <div class="prepare-form-head">
+
+                <h2 *ngIf="mode=='new'">{{'SPAS.new-access-level' | translate}}</h2>
+                <h2 *ngIf="mode=='edit'">{{'SPAS.edit-access-level' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+
+            <div class="prepare-form-body">
+                <div class="view-staff-overlay">
+                    <form #accessLevelForm="ngForm">
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="col-md-4 filter-elements">
+                                <div class="form-group">
+                                    <span style="font-family: tw-regular!important;font-size: 14px">ACCESS LEVEL NAME</span>
+                                    <input type="text" name="name" style="font-family: tw-regular!important;direction: ltr!important;"
+                                           #accessLevelName="ngModel"
+                                           [(ngModel)]="prepareAccessLevel.name.map.en"
+                                           required="true" minlength="3"
+                                           maxlength="50"
+                                    >
+
+                                    <div class="error-message-display" style="right: auto ; left: 15px;font-family: tw-regular!important;">
+                                        <div [hidden]="accessLevelName.valid || accessLevelName.untouched">
+                                            <div *ngIf="accessLevelName.errors && accessLevelName.errors.required">
+                                                ACCESS LEVEL NAME REQUIRED
+                                            </div>
+                                        </div>
+                                        <div [hidden]="accessLevelName.valid || accessLevelName.untouched">
+                                            <div *ngIf="accessLevelName.errors && accessLevelName.errors.minlength">
+                                                MIN LENGTH IS 3
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 filter-elements">
+                                <div class="form-group">
+                                    <span style="font-family: Yekan!important;  float: right;font-size: 14px">نام سطح دسترسی</span>
+                                    <input style="direction: rtl;font-family: Yekan!important;" type="text"
+                                           name="faname"
+                                           #faAccessLevelName="ngModel"
+                                           [(ngModel)]="prepareAccessLevel.name.map.fa"
+                                           required="true" minlength="3"
+                                           maxlength="50"
+                                    >
+                                    <div class="error-message-display"
+                                         style="font-family: Yekan!Important;margin-right: 20px;margin-bottom: 5px">
+                                        <div [hidden]="faAccessLevelName.valid || faAccessLevelName.untouched">
+                                            <div *ngIf="faAccessLevelName.errors && faAccessLevelName.errors.required">
+                                                درج نام سطح دسترسی ضروری است
+                                            </div>
+                                        </div>
+                                        <div [hidden]="faAccessLevelName.valid || faAccessLevelName.untouched">
+                                            <div *ngIf="faAccessLevelName.errors && faAccessLevelName.errors.minlength">
+                                                درج حداقل ۳ کاراکتر ضروری است
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4 filter-elements">
+                                <div class="form-group">
+                                    <label>{{'SELECT.select-time-schedule' | translate}}</label>
+                                    <select name="timeSchedule" #timeSchedule="ngModel" [(ngModel)]="selectedTSId" style="margin-top: -4px;"
+                                            [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                             required>
+                                        <option value="0" selected readonly>{{'SELECT.select-time-schedule' | translate}}</option>
+                                        <option *ngFor="let TS of timeSchedules;" [ngValue]="TS.id" [style.font-family]="(appService.currentLang=='fa'&& TS?.name?.map?.fa!='')?'Yekan':'tw-regular'">
+                                            <p *ngIf="appService.currentLang=='en'">{{TS?.name?.map?.en}}</p>
+                                            <p *ngIf="appService.currentLang=='fa'&& TS?.name?.map?.fa!=''">{{TS?.name?.map?.fa}}</p>
+                                            <p *ngIf="appService.currentLang=='fa'&& TS?.name?.map?.fa==''">{{TS?.name?.map?.en}}</p>
+                                        </option>
+                                    </select>
+                                    <div class="error-message-display">
+                                        <div [hidden]="timeSchedule.valid || timeSchedule.untouched">
+                                            <div *ngIf="timeSchedule.errors && timeSchedule.errors.required">
+                                                {{'validate-message.time-schedule-required' | translate}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div *ngFor="let AC of accessComponents;let i=index" class="col-lg-4 col-sm-6"
+                                 style="margin-bottom: 5px;padding-right: 5px!important;padding-left: 5px!important;">
+
+                                <div class="col-lg-12 " *ngIf="appService.currentLang=='en'">
+                                    <input class="col-lg-2" [name]="'component'+i" [ngModel]="AC.hasAccess"
+                                           (change)="setAccessComponents(i)" type="checkbox"
+                                           style="height: 20px;">
+                                    <label class="col-lg-10" style="top: 4px;" (click)="setAccessComponents(i)">{{AC.name.map.en}}</label>
+
+                                </div>
+                                <div class="" *ngIf="appService.currentLang=='fa'">
+                                    <label class="col-lg-10" style="top: 4px;" *ngIf="AC.name.map.fa==''" (click)="setAccessComponents(i)">{{AC?.name?.map?.en}}</label>
+                                    <label class="col-lg-10" style="top: 4px;font-family: Yekan!important;" *ngIf="AC.name.map.fa!=''" (click)="setAccessComponents(i)">{{AC?.name?.map?.fa}}</label>
+                                    <input class="col-lg-2" [name]="'component'+i" [ngModel]="AC.hasAccess"
+                                           (change)="setAccessComponents(i)" type="checkbox"
+                                           style="height: 20px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="clearfix"></div>
+                        <div class="form-footer pull-right row"
+                             style="width: 100%;margin-top: 20px!important;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 visitor-list-btn" style="float: right">
+                                <div class="col-lg-6 visitor-list-btn-float" style="float: right;width: 50%">
+                                    <button _ngcontent-c7="" *ngIf="appService.hasAccessToWrite(3,9)" type="button"
+                                            class="form-button-submit floating-bnt" style="width: 100%"
+                                            (click)="addUpdateAccessLevel()" [disabled]="!accessLevelForm.valid"
+                                    >{{'SPAS.execute' | translate}}
+                                    </button>
+                                </div>
+                                <div class="col-lg-6 visitor-list-btn" style="float: left;width: 50%">
+                                    <button _ngcontent-c7="" class="form-button-cancel floating-bnt" type="button"
+                                            style="width: 100%"
+                                            (click)="closeModal()">{{'SPAS.cancel' | translate}}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="clear "></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+
+                    </form>
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="powered-by" style="right: 30px!important;">
+            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+        </div>
+    </div>
+</div>

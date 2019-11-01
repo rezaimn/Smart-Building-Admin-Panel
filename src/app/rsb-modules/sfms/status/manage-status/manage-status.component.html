@@ -1,0 +1,152 @@
+<div class="row">
+	<div class="col-md-12 ems-device-status-main-container">
+		<div class="col-md-2">
+			<label>CAMPUS</label>
+			<select class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId"
+				aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                  <option value="0" >{{'SELECT.select-campus' | translate}}</option>
+                  <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">{{campus.name}}</option>
+                </select>
+		</div>
+		<div class="col-md-2">
+			<label>BUILDING</label>
+			<select class="select-dropdowns area-filters" name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId"
+				aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+                  <option value="0" >{{'SELECT.select-building' | translate}}</option>
+                  <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">{{building.name}}</option>
+                </select>
+		</div>
+		<div class="col-md-3">
+			<label>FLOOR / LEVEL</label>
+			<select class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel" [(ngModel)]="selectedFloorId"
+				aria-placeholder="Select a Level / Floor" required (ngModelChange)="getAreaByFloor($event)">
+                  <option value="0" >{{'SELECT.select-floor' | translate}}</option>
+                  <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">{{floor.levelName}}</option>
+                </select>
+		</div>
+		<div class="col-md-3">
+			<label>AREAS</label>
+			<select class="select-dropdowns area-filters" name="selectedArea" #selectedArea="ngModel" [(ngModel)]="selectedAreaId"
+				aria-placeholder="Select an Area" required>
+				  <option value="0">{{'SELECT.all-areas' | translate}}</option>
+                  <option *ngFor="let area of areaDropdownList;" [ngValue]="area.id">{{area.name}}</option>
+                </select>
+		</div>
+		<div class="col-md-2">
+			<button class="execute-btn find-floor-button" (click)="renderFloorDetails()">{{'SFMS.execute' | translate}}</button>
+			<!--getAllAreas-->
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="col-md-9 no-padding" *ngIf="mapPresent">
+			<div class="svg-area-map-container">
+				<embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" style="width:inherit;height:inherit;" type="image/svg+xml">
+				<!-- Adding custom contoll icons -->
+				<div class="custom-pan-zoom-controlls">
+					<!-- Zoom in icon -->
+					<div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+						<span class="icon-zoom-in"></span>
+					</div>
+					<!-- reset icon -->
+					<div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+						<span class="icon-crop-button"></span>
+					</div>
+					<!-- Zoom out icon -->
+					<div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+						<span class="icon-zoom-out"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3" *ngIf="mapPresent">
+			<div class="panel-group" id="devices-status-accordion">
+
+				<!-- ACTIVE ALARMS Start -->
+				<div id="ems-device-aa-status" class="panel panel-default ems-device-ip-op-status-accordion invert-brd">
+					<div class="panel-heading">
+						<h2 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#devices-status-accordion" href="#ems-input-device-status">ACTIVE ALARMS<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+						</h2>
+					</div>
+					<div id="ems-input-device-status" class="panel-collapse collapse in">
+						<div class="active-alarms-output-devices-class">
+							<div class="single-alarm-inner-container">
+								<div class="device-type">
+									<h4>Gas Detector</h4>
+								</div>
+								<div class="device-id">
+									<h5><span class="label no-padding">ID: </span> GDP6</h5>
+								</div>
+								<div class="location">
+									<h5><span class="label no-padding">Location: </span> C1/B3/F5/A13</h5>
+								</div>
+							</div>
+							<div class="single-alarm-inner-container">
+								<div class="device-type">
+									<h4>Gas Detector</h4>
+								</div>
+								<div class="device-id">
+									<h5><span class="label no-padding">ID: </span> GDP6</h5>
+								</div>
+								<div class="location">
+									<h5><span class="label no-padding">Location: </span> C1/B3/F5/A13</h5>
+								</div>
+							</div>
+							<div class="single-alarm-inner-container">
+								<div class="device-type">
+									<h4>Gas Detector</h4>
+								</div>
+								<div class="device-id">
+									<h5><span class="label no-padding">ID: </span> GDP6</h5>
+								</div>
+								<div class="location">
+									<h5><span class="label no-padding">Location: </span> C1/B3/F5/A13</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ACTIVE ALARMS End -->
+
+				<!-- ACTIVE OUTPUT DEVICES Start -->
+				<div class="panel panel-default ems-device-ip-op-status-accordion invert-brd">
+					<div class="panel-heading">
+						<h2 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#devices-status-accordion" href="#ems-output-device-status">ACTIVE OUTPUT DEVICES<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+						</h2>
+					</div>
+					<div id="ems-output-device-status" class="panel-collapse collapse">
+						<div class="active-alarms-output-devices-class">
+							<div class="single-od-inner-container">
+								<div class="device-type">
+									<h4>Gas Detector</h4>
+								</div>
+								<div class="device-id">
+									<h5><span class="label no-padding">ID: </span> GDP6</h5>
+								</div>
+								<div class="location">
+									<h5><span class="label no-padding">Location: </span> C1/B3/F5/A13</h5>
+								</div>
+							</div>
+							<div class="single-od-inner-container">
+								<div class="device-type">
+									<h4>Water Sprinkler</h4>
+								</div>
+								<div class="device-id">
+									<h5><span class="label no-padding">ID: </span> WS6</h5>
+								</div>
+								<div class="location">
+									<h5><span class="label no-padding">Location: </span> C1/B3/F5/A13</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ACTIVE OUTPUT DEVICES End -->
+
+			</div>
+
+		</div>
+	</div>
+</div>

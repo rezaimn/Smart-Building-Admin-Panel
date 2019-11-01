@@ -1,0 +1,436 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2 *ngIf="addAlert == 1">{{'ALMS.add-alert-list'|translate}} </h2>
+                <h2 *ngIf="addAlert == 0">{{'ALMS.edit-alert-list'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form #addAlertForm="ngForm">
+                    <div class="row">
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.name'|translate}}</label>
+                                <input type="text" name="name"
+                                       placeholder="{{alertData.name}}"
+                                       value="{{alertData.name}}" [(ngModel)]="alertData.name"
+                                       #Name="ngModel" required
+                                >
+                                <div class="error-message-display">
+                                    <div [hidden]="Name.valid || Name.untouched">
+                                        <div *ngIf="Name.errors && Name.errors.required">
+                                            {{'validate-message.name-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.campus'|translate}}</label>
+                                <select name="campus" #Campus="ngModel" required (change)="getBuilding(Campus.value)"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        [(ngModel)]="alertData.campusid">
+                                    <option value="0" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-campus' | translate}}</option>
+                                    <option value="0" selected *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-campus' | translate}}</option>
+                                    <option *ngFor="let campus of campusList" [value]="campus.id">
+                                        <p *ngIf="appService.currentLang=='en'" >{{campus.nameMultiLingualMap.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" >{{campus.nameMultiLingualMap.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Campus.valid || Campus.untouched">
+                                        <div *ngIf="Campus.errors && Campus.errors.required">
+                                            {{'validate-message.campus-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.building'|translate}}</label>
+                                <select name="building" #Building="ngModel" required (change)="getFloor(Building.value)"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        [(ngModel)]="alertData.buildingid">
+                                    <option value="0" selected  *ngIf="appService.currentLang=='en'">{{'SELECT.select-building' | translate}}</option>
+                                    <option value="0" selected  *ngIf="appService.currentLang=='fa'">{{'SELECT.select-building' | translate}}</option>
+                                    <option *ngFor="let building of buildingList" [value]="building.id">
+                                        <p *ngIf="appService.currentLang=='en'">{{building.nameMultiLingualMap.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'">{{building.nameMultiLingualMap.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Building.valid || Building.untouched">
+                                        <div *ngIf="Building.errors && Building.errors.required">
+                                            {{'validate-message.building-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.floor'|translate}}</label>
+                                <select name="floor" #Floor="ngModel" required (change)="getArea(Floor.value)"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        [(ngModel)]="alertData.floorid">
+                                    <option value="0" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-floor' | translate}}</option>
+                                    <option value="0" selected *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-floor' | translate}}</option>
+                                    <option *ngFor="let floor of floorList" [value]="floor.id">
+                                        <p *ngIf="appService.currentLang=='en'" >{{floor.nameMultiLingualMap.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" >{{floor.nameMultiLingualMap.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Floor.valid || Floor.untouched">
+                                        <div *ngIf="Floor.errors && Floor.errors.required">
+                                            {{'validate-message.floor-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.area'|translate}}</label>
+                                <select name="area" #Area="ngModel" required [(ngModel)]="alertData.areaid"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        (change)="getDeviceType(Area.value)">
+                                    <option value="0" selected  >{{'SELECT.select-area' | translate}}</option>
+
+                                    <option *ngFor="let area of areaList" [value]="area.id">
+                                     <p *ngIf="appService.currentLang=='en'">{{area.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'">{{area.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Area.valid || Area.untouched">
+                                        <div *ngIf="Area.errors && Area.errors.required">
+                                            {{'validate-message.area-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.system'|translate}}</label>
+                                <select name="system" #System="ngModel" required [(ngModel)]="alertData.moduleid">
+                                    <option value="0" selected >{{'SELECT.select-system' | translate}}</option>
+                                    <option *ngFor="let system of systemList" [value]="system.id">{{system.name}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="System.valid || System.untouched">
+                                        <div *ngIf="System.errors && System.errors.required">
+                                            {{'validate-message.system-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.device-type'|translate}}</label>
+                                <select name="device" #Device="ngModel" required [(ngModel)]="alertData.devicetypeid"
+                                        (change)="getSubDeviceType(Device.value, alertData.areaid)">
+                                    <option value="0" selected >{{'SELECT.select-device-type' | translate}}</option>
+                                    <option *ngFor="let device of deviceList" [value]="device.id">{{device.name}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Device.valid || Device.untouched">
+                                        <div *ngIf="Device.errors && Device.errors.required">
+                                            {{'validate-message.device-type-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.device-name'|translate}}</label>
+                                <select name="subdevice" #Subdevice="ngModel" required [(ngModel)]="alertData.deviceid">
+                                    <option value="0" selected >{{'SELECT.select-device-name' | translate}}</option>
+                                    <option *ngFor="let subdevice of subDeviceList" [value]="subdevice.id">
+                                        {{subdevice.name}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Subdevice.valid || Subdevice.untouched">
+                                        <div *ngIf="Subdevice.errors && Subdevice.errors.required">
+                                            {{'validate-message.device-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 pull-left only-for-admin" style="margin-bottom: 30px;">
+                            <div class="form-group">
+                                <input class="checkbox-check" type="checkbox" name="only-admin" [(ngModel)]="sendOnlyForAdmin"  style="width: 20px;height: 20px;float: left"
+                                      >
+                                <label class="checkbox-label" style="margin-left: 20px;
+    margin-top: 2px;">{{'ALMS.send-for-admin'|translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!sendOnlyForAdmin">
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.department'|translate}}</label>
+                                <select name="department" #Department="ngModel"   [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"  required
+                                        (change)="getSubDepartment(Department.value)"
+                                        [(ngModel)]="alertData.departmentid">
+                                    <option value="0" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-department' | translate}}</option>
+                                    <option value="0" selected *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-department' | translate}}</option>
+                                    <option *ngFor="let department of departmentList" [value]="department.id">
+                                      <p *ngIf="appService.currentLang=='en'">{{department.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'">{{department.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Department.valid || Department.untouched">
+                                        <div *ngIf="Department.errors && Department.errors.required">
+                                            {{'validate-message.department-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.sub-department'|translate}}</label>
+                                <select name="subdepartment" #Subdepartment="ngModel" required [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        (change)="getStaffs(Subdepartment.value)"
+                                        [(ngModel)]="alertData.subdepartmentid">
+                                    <option value="0" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-sub-department' | translate}}</option>
+                                    <option value="0" selected *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-sub-department' | translate}}</option>
+                                    <option *ngFor="let subdepartment of subDepartmentList" [value]="subdepartment.id">
+                                        <p *ngIf="appService.currentLang=='en'" >{{subdepartment.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" >{{subdepartment.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Subdepartment.valid || Subdepartment.untouched">
+                                        <div *ngIf="Subdepartment.errors && Subdepartment.errors.required">
+                                            {{'validate-message.sub-department-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'ALMS.staff'|translate}}</label>
+                                <select name="staff" #Staff="ngModel" required [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" [(ngModel)]="staffData">
+                                    <option value="0" selected *ngIf="appService.currentLang=='en'" >{{'SELECT.select-staff' | translate}}</option>
+                                    <option value="0" selected *ngIf="appService.currentLang=='fa'" >{{'SELECT.select-staff' | translate}}</option>
+                                    <option *ngFor="let staff of staffList" [ngValue]="staff">
+                                        <p *ngIf="appService.currentLang=='en'" >{{staff.nameMultiLingual.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" >{{staff.nameMultiLingual.map.fa}}</p>
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="Staff.valid || Staff.untouched">
+                                        <div *ngIf="Staff.errors && Staff.errors.required">
+                                            {{'validate-message.staff-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 submit-form-element">
+
+                            <button *ngIf="staffIsSelected" class="manage-btn pull-right" (click)="updateStaff(staffData)"
+                                    style="margin-top: 25px;width: 100%!important;">
+                                {{'shared.update'|translate}}
+                            </button>
+
+                            <button  *ngIf="!staffIsSelected" class="manage-btn pull-right" (click)="addStaff(staffData)"
+                                    style="margin-top: 25px;width: 100%!important;">
+                                {{'shared.add'|translate}}
+                            </button>
+                            <button *ngIf="appService.hasAccessToWrite(4,12)" class="manage-btn pull-right" (click)="deleteStaff(staffData)"
+                                    style="margin-top: 25px;width: 100%!important;">
+                                {{ 'ALMS.delete' | translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 alms-staff-list" style="float: left;width: 50%">
+                            <div class="row">
+                                <div class="col-lg-6" style="float: left;width: 50%">
+
+                                    <div class="form-group">
+                                        <label>{{'ALMS.etc-hours'|translate}}</label>
+                                        <input type="text" maxlength="2" name="hours" placeholder="00"
+                                               [(ngModel)]="alertData.etchours"
+                                               #Hour="ngModel" required pattern="\d|1\d|2[0-3]">
+                                        <div class="error-message-display">
+                                            <div [hidden]="Hour.valid || Hour.untouched">
+                                                <div *ngIf="Hour.errors && Hour.errors.required">
+                                                    {{'validate-message.hour-required'|translate}}
+                                                </div>
+                                            </div>
+                                            <div [hidden]="Hour.valid || Hour.untouched">
+                                                <div *ngIf="Hour.errors && Hour.errors.maxlength">
+                                                    {{'validate-message.hour-max-length'|translate}}
+                                                </div>
+                                            </div>
+                                            <div [hidden]="Hour.valid || Hour.untouched">
+                                                <div *ngIf="Hour.errors && Hour.errors.pattern">
+                                                    {{'validate-message.hour-pattern'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style="  margin-top: 30px;float: right;    width: 50%;">
+                                    <div class="form-group">
+                                        <input class="checkbox-check" type="checkbox" [checked]="popupx" style="width: 20px;height: 20px;float: left"
+                                               (change)="popupx = !popupx">
+                                        <label class="checkbox-label" style="margin-left: 20px;
+    margin-top: 2px;">{{'ALMS.pop-up'|translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6" style="float: left;width: 50%">
+                                    <div class="form-group">
+                                        <label>{{'ALMS.etc-minutes'|translate}}</label>
+                                        <input type="text" maxlength="2" name="minutes" placeholder="00"
+                                               [(ngModel)]="alertData.etcminutes"
+                                               #Minute="ngModel" required pattern="\d|5\d|9">
+                                        <div class="error-message-display">
+                                            <div [hidden]="Minute.valid || Minute.untouched">
+                                                <div *ngIf="Minute.errors && Minute.errors.required">
+                                                    {{'validate-message.minute-required'|translate}}
+                                                </div>
+                                            </div>
+                                            <div [hidden]="Minute.valid || Minute.untouched">
+                                                <div *ngIf="Minute.errors && Minute.errors.maxlength">
+                                                    {{'validate-message.minute-max-length'|translate}}
+                                                </div>
+                                            </div>
+                                            <div [hidden]="Minute.valid || Minute.untouched">
+                                                <div *ngIf="Minute.errors && Minute.errors.pattern">
+                                                    {{'validate-message.minute-pattern'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style=" margin-top: 30px;float: right;    width: 50%;">
+                                    <div class="form-group">
+
+                                        <input class="checkbox-check"  type="checkbox" [checked]="emailx" style="width: 20px;height: 20px;float: left;font-family: tw-regular!important;direction: ltr!important;"
+                                               (change)="emailx = !emailx">
+                                        <label class="checkbox-label" style="margin-left: 20px;
+    margin-top: 2px;">{{'ALMS.email'|translate}}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6" style="float: left;width: 50%" >
+                                    <div class="form-group">
+                                        <label>{{'ALMS.severity'|translate}}</label>
+                                        <select name="severity" #Severity="ngModel" required
+                                                [(ngModel)]="alertData.severityid">
+                                            <option value="0" selected >{{'SELECT.select-severity' | translate}}</option>
+                                            <option *ngFor="let severity of severityList" [value]="severity.id">
+                                                {{severity.name}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="Severity.valid || Severity.untouched">
+                                                <div *ngIf="Severity.errors && Severity.errors.required">
+                                                    {{'validate-message.severity-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" style="  margin-top: 30px;float: right;    width: 50%;">
+                                    <div class="form-group" >
+
+                                        <input class="checkbox-check" type="checkbox" [checked]="smsx" style="width: 20px;height: 20px;float: left"
+                                               (change)="smsx = !smsx">
+                                        <label class="checkbox-label" style="margin-left: 20px;
+    margin-top: 2px;">{{'ALMS.sms'|translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 alms-time" style="float: right;width: 50%;padding-right: 0px;padding-left: 17px;" *ngIf="!sendOnlyForAdmin">
+                            <div class="col-lg-12" style="padding-left: 0px">
+                                <div class="form-group">
+                                    <label>{{'ALMS.staff-list'|translate}}</label>
+                                    <div class="policy-container" style="width: 100%">
+                                        <div *ngFor="let staff of alertData.stafflist">
+                                            <button style="width: 100%!important;" class="manage-btn pull-right staff-list-button" (click)="SelectStaffAction(staff.staffid)">
+
+                                                {{'ALMS.staff-id'|translate}}{{staff.staffid}} {{'ALMS.execution-order'|translate}}{{staff.executionorder}}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="pull-right indicators">
+                                        <span>
+                    <i class="glyphicon glyphicon-chevron-down" (click)="sortDownStaff()"></i>
+                                          </span>
+
+                                        <span   >
+                             <i class="glyphicon glyphicon-chevron-up" (click)="sortUpStaff()"></i>
+                                          </span>
+
+                                    </div>
+                                </div>
+                                <div *ngIf="this.counter != 0">
+                                    <p style="color: red" class="translatable">{{'ALMS.data-already-exist' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-footer pull-right row"
+                         style="width: 100%;margin-bottom: 20px!important;margin-top: 20px!important;">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 submit-footer" style="float: right">
+                            <div class="col-lg-6" style="float: right;width: 50%">
+                                <button class="form-button-submit pull-right " style="width: 100%" *ngIf="appService.hasAccessToWrite(4,12)"
+                                        [disabled]="!addAlertForm.valid && addAlert== 1" (click)="execute(alertData)">{{'shared.execute'|translate}}
+                                </button>
+                            </div>
+                            <div class="col-lg-6" style="float: left;width: 50%">
+                                <button class="form-button-cancel pull-right" style="width: 100%" type="button"
+                                        (click)="closeModal()">{{'shared.cancel'|translate}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="clear "></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div>
+        </div>
+    </div>
+</div>

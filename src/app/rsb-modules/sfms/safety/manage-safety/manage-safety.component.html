@@ -1,0 +1,238 @@
+<div class="row">
+    <div class="col-sm-11 translatable-float-right safety-margin-right">
+        <div class="row">
+            <div class="col-sm-12" style="width: 100%;">
+                <div class="row">
+                    <div class="col-sm-3 translatable-float-right padding-right-farsi">
+                        <p>
+                            <span class="staff-header">{{'SFMS.campus' | translate}}</span>
+                        </p>
+
+
+                        <select class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                [(ngModel)]="selectedCampusId"
+                                aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SSMS.select-a-campus' |
+                                translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'">{{'SSMS.select-a-campus' |
+                                translate}}
+                            </option>
+                            <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                                <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'">{{campus.name.map.fa}}</p>
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-3 translatable-float-right">
+                        <p>
+                            <span class="staff-header">{{'SFMS.building' | translate}}</span>
+                        </p>
+
+
+                        <select class="select-dropdowns area-filters" name="selectedBuilding"
+                                #selectedBuilding="ngModel"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                [(ngModel)]="selectedBuildingId"
+                                aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+                            <option *ngIf="appService.currentLang=='en'" value="0">{{'SSMS.select-building' |
+                                translate}}
+                            </option>
+                            <option *ngIf="appService.currentLang=='fa'" value="0">{{'SSMS.select-building' |
+                                translate}}
+                            </option>
+                            <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                                <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'">{{building.name.map.fa}}</p>
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-3 translatable-float-right">
+                        <p>
+                            <span class="staff-header">{{'SFMS.floor-level' | translate}}</span>
+                        </p>
+
+
+                        <select class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel"
+                                [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                [(ngModel)]="selectedFloorId"
+                                aria-placeholder="Select a Level / Floor" required>
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' |
+                                translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'">{{'SELECT.select-floor' |
+                                translate}}
+                            </option>
+                            <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">
+                                <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'">{{floor.levelName.map.fa}}</p>
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-sm-2 translatable-float-right">
+                        <p>
+                            <span class="staff-header">&nbsp;</span>
+                        </p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="getHvacList(0)">{{'SFMS.execute' |
+                                translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 sfms-div">
+                <div class="col-sm-12 radios">
+                    <div class="col-sm-2 padding-left-rtl-0 translatable-float-right">
+                        <input type="radio" name="radio" (click)="changeSelectType('SDS')">
+                        <label class="radio-container">{{'SFMS.co-sensor' | translate}}</label>
+                    </div>
+                    <div class="col-sm-2 padding-left-rtl-0 translatable-float-right">
+                        <input type="radio" name="radio" (click)="changeSelectType('DWS')">
+                        <label class="radio-container">{{'SFMS.door-window-sensor' | translate}}</label>
+                    </div>
+
+                    <div class="col-sm-2 padding-left-rtl-0 translatable-float-right">
+                        <input type="radio" name="radio" (click)="changeSelectType('WLS')">
+                        <label class="radio-container">{{'SFMS.flood-sensor' | translate}}</label>
+                    </div>
+
+                    <!--<div class="col-sm-2 padding-left-rtl-0">-->
+                    <!--<input type="radio" name="radio" (click)="changeSelectType('GBS')">-->
+                    <!--<label class="radio-container">{{'SFMS.glass-break-sensor' | translate}}</label>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-sm-2 padding-left-rtl-0">-->
+                    <!--<input type="radio" name="radio" (click)="changeSelectType('GLS')">-->
+                    <!--<label class="radio-container">{{'SFMS.gas-leak-sensor' | translate}}</label>-->
+                    <!--</div>-->
+
+                    <div class="col-sm-2 padding-left-rtl-0 translatable-float-right">
+                        <input type="radio" name="radio" (click)="changeSelectType('SRN')">
+                        <label class="radio-container">{{'SFMS.siren' | translate}}</label>
+                    </div>
+                    <div class="col-sm-2 padding-left-rtl-0 translatable-float-right">
+                        <input type="radio" name="radio" (click)="changeSelectType('ALL')" checked>
+                        <label class="radio-container">{{'SFMS.all-sensors' | translate}}</label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="totalElements > size">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page+1}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" *ngIf="this.showList.length==0">
+
+
+            <h2 class="translatable" style="text-align: center">{{'SFMS.no-device-to-show' | translate}}</h2>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4 section translatable-float-right" *ngFor="let hvac of showList; let i = index">
+                <div class="content-section ">
+                    <div class="col-sm-6 left-section translatable-float-right manage-safety-sensor-name">
+                        <div>
+                            <img src="../../../../../assets/images/template/{{hvac.devicetype}}.png" align="left" al
+                                 alt="">
+                        </div>
+                        <p>{{hvac.devicename}}</p>
+                    </div>
+                    <div class="col-sm-6 statuses ">
+                        <div *ngIf="hvac.devicestatus=='1'">
+                            <span class="solid">{{'SFMS.state' | translate}}</span> :
+                            <span class="status-success">{{'SFMS.in-service' | translate}}</span>
+                        </div>
+                        <div *ngIf="hvac.devicestatus!='1'">
+                            <span class="solid">{{'SFMS.state' | translate}}</span> :
+                            <span class="status-fail">{{'SFMS.out-of-service' | translate}}</span>
+                        </div>
+                        <div>
+                            <span class="solid">{{'SFMS.battery' | translate}}</span>
+                            <span class="status-success">{{hvac.batterystate}}%</span>
+                        </div>
+                        <div *ngIf="hvac.deviceworkingstate=='0'">
+                            <span class="solid">{{'SFMS.status' | translate}}</span>
+                            <span class="status-fail">{{'SFMS.off' | translate}}</span>
+                        </div>
+                        <div *ngIf="hvac.deviceworkingstate=='1'">
+                            <span class="solid">{{'SFMS.status' | translate}}</span>
+                            <span class="status-success">{{'SFMS.triggered' | translate}}</span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-9 turn-btn-float" style="margin-left: 50%!important;"
+                         *ngIf="hvac.devicetype=='SRN' && hvac.deviceworkingstate=='0'">
+                        <button *ngIf="appService.hasAccessToWrite(8,22)" class="btn-block manage-btn safety-turn-btn"
+                                (click)="toggleButton(i)">{{'SFMS.turn-on' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-9 turn-btn-float" style="margin-left: 50%!important;"
+                         *ngIf="hvac.devicetype=='SRN' && hvac.deviceworkingstate=='1'">
+                        <button *ngIf="appService.hasAccessToWrite(8,22)" class="btn-block manage-btn safety-turn-btn"
+                                (click)="toggleButton(i)">{{'SFMS.turn-off' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panic">
+            <div class="col-md-4 col-md-offset-2 panic-float" *ngIf="showToggleSiren == 'false'">
+                <button *ngIf="appService.hasAccessToWrite(8,22)" class="btn btn-block btn-danger text-center singleBtn"
+                        (click)="putSiren()">
+                    {{'SFMS.turn-on-panic' | translate}}
+                </button>
+            </div>
+            <div class="col-md-4 panic-float" *ngIf="showToggleSiren == 'true'">
+                <button *ngIf="appService.hasAccessToWrite(8,22)" class="btn btn-block btn-danger text-center singleBtn"
+                        (click)="putSirenOff()">
+                    {{'SFMS.turn-off-panic' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <!-- style="position: absolute; -->
+        <!-- bottom: -280px;" -->
+
+    </div>
+
+</div>

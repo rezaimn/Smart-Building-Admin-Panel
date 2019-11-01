@@ -1,0 +1,107 @@
+@import '../../OMS';
+.buttons-div {
+    margin-bottom: 5px;
+    text-align: right;
+    padding-right: 0px !important;
+    .create-btn {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 3px 20px;
+        background: transparent;
+        border: 1px solid $primary-clr;
+        color: $primary-clr;
+        margin-right: 15px;        
+        &:hover,
+        &:active,
+        &:focus {
+            -webkit-box-shadow: 0px 0px 10px 2px $primary-clr;
+            -moz-box-shadow: 0px 0px 10px 2px $primary-clr;
+            box-shadow: 0px 0px 10px 2px $primary-clr;
+            transition-duration: .5s;
+            transition-timing-function: ease-in-out;
+        }
+    }    
+}
+
+.selected-grades-header {
+    color: $primary-clr;
+    margin-bottom: 10px;
+}
+.grade-lists {
+    cursor: pointer;
+    color: #010813;
+    .delete-icon {
+        color: $black;
+        top: 2px;        
+        font-size: 18px;
+    }
+    .select-icon {
+        top: 2px;
+        color: #985e17;
+        font-size: 18px;
+        &:hover {
+            color: #985e17;
+        }
+    }
+}
+.grade-policy-main-container {
+    background-color: rgba(67, 116, 187, 0.1);
+    min-height: 35vh;
+    padding: 15px;
+    .grade-lists {
+        background-color: $primary-clr;
+        color: #010813;
+        padding: 4px 8px;
+        margin-right: 7px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+}
+
+
+.bottom-buttons-div{
+    padding: 15px 0 15px 15px;
+    .save-btn {
+        text-transform: uppercase;
+        border: 1px solid #009d56;
+        color: #009d56;
+        background: transparent;
+        font-size: 18px;
+        padding: 3px 20px;
+        float: right;
+        &:hover,
+        &:active,
+        &:focus {
+            -webkit-box-shadow: 0px 0px 10px 2px rgb(0, 157, 86);
+            -moz-box-shadow: 0px 0px 10px 2px rgb(0, 157, 86);
+            box-shadow: 0px 0px 10px 2px rgb(0, 157, 86);
+            transition-duration: .5s;
+            transition-timing-function: ease-in-out;
+        }
+    }
+}
+.previous-icon {
+    position: absolute;
+    top: 40%;
+    left: -17px;
+    font-size: 15px;
+    background: $primary-clr;
+    color: #000;
+    border: 1px solid $primary-clr;
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+    line-height: 39px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.no-grades-availble {
+    text-align: center;
+    // padding: 19%;
+    color: $primary-clr;
+}
+.grade-policy-main-container{
+    max-height: 35vh;
+}

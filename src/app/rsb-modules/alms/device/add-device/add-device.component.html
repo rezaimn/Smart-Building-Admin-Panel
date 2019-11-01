@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form"   >
+            <div class="prepare-form-head">
+                <span></span>
+                <h3>{{'SP.add-schedule-to-device-type'|translate}}</h3>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" style="height: 500px">
+                <form #addDeviceForm="ngForm">
+                    <div class="row" >
+                        <div class="col-sm-10">
+                           <h2 style="font-size: 38px">{{device.deviceType.enName}}</h2>
+                        </div>
+                        <div class="col-sm-2">
+
+                            <img class="plus-icon pull-right"  src="../../../../../assets/images/plus.png" height="32" style="margin-top: 28px"
+                                 (click)="addNewSchedule()" >
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let schedule of device.schedules;let i=index">
+                        <!--<div *ngIf="model.devicetypename == 'SPD' || model.devicetypename == 'TRM' || model.devicetypename == 'LTN'; else othertype">-->
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>{{'SP.on-time'|translate}}</label>
+                                <input class="frequency" type="time" #OnTime="ngModel"
+                                       [(ngModel)]="schedule.onTime" [name]="'ontime'+i"
+                                       placeholder="00:00:PM"
+                                       minlength=8 maxlength=8 required><!-- (ngModelChange)="formatTime($event,onTime,'ontime')">-->
+                                <div class="error-message-display">
+                                    <div [hidden]="OnTime.valid || OnTime.untouched">
+                                        <div *ngIf="OnTime.errors && OnTime.errors.required">
+                                            {{'validate-message.on-time-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>{{'SP.off-time'|translate}}</label><!--[disabled]="policyvalidate"-->
+                                <input class="frequency" type="time"
+                                       #OffTime="ngModel" [(ngModel)]="schedule.offTime"
+                                       [name]="'offtime'+i" placeholder="00:00:AM"
+                                       minlength=8 maxlength=8><!-- (ngModelChange)="formatTime($event,offTime,'offtime')">-->
+                                <div class="error-message-display">
+                                    <div [hidden]="OffTime.valid || OffTime.untouched">
+                                        <div *ngIf="OffTime.errors && OffTime.errors.required">
+                                            {{'validate-message.off-time-required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="margin-top: 2px" >
+                            <img class="pull-right"  (click)="addUpdateSchedule(schedule)"
+                                 src="../../../../../assets/images/tick.png" height="32"
+                                 style="float: right;cursor: pointer;margin-top:24px;padding-left: 2px">
+                            <img class="pull-right"(click)="deleteSchedule(schedule.id,i)"
+                                 src="../../../../../assets/images/min.png" height="32"
+                                 style="float: right;cursor: pointer;margin-top:24px;padding-left: 2px">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-footer  row" style="width: 100%;margin-bottom: 30px!important;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" style="float: right;padding: 0px">
+
+                    <div class="col-lg-6" style="float: right;width: 50%;padding: 5px">
+                        <button  class="form-button-cancel pull-right" type="button" (click)="closeModal()" style="width: 100%">
+                            {{'shared.close'|translate}}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+            </div>
+        </div>
+    </div>
+</div>

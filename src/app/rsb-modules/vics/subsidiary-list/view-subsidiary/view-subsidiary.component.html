@@ -1,0 +1,72 @@
+<!--<div class="row">-->
+    <!--<div class="col-sm-12">-->
+      <!--<div class="col-sm-offset-8">-->
+        <!--<div class="filter">-->
+            <!--<div class="pagers">-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<i class="glyphicon glyphicon-menu-left-d filter-icon"  ></i>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<i class="glyphicon glyphicon-menu-left filter-icon"  ></i>-->
+                    <!--</li>-->
+                    <!--<li class="filter-int">-->
+                      <!--<span>1</span>-->
+                      <!--<span>-</span>-->
+                      <!--<span>5</span>    -->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<i class="glyphicon glyphicon-menu-right filter-icon"  ></i>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<i class="glyphicon glyphicon-menu-right-d filter-icon"  ></i>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <div class="row content5">
+            <div class="col-md-3 subsidiary-grid translatable-float-right" *ngFor="let subsidiary of subsidiaries; let i = index">
+                
+                    <div class="subsidiary-box">
+                            <div class="box-header">
+                                <h4>
+                                    <!-- <span>{{i + 1}}</span>{{ subsidiary.name }}</h4> -->
+                                    <span class="index " style="font-family:tw-regular !important; ">{{i+1}}</span>
+                                    <span style="font-family: tw-regular !important; width: fit-content; clear: both!important;" class="name">{{ subsidiary.name }}</span>
+                                    <div class="clearfix"></div>
+                                </h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="block-elements">
+                                    <span class="translatable">{{'subsidiary.address' | translate}}</span>
+                                    <p class="shrink-line">{{ subsidiary.address }}.</p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="inline-elements">
+                                    <span class="width-controller-campus">{{'subsidiary.campus-count' | translate}}</span>
+                                    <p>{{ subsidiary.childCount }} </p>
+                                    <h6 class="translatable">{{'subsidiary.contact-person' | translate}}</h6>
+                                    <span class="width-controller">{{'subsidiary.name' | translate}}</span>
+                                    <p *ngIf="appService.currentLang=='en'">{{ subsidiary.subsidiaryContactPersonName.map.en }} </p>
+                                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;direction: rtl!important;;text-align: right!important;">{{ subsidiary.subsidiaryContactPersonName.map.fa }} </p>
+                                    <div class="clear"></div>
+                                    <span class="translatable width-controller">{{'subsidiary.phone' | translate}}</span>
+                                    <p>{{ subsidiary.subsidiaryContactPersonMobile }}</p>
+                                    <div class="clear"></div>
+                                    <span class="width-controller-email">{{'subsidiary.email' | translate}}</span>
+                                    <p>{{ subsidiary.subsidiaryContactPersonEmail }}</p>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="box-footer ">
+                                <button class="manage-btn pull-right" routerLink="/rsb-modules/vics/video-call/call/view-all" (click)="storeSubsidiary(subsidiary)">{{'subsidiary.select' | translate}}</button>
+                            </div>
+                        </div>
+                  
+            </div>
+        </div>
+        

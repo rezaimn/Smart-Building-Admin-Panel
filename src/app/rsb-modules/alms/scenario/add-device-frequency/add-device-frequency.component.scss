@@ -1,0 +1,22 @@
+@import '../../../sp/SP';
+
+.frequency{
+    width: 85% !important;
+    display: inline-block;
+}
+.frequency-label{
+    display: inline-block !important;
+    margin: 0 5px;
+    font-size: 1.3vw;
+}
+
+@media screen and (min-width: 1024px){
+    textarea{
+        height: 8vw;
+    }
+}
+@media screen and (max-width: 1024px){
+    textarea{
+        height: 9vw;
+    }
+}

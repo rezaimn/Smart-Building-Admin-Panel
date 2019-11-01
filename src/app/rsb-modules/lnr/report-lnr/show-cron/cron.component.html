@@ -1,0 +1,420 @@
+<div class="prepare-form lnr-report">
+    <div class="prepare-form-head">
+        <h2>{{'LNR.cron-expression'|translate}}</h2>
+    </div>
+
+    <div class="cron-editor-main" style="margin-bottom: 50px">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs tab-nav" role="tablist" >
+            <li [ngClass]="{'active': activeTab === 'minutes'}" *ngIf="!options?.hideMinutesTab" style="font-size: 20px">
+                <a aria-controls="minutes" role="tab" data-toggle="tab" (click)="setActiveTab('minutes')">
+                    {{'LNR.minutes'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideHourlyTab" [ngClass]="{'active': activeTab === 'hourly'}" style="font-size: 20px">
+                <a aria-controls="hourly" role="tab" data-toggle="tab" (click)="setActiveTab('hourly')">
+                    {{'LNR.hourly'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideDailyTab" [ngClass]="{'active': activeTab === 'daily'}" style="font-size: 20px">
+                <a aria-controls="daily" role="tab" data-toggle="tab" (click)="setActiveTab('daily')">
+                    {{'LNR.daily'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideWeeklyTab" [ngClass]="{'active': activeTab === 'weekly'}" style="font-size: 20px">
+                <a aria-controls="weekly" role="tab" data-toggle="tab" (click)="setActiveTab('weekly')">
+                    {{'LNR.weekly'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideMonthlyTab" [ngClass]="{'active': activeTab === 'monthly'}" style="font-size: 20px">
+                <a aria-controls="monthly" role="tab" data-toggle="tab" (click)="setActiveTab('monthly')">
+                    {{'LNR.monthly'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideYearlyTab" [ngClass]="{'active': activeTab === 'yearly'}" style="font-size: 20px">
+                <a aria-controls="yearly" role="tab" data-toggle="tab" (click)="setActiveTab('yearly')">
+                    {{'LNR.yearly'|translate}}
+                </a>
+            </li>
+
+            <li role="presentation" *ngIf="!options?.hideAdvancedTab" [ngClass]="{'active': activeTab === 'advanced'}" style="font-size: 20px">
+                <a aria-controls="advanced" role="tab" data-toggle="tab" (click)="setActiveTab('advanced')">
+                    {{'LNR.advanced'|translate}}
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="cron-editor-container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="tab-content">
+                        <!-- Minutes-->
+                        <div class="tab-pane" *ngIf="!options.hideMinutesTab"
+                             [ngClass]="{'active': activeTab === 'minutes'}">
+                            <div class="well well-small row " style="height: 140px">
+                                <div class="col-md-6 pull-left-check">
+                                    <span class="pull-left-check" style="margin-right: 10px">{{'LNR.every'|translate}}</span>
+                                    <select class="minutes pull-left-check" [disabled]="disabled || activeTab !== 'minutes'"
+                                            (change)="regenerateCron($event)" [(ngModel)]="state.minutes.minutes"
+                                            [ngClass]="options.formSelectClass">
+                                        <option *ngFor="let minute of selectOptions.minutes" [ngValue]="minute">
+                                            {{minute}}
+                                        </option>
+                                    </select>
+                                    <span class="pull-left-check">{{'LNR.minute'|translate}}</span>
+                                </div>
+                                <div class="col-md-6 pull-left-check">
+                                    <span class="pull-left-check" *ngIf="!options.hideSeconds" style="margin-right: 10px">{{'LNR.on-second'|translate}}</span>
+                                    <select class="seconds pull-left-check" *ngIf="!options.hideSeconds"
+                                            [disabled]="disabled || activeTab !== 'minutes'"
+                                            (change)="regenerateCron($event)"
+                                            [(ngModel)]="state.minutes.seconds" [ngClass]="options.formSelectClass">
+                                        <option *ngFor="let second of selectOptions.seconds" [ngValue]="second">
+                                            {{second}}
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- Hourly-->
+                        <div class="tab-pane" *ngIf="!options.hideHourlyTab"
+                             [ngClass]="{'active': activeTab === 'hourly'}">
+                            <div class="well well-small" style="height: 270px">
+                                <span class="pull-left-check">{{'LNR.every'|translate}}</span>
+                                <select class="hours pull-left-check" [disabled]="disabled || activeTab !== 'hourly'"
+                                        (change)="regenerateCron($event)" [(ngModel)]="state.hourly.hours"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let hour of selectOptions.hours" [ngValue]="hour">
+                                        {{hour}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check" >{{'LNR.hour-on-minute'|translate}}</span>
+                                <select class="minutes pull-left-check" [disabled]="disabled || activeTab !== 'hourly'"
+                                        (change)="regenerateCron($event)" [(ngModel)]="state.hourly.minutes"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let minute of selectOptions.fullMinutes" [ngValue]="minute">
+                                        {{minute}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check" *ngIf="!options.hideSeconds">{{'LNR.and-second'|translate}}</span>
+                                <select class="seconds pull-left-check" *ngIf="!options.hideSeconds"
+                                        [disabled]="disabled || activeTab !== 'hourly'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.hourly.seconds" [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let second of selectOptions.seconds" [ngValue]="second">
+                                        {{second}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Daily-->
+                        <div class="tab-pane" *ngIf="!options.hideDailyTab"
+                             [ngClass]="{'active': activeTab === 'daily'}">
+                            <div class="well well-small" style="height: 85px">
+                                <input class="pull-left-check radio-lnr" type="radio" name="daily-radio" value="everyDays" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)" [(ngModel)]="state.daily.subTab"
+                                       value="everyDays" [disabled]="disabled" (change)="regenerateCron($event)"
+                                       [(ngModel)]="state.daily.subTab"
+                                       [ngClass]="state.formRadioClass" checked="checked">
+                                <span class="pull-left-check" style="margin-left: 10px">{{'LNR.every'|translate}}</span>
+                                <select  class="days pull-left-check" style="width: 100px"
+                                        [disabled]="disabled || activeTab !== 'daily' || state.daily.subTab !== 'everyDays'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.daily.everyDays.days" [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let monthDay of selectOptions.monthDays" [ngValue]="monthDay">
+                                        {{monthDay}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.day-at'|translate}}</span>
+
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'daily' || state.daily.subTab !== 'everyDays'"
+                                        (onChange)="regenerateCron($event)" [(model)]="state.daily.everyDays"
+                                        [selectClass]="options.formSelectClass" [use24HourTime]="options.use24HourTime"
+                                        [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+
+                            <div class="well well-small" style="height: 85px">
+                                <input class="pull-left-check radio-lnr" type="radio" name="daily-radio" value="everyWeekDay" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)" [(ngModel)]="state.daily.subTab"
+                                       [ngClass]="state.formRadioClass">
+                                <span class="pull-left-check">{{'LNR.every-working-day-at'|translate}}</span>
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'daily' || state.daily.subTab !== 'everyWeekDay'"
+                                        (change)="regenerateCron($event)" [(model)]="state.daily.everyWeekDay"
+                                        [selectClass]="options.formSelectClass" [use24HourTime]="options.use24HourTime"
+                                        [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+                        </div>
+
+                        <!-- Weekly-->
+                        <div class="tab-pane" *ngIf="!options.hideWeeklyTab"
+                             [ngClass]="{'active': activeTab === 'weekly'}">
+                            <div class="well well-small" style="height: 280px">
+                                <div class="row">
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.MON"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.monday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.TUE"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.tuesday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.WED"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.wednesday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.THU"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.thursday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.FRI"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.friday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.SAT"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.saturday'|translate}}</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-left-check">
+                                        <input class="pull-left-check radio-lnr" type="checkbox" [disabled]="disabled || activeTab !== 'weekly'" style="width: 20px;top: 11px;"
+                                               (change)="regenerateCron($event)" [(ngModel)]="state.weekly.SUN"
+                                               [ngClass]="options.formCheckboxClass">
+                                        <span class="pull-left-check">{{'LNR.sunday'|translate}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 pull-left-check">
+                                        <span class="pull-left-check">{{'LNR.at'|translate}}</span>
+                                        <cron-time-picker class="pull-left-check" [disabled]="disabled || activeTab !== 'weekly'"
+                                                          (change)="regenerateCron($event)" [(model)]="state.weekly"
+                                                          [selectClass]="options.formSelectClass"
+                                                          [use24HourTime]="options.use24HourTime"
+                                                          [hideSeconds]="options.hideSeconds">
+                                        </cron-time-picker>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Monthly-->
+                        <div class="tab-pane" *ngIf="!options.hideMonthlyTab"
+                             [ngClass]="{'active': activeTab === 'monthly'}">
+                            <div class="well well-small" style="height: 90px">
+                                <input class="radio-lnr pull-left-check" type="radio" name="monthly-radio" value="specificDay" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)" [(ngModel)]="state.monthly.subTab"
+                                       [ngClass]="state.formRadioClass">
+                                <span class="pull-left-check">{{'LNR.on-the'|translate}}</span>
+                                <select class="month-days pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.monthly.specificDay.day" [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let monthDaysWithLast of selectOptions.monthDaysWithLasts"
+                                            [ngValue]="monthDaysWithLast">
+                                        {{monthDayDisplay(monthDaysWithLast)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.of-every'|translate}}</span>
+                                <select class="months-small pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.monthly.specificDay.months"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let month of selectOptions.months" [ngValue]="month">
+                                        {{month}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.month-at'|translate}}</span>
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificDay'"
+                                        (change)="regenerateCron($event)" [(model)]="state.monthly.specificDay"
+                                        [selectClass]="options.formSelectClass"
+                                        [use24HourTime]="options.use24HourTime" [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+                            <div class="well well-small" style="height: 90px">
+                                <input class="radio-lnr pull-left-check" type="radio" name="monthly-radio" value="specificWeekDay" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)"
+                                       [(ngModel)]="state.monthly.subTab" [ngClass]="state.formRadioClass">
+                                <span class="pull-left-check">{{'LNR.on-the'|translate}}</span>
+                                <select class="day-order-in-month pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificWeekDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.monthly.specificWeekDay.monthWeek"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let monthWeek of selectOptions.monthWeeks" [ngValue]="monthWeek">
+                                        {{monthWeekDisplay(monthWeek)}}
+                                    </option>
+                                </select>
+                                <select class="week-days pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificWeekDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.monthly.specificWeekDay.day"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let day of selectOptions.days" [ngValue]="day">
+                                        {{dayDisplay(day)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.of-every'|translate}}</span>
+                                <select class="months-small pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificWeekDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.monthly.specificWeekDay.months"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let month of selectOptions.months" [ngValue]="month">
+                                        {{month}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.month-at'|translate}}</span>
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'monthly' || state.monthly.subTab !== 'specificWeekDay'"
+                                        (change)="regenerateCron($event)" [(model)]="state.monthly.specificWeekDay"
+                                        [selectClass]="options.formSelectClass"
+                                        [use24HourTime]="options.use24HourTime" [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+                        </div>
+
+                        <!-- Yearly-->
+                        <div class="tab-pane" *ngIf="!options.hideYearlyTab"
+                             [ngClass]="{'active': activeTab === 'yearly'}">
+                            <div class="well well-small" style="height: 90px">
+                                <input class="radio-lnr pull-left-check"  type="radio" name="yearly-radio" value="specificMonthDay" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)"
+                                       [(ngModel)]="state.yearly.subTab" [ngClass]="state.formRadioClass">
+                                <span class="pull-left-check">{{'LNR.every'|translate}}</span>
+                                <select class="months pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.yearly.specificMonthDay.month"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let month of selectOptions.months" [ngValue]="month">
+                                        {{monthDisplay(month)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.on-the'|translate}}</span>
+                                <select class="month-days pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthDay'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.yearly.specificMonthDay.day"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let monthDaysWithLast of selectOptions.monthDaysWithLasts"
+                                            [ngValue]="monthDaysWithLast">
+                                        {{monthDayDisplay(monthDaysWithLast)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.at'|translate}}</span>
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthDay'"
+                                        (change)="regenerateCron($event)" [(model)]="state.yearly.specificMonthDay"
+                                        [selectClass]="options.formSelectClass"
+                                        [use24HourTime]="options.use24HourTime" [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+                            <div class="well well-small" style="height: 90px">
+                                <input class="radio-lnr pull-left-check" type="radio" name="yearly-radio" value="specificMonthWeek" [disabled]="disabled" style="width: 20px;top: 11px;"
+                                       (change)="regenerateCron($event)"
+                                       [(ngModel)]="state.yearly.subTab" [ngClass]="state.formRadioClass">
+                                <span class="pull-left-check">{{'LNR.on-the'|translate}}</span>
+                                <select class="day-order-in-month pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthWeek'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.yearly.specificMonthWeek.monthWeek"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let monthWeek of selectOptions.monthWeeks" [ngValue]="monthWeek">
+                                        {{monthWeekDisplay(monthWeek)}}
+                                    </option>
+                                </select>
+                                <select class="week-days pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthWeek'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.yearly.specificMonthWeek.day"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let day of selectOptions.days" [ngValue]="day">
+                                        {{dayDisplay(day)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.of'|translate}}</span>
+                                <select class="months pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthWeek'"
+                                        (change)="regenerateCron($event)"
+                                        [(ngModel)]="state.yearly.specificMonthWeek.month"
+                                        [ngClass]="options.formSelectClass">
+                                    <option *ngFor="let month of selectOptions.months" [ngValue]="month">
+                                        {{monthDisplay(month)}}
+                                    </option>
+                                </select>
+                                <span class="pull-left-check">{{'LNR.at'|translate}}</span>
+                                <cron-time-picker class="pull-left-check"
+                                        [disabled]="disabled || activeTab !== 'yearly' || state.yearly.subTab !== 'specificMonthWeek'"
+                                        (change)="regenerateCron($event)" [(model)]="state.yearly.specificMonthWeek"
+                                        [selectClass]="options.formSelectClass"
+                                        [use24HourTime]="options.use24HourTime" [hideSeconds]="options.hideSeconds">
+                                </cron-time-picker>
+                            </div>
+                        </div>
+
+                        <!-- Advanced-->
+                        <div class="tab-pane" *ngIf="!options.hideAdvancedTab"
+                             [ngClass]="{'active': activeTab === 'advanced'}">
+                            {{'LNR.cron-expression'|translate}}
+                            <input type="text" class="advanced-cron-editor-input"
+                                   ng-disabled="disabled || activeTab !== 'advanced'" (change)="regenerateCron($event)"
+                                   [(ngModel)]="state.advanced.expression" [ngClass]="options.formInputClass">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="form-footer pull-right row"
+         style="width: 100%;margin-bottom: 20px!important;margin-top: -45px!important;">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 submit-footer" style="float: right">
+            <div class="col-lg-6" style="float: right;width: 50%">
+                <button class="form-button-submit pull-right " style="width: 100%"
+                        (click)="execute()">{{'shared.execute'|translate}}
+                </button>
+            </div>
+            <div class="col-lg-6" style="float: left;width: 50%">
+                <button class="form-button-cancel pull-right" style="width: 100%" type="button"
+                        (click)="closeModal()">{{'shared.cancel'|translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="clear "></div>
+    </div>
+    <div class="powered-by">
+        <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+        <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+    </div>
+
+</div>

@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2> {{'SSMS.add-edit-checklist' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form >
+
+
+                    <div class="col-sm-4 translatable-float-right" *ngIf="editData">
+                        <div class="form-group">
+                            <label>{{'SSMS.campus' | translate}}</label>
+                            <select name="selectedCampus"    [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                                <option value="0" >{{'SELECT.select-campus' | translate}}</option>
+                                <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                                    <p *ngIf="appService.currentLang=='en'">{{campus.nameMultiLingualMap.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'" >{{campus.nameMultiLingualMap.map.fa}}</p>
+                                </option>
+                              </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 translatable-float-right" *ngIf="editData">
+                        <div class="form-group">
+                            <label>{{'SSMS.building' | translate}}</label>
+                            <select name="selectedBuilding" #selectedBuilding="ngModel" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    [(ngModel)]="selectedBuildingId" aria-placeholder="'SSMS.select-building' | translate" required (ngModelChange)="getAllFloors()">
+                                <option value="0" >{{'SELECT.select-building' | translate}}</option>
+                                <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                                    <p *ngIf="appService.currentLang=='en'">{{building.nameMultiLingualMap.map.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'" >{{building.nameMultiLingualMap.map.fa}}</p>
+
+                                </option>
+                              </select>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-sm-4" *ngIf="editData">
+                            <div class="form-group">
+                                <label>{{'SSMS.floor-level' | translate}}</label>
+                                <select name="selectedFloor"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        #selectedFloor="ngModel" [(ngModel)]="selectedFloorId" aria-placeholder="'SSMS.floor-level' | translate" required>
+                                    <option value="0" >{{'SELECT.select-floor' | translate}}</option>
+                                    <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">
+                                        <p *ngIf="appService.currentLang=='en'">{{floor.nameMultiLingualMap.map.en}}</p>
+                                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{floor.nameMultiLingualMap.map.fa}}</p>
+                                    </option>
+                                      </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>{{'SSMS.title' | translate}}</label>
+                                    <input type="text" class="text-input" name="Title" [placeholder]="'SSMS.title' | translate" [(ngModel)]="deviceSecurity.title" #fromTime="ngModel" required>
+                                    <!-- <i class="glyphicon glyphicon-time" id="timepicker1" (click)="openTimer(fromTime,'timepicker1')"></i>     -->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group security-check-time">
+                                    <label>{{'SSMS.time' | translate}}</label>
+                                    <input type="text" placeholder="00:00:00" class="time-input" name="toTime" id="" placeholder="00:00:00" [(ngModel)]="Selectedscheduledtime" #toTime="ngModel" required pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8 maxlength=8>
+                                    <i class="glyphicon glyphicon-time" id="timepicker" (click)="openTimer(toTime,'timepicker')"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>{{'SSMS.device-category' | translate}}</label>
+                                        <select name="selectedDevice" #selectedDevice="ngModel" [(ngModel)]="selecetedDeviceId" aria-placeholder="'SSMS.device' | translate" required (ngModelChange)="getAllDevices()">
+                                            <option value="0" >{{'SSMS.select-a-device' | translate}}</option>
+                                            <option *ngFor="let device of deviceDropdownList;" [ngValue]="device.id">{{device.name}}</option>
+                                          </select>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                        <div class="col-sm-10 checklist-item">
+                            <div class="form-group">
+                                <label>{{'SSMS.check-list-item' | translate}}</label>
+                                <input type="text" class="text-input" name="checklistTitle" [(ngModel)]="checklistTitle" [placeholder]="'SSMS.enter-a-check-list-item' | translate" >
+                            </div>
+                        </div>
+                        <div class="col-sm-2 add-b" >
+                                <button class="manage-btn pull-right add" (click)="addCheckList()">{{'SSMS.add' | translate}}</button>
+                            </div>
+
+                                    <!--<div class="col-sm-12 pages add-edit-item-pager">-->
+                                      <!--<div class="col-sm-offset-7">-->
+                                        <!--<div class="filter">-->
+                                            <!--<div class="pagers">-->
+                                                <!--<ul>-->
+                                                    <!--<li>-->
+                                                        <!--<i class="glyphicon glyphicon-menu-left-d filter-icon"  ></i>-->
+                                                    <!--</li>-->
+                                                    <!--<li>-->
+                                                        <!--<i class="glyphicon glyphicon-menu-left filter-icon"  ></i>-->
+                                                    <!--</li>-->
+                                                    <!--<li class="filter-int">-->
+                                                      <!--<span>1</span>-->
+                                                      <!--<span>-</span>-->
+                                                      <!--<span>5</span>-->
+                                                    <!--</li>-->
+                                                    <!--<li>-->
+                                                        <!--<i class="glyphicon glyphicon-menu-right filter-icon" ></i>-->
+                                                    <!--</li>-->
+                                                    <!--<li>-->
+                                                        <!--<i class="glyphicon glyphicon-menu-right-d filter-icon" ></i>-->
+                                                    <!--</li>-->
+                                                <!--</ul>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                      <!--</div>-->
+                                    <!--</div>-->
+                        <div class="col-sm-12 add-checklist-item-table">
+                                <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                              <th class="number-table text-center"></th>
+                                            <th>{{'SSMS.device-category' | translate}}</th>
+                                            <th>{{'SSMS.check-list-item' | translate}}</th>
+                                            <th>{{'SSMS.action' | translate}}</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let check of checkListItems; let i = index" >
+                                              <td class="number-table text-center">1</td>
+                                            <td>{{check.devicetypeid}}</td>
+                                            <td>{{check.checklistitem}}</td>
+                                            <td>
+                                                <div class="col-sm-6">
+                                                        <button class="manage-btns" (click)="editList(i)">{{'SSMS.edit' | translate}}</button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                        <button *ngIf="appService.hasAccessToWrite(7,21)" class="manage-btns " (click)="deleteList(i)" >{{'SSMS.delete' | translate}}</button>
+                                                </div>
+                                                  </td>
+                                          </tr>
+                                          <!-- <tr>
+                                              <td class="number-table text-center">2</td>
+                                            <td>SAFETY SERVICE</td>
+                                            <td>IS ARE WINDOWS ARE CLOSED</td>
+                                            <td>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">EDIT</button>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">DELETE</button>
+                                                    </div>
+                                                      </td>
+                                          </tr>
+                                          <tr>
+                                              <td class="number-table text-center">3</td>
+                                            <td>SAFETY SERVICE</td>
+                                            <td>IS CEO OFFICE DOOR CLOSED</td>
+                                            <td>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">EDIT</button>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">DELETE</button>
+                                                    </div>
+                                                      </td>
+                                          </tr>
+                                          <tr>
+                                                <td class="number-table text-center">4</td>
+                                              <td>SAFETY SERVICE</td>
+                                              <td>IS THE MAIN DOOR CLOSED</td>
+                                              <td>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">EDIT</button>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                            <button class="manage-btns ">DELETE</button>
+                                                    </div>
+                                                      </td>
+                                            </tr>
+                                            <tr>
+                                                    <td class="number-table text-center">5</td>
+                                                  <td>SAFETY SERVICE</td>
+                                                  <td>IS THE MAIN DOOR CLOSED</td>
+                                                  <td>
+                                                        <div class="col-sm-6">
+                                                                <button class="manage-btns ">EDIT</button>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <button class="manage-btns ">DELETE</button>
+                                                        </div>
+                                                          </td>
+                                                </tr> -->
+                                        </tbody>
+                                      </table>
+                        </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-footer">
+
+                            <button *ngIf="appService.hasAccessToWrite(7,20)" class="form-button-submit pull-right" (click)="insertCheckList()">{{'SSMS.execute' | translate}}</button>
+                        <button class="form-button-cancel pull-right" style="margin-right:10px;" type="button" (click)="closeModal()" >{{'SSMS.cancel' | translate}}</button>
+                            <div class="clear"></div>
+                        </div>
+                        <!--<div class="clearfix"></div>-->
+                        <!--<div class="form-footer" style="margin-top: 2%">-->
+
+                                <!--<button class="form-button-cancel pull-right" type="button" (click)="closeModal()" >cancel</button>-->
+                                <!--<div class="clear"></div>-->
+                            <!--</div>-->
+
+                      <!--   <div class="row">
+                                <div class="col-sm-12 text-right">
+                                  <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                  <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                                </div>
+                              </div> -->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+
+            </div>
+        </div>
+    </div>
+</div>

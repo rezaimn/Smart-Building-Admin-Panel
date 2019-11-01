@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="margin: 0px">
+                    <div class="col-md-2 filter-elements">
+                        <label>{{'EMS.campus' | translate}}</label>
+                        <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel"
+                                [(ngModel)]="selectedCampusId"
+                                aria-placeholder="Campus" required (ngModelChange)="getAllBuildings()">
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-campus' |
+                                translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                {{'SELECT.select-campus' | translate}}
+                            </option>
+                            <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                                <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                    {{campus.name.map.fa}}</p>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 filter-elements">
+                        <label>{{'EMS.building' | translate}}</label>
+                        <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                class="select-dropdowns area-filters" name="selectedBuilding"
+                                #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId"
+                                aria-placeholder="building / structure" required (ngModelChange)="getAllFloors()">
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-building' |
+                                translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                {{'SELECT.select-building' | translate}}
+                            </option>
+                            <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                                <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                    {{building.name.map.fa}}</p>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 filter-elements">
+                        <label>{{'EMS.floor-level' | translate}}</label>
+                        <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel"
+                                [(ngModel)]="selectedFloorId"
+                                aria-placeholder="Select a Level / Floor" required
+                                (ngModelChange)="getAreaByFloor()">
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' |
+                                translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                {{'SELECT.select-floor' | translate}}
+                            </option>
+                            <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">
+
+                                <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                    {{floor.levelName.map.fa}}</p>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 filter-elements">
+                        <label>{{'EMS.area' | translate}}</label>
+                        <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                class="select-dropdowns area-filters" name="selectedArea" #selectedArea="ngModel"
+                                [(ngModel)]="selectedAreaId"
+                                >
+                                aria-placeholder="Select an Area" required>
+                            <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.all-areas' | translate}}
+                            </option>
+                            <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                {{'SELECT.all-areas' | translate}}
+                            </option>
+                            <option *ngFor="let area of areaDropdownList;" [ngValue]="area.id">
+                                <p *ngIf="appService.currentLang=='en'">{{area.name.map.en}}</p>
+                                <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                                    {{area.name.map.fa}}</p>
+
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 sk-manage-float">
+                        <label> &nbsp; </label>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="getAllSK()">{{'shared.execute' |
+                                translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="clearfix"></div>
+        <div class="col-md-12" *ngFor="let sk of skList; let i = index">
+            <div class="subsidiary-box mitoconnect-ui-listing-grid">
+                <div class="clearfix"></div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2 inline-elements">
+                            <span>{{i+1}} </span>
+                        </div>
+                        <div class="col-md-3 inline-elements">
+                            <span>{{'SK.name' | translate}}</span><br>
+                            <p>{{sk.devices[0].deviceName }}</p>
+                        </div>
+
+                        <div class="col-md-3 inline-elements">
+                            <span>{{'SK.type' | translate}}</span><br>
+                            <p> {{sk.devices[0].deviceType }}</p>
+                        </div>
+
+                        <div class="col-md-4 inline-elements">
+                            <button class="manage-btn pull-right" style="width:120px;margin-right: 4px;float: right;margin-top: 10px"
+                                    (click)="viewSK(sk)">{{'shared.edit' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

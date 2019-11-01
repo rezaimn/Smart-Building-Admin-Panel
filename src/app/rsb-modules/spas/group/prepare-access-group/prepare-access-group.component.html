@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form" style="    padding: 0px 40px 70px!important;">
+            <div class="prepare-form-head">
+
+                <h2 *ngIf="mode=='new'">{{'SPAS.new-access-group' | translate}}</h2>
+                <h2 *ngIf="mode=='edit'">{{'SPAS.edit-access-group' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+
+            <div class="prepare-form-body">
+                <div class="view-staff-overlay">
+                    <form #accessGroupForm="ngForm">
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="col-md-6 filter-elements">
+                                <div class="form-group">
+                                    <span style="font-family: tw-regular!important;font-size: 14px">ACCESS GROUP NAME</span>
+                                    <input type="text" name="name" style="font-family: tw-regular!important;direction: ltr!important;"
+                                           #accessGroupName="ngModel"
+                                           [(ngModel)]="prepareAccessGroup.name.map.en"
+                                           required="true" minlength="3"
+                                           maxlength="50"
+                                    >
+
+                                    <div class="error-message-display" style="right: auto ; left: 15px;font-family: tw-regular!important;">
+                                        <div [hidden]="accessGroupName.valid || accessGroupName.untouched">
+                                            <div *ngIf="accessGroupName.errors && accessGroupName.errors.required">
+                                                ACCESS GROUP NAME REQUIRED
+                                            </div>
+                                        </div>
+                                        <div [hidden]="accessGroupName.valid || accessGroupName.untouched">
+                                            <div *ngIf="accessGroupName.errors && accessGroupName.errors.minlength">
+                                                MIN LENGTH IS 3
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 filter-elements">
+                                <div class="form-group">
+                                    <span style="font-family: Yekan!important;  float: right;font-size: 14px">نام سطح دسترسی</span>
+                                    <input style="direction: rtl;font-family: Yekan!important;" type="text"
+                                           name="faname"
+                                           #faAccessGroupName="ngModel"
+                                           [(ngModel)]="prepareAccessGroup.name.map.fa"
+                                           required="true" minlength="3"
+                                           maxlength="50"
+                                    >
+                                    <div class="error-message-display"
+                                         style="font-family: Yekan!Important;margin-right: 20px;margin-bottom: 5px">
+                                        <div [hidden]="faAccessGroupName.valid || faAccessGroupName.untouched">
+                                            <div *ngIf="faAccessGroupName.errors && faAccessGroupName.errors.required">
+                                                درج نام گروه دسترسی ضروری است
+                                            </div>
+                                        </div>
+                                        <div [hidden]="faAccessGroupName.valid || faAccessGroupName.untouched">
+                                            <div *ngIf="faAccessGroupName.errors && faAccessGroupName.errors.minlength">
+                                                درج حداقل ۳ کاراکتر ضروری است
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div *ngFor="let AL of accessLevels;let i=index" class="col-lg-6 col-sm-6"
+                                 style="margin-bottom: 5px;padding-right: 5px!important;padding-left: 5px!important;">
+
+                                <div class="col-lg-12 " *ngIf="appService.currentLang=='en'">
+                                    <input class="col-lg-2" [name]="'level'+i" [ngModel]="AL.hasAccess"
+                                           (change)="setAccessLevels(i)" type="checkbox"
+                                           style="height: 20px;">
+                                    <label class="col-lg-10" style="top: 4px;"  (click)="setAccessLevels(i)">{{AL.name.map.en}}</label>
+
+                                </div>
+                                <div class="" *ngIf="appService.currentLang=='fa'">
+                                    <label class="col-lg-10" style="top: 4px;font-family: Yekan!important;" (click)="setAccessLevels(i)">{{AL?.name?.map?.fa}}</label>
+                                    <input class="col-lg-2" [name]="'level'+i" [ngModel]="AL.hasAccess"
+                                           (change)="setAccessLevels(i)" type="checkbox"
+                                           style="height: 20px;">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="clearfix"></div>
+                        <div class="form-footer pull-right row"
+                             style="width: 100%;margin-top: 20px!important;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 visitor-list-btn" style="float: right">
+                                <div class="col-lg-6 visitor-list-btn-float" style="float: right;width: 50%">
+                                    <button _ngcontent-c7="" *ngIf="appService.hasAccessToWrite(3,9)" type="button"
+                                            class="form-button-submit floating-bnt" style="width: 100%"
+                                            (click)="addUpdateAccessGroup()" [disabled]="!accessGroupForm.valid"
+                                    >{{'SPAS.execute' | translate}}
+                                    </button>
+                                </div>
+                                <div class="col-lg-6 visitor-list-btn" style="float: left;width: 50%">
+                                    <button _ngcontent-c7="" class="form-button-cancel floating-bnt" type="button"
+                                            style="width: 100%"
+                                            (click)="closeModal()">{{'SPAS.cancel' | translate}}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="clear "></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+
+                    </form>
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="powered-by" style="right: 30px!important;">
+            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+        </div>
+    </div>
+</div>

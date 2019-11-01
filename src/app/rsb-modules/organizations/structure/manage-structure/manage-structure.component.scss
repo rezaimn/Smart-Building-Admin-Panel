@@ -1,0 +1,46 @@
+@import '../../OMS';
+.row{
+    margin: 0px!important;
+}
+
+
+
+.subsidiary-box .box-body .block-elements span {
+    color: #f9961e;
+    font-size: 1.2vw;
+    display: block;
+}
+
+.subsidiary-box .box-body .block-elements p {
+    color: #fff;
+    font-size: 1.4vw;
+    line-height: 1.2;
+    text-transform: none;
+}
+
+.subsidiary-box .box-body .block-elements p.shrink-line {
+    display: block;
+    display: -webkit-box;
+    height: auto;
+    line-height: 1.2;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subsidiary-box .inline-elements span {
+    color: #f9961e;
+    font-size: 1.2vw;
+    padding-right: 10px;
+    display: inline-table;
+}
+.subsidiary-box .inline-elements p {
+    color: #fff;
+    font-size: 1.4vw;
+    line-height: 1;
+    display: inline-table;
+    margin-bottom: 2px;
+    width: 79%;
+}
+//end new

@@ -1,0 +1,91 @@
+<div class="main-container row" *ngIf="roleList.length > 0;then dataBlock else emptyTextBlock">
+</div>
+<br>
+
+<ng-template #dataBlock>
+    <br>
+    <div class="row"  >
+        <div class="col-sm-12" >
+            <div class="">
+                <div class="filter">
+                    <div class="pagers">
+                        <ul>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('first')" ></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-left filter-icon"  (click)="setPage('previous')"></i>
+                            </li>
+                            <li class="filter-int">
+                                <span>{{page+1}}</span>
+                                <span>-</span>
+                                <span>{{totalPages}}</span>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                            </li>
+                            <li>
+                                <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage('last')" ></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper col-lg-12 col-md-12" *ngFor="let role of roleList; let i = index">
+        <div class="subsidiary-box height-auto">
+
+            <div class="role-content-wrapper">
+                <!-- first row -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-1 col-md-1 no-padding-left box-elements">
+                            <h4><span class="index role-index">{{(i + 1) + ((page) * size)}}</span>
+                                <div class="clearfix"></div>
+                            </h4>
+                        </div>
+                        <div class="col-lg-7 col-md-7 no-padding-left box-elements" style="margin-top: 16px">
+                            <div class="col-lg-12 col-md-12 role-name">
+                                <span class="sub-head">{{'OMS.role-name'|translate}}</span>
+                                <span *ngIf="appService.currentLang=='en' &&  role.roleMultiLingual.map.en" class="main-text" style="padding-left: 20px!important;
+                                padding-right: 20px!important;font-family: tw-regular !important;"> {{ role.roleMultiLingual.map.en}}</span>
+                                <span *ngIf="appService.currentLang=='fa' && role.roleMultiLingual.map.fa" class="main-text" style="padding-left: 20px!important;
+                                padding-right: 20px!important;font-family: Yekan !important;"> {{ role.roleMultiLingual.map.fa}}</span>
+                                <span *ngIf="!role.roleMultiLingual.map.en"
+                                      class="main-text" style="padding-left: 20px!important;
+                                      padding-right: 20px!important;font-family: tw-regular !important;">
+                                    {{ role.roleName}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 box-elements" style="margin-top: 16px">
+                            <div class="role-box-footer pull-right" style="width: 100%">
+                                <div class="col-lg-6 col-md-6" style="padding: 3px">
+                                    <button class="manage-btn "  *ngIf="appService.hasAccessToWrite(13,41)" (click)="deleteRole(role.id)">
+                                        {{'shared.delete'|translate}}
+                                    </button>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6" style="padding: 3px">
+                                    <button class="manage-btn " (click)="editRole('edit', i+1, role)">
+                                        {{'shared.edit'|translate}}
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #emptyTextBlock>
+    <div class="role-box">
+        <div class="no-dept-availble fs-23">
+            {{'OMS.no-role-available'|translate}}
+        </div>
+    </div>
+</ng-template>
+

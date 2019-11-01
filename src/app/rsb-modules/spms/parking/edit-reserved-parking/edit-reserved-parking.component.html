@@ -1,0 +1,83 @@
+<div class="row">
+        <div class="col-xs-12">
+            <div class="prepare-form parking-form">
+                <div class="prepare-form-head">
+                    <span>{{index}}</span>
+                    <h2>{{mode}} Parking</h2>
+                </div>
+                <div class="clear"></div>
+                <div class="prepare-form-body">
+                    <form action="" >
+                            
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>STAFF ID</label>
+                                <input type="text" class="inline-input" name="staffid" >
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                          
+                        
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>LP.REG NUMBER</label>
+                                    <input type="text" class="inline-input" name="staffid" >
+                                   
+                                </div>
+                            </div>
+                            
+                      
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>CONTACT NUMBER</label>
+                                            <input type="text" class="inline-input" name="staffid" minlength="10" maxlength="10" pattern="[0-9 ]+" >
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label>START DATE</label>
+                                                      <input type="text" class="inline-input" name="staffid" >
+                                                     
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                      <div class="form-group">
+                                                          <label>END DATE</label>
+                                                          <input type="text" class="inline-input" name="staffid" >
+                                                         
+                                                      </div>
+                                                  </div>
+                          <div class="clearfix"></div>
+                        <div class="form-footer">
+                                
+                                <button class="form-button-submit pull-right " (click)="updateParking()" >execute</button>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-footer" style="margin-top: 2%">
+                                    
+                                    <button class="form-button-cancel pull-right" type="button" (click)="closeModal()">cancel</button>
+                                    <div class="clear"></div>
+                                </div>
+                                <!--<div class="form-footer" style="margin-top: 2%">-->
+
+                                        <!--<button class="form-button-cancel pull-right" type="button" (click)="closeModal()">Delete</button>-->
+                                        <!--<div class="clear"></div>-->
+                                    <!--</div>-->
+                          <!--   <div class="row">
+                                    <div class="col-md-12 text-right">
+                                      <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                      <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                                    </div>
+                                  </div> -->
+                    </form>
+                </div>
+                <div class="powered-by">
+                    <img src="../../../../../assets/images/logo.png" />
+                     
+                </div>
+            </div>
+        </div>
+    </div>

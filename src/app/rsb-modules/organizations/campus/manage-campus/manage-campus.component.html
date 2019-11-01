@@ -1,0 +1,92 @@
+<div class="manage-level-container">
+    <div class="row">
+        <div class="col-xs-3 campus-detail-container "
+             malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height+'px'">
+            <div *ngFor="let campus of manageCampusList;let i=index">
+                <div class="single-campus" id="singlecampus{{i}}" (click)="getFileDetail(campus, singleCampus,$event)" [ngClass]="{'active' : i===0}" >
+                    <div class="campus-head">
+                        <span *ngIf="appService.currentLang=='en'" >{{campus.name.map.en}}</span>
+                        <span *ngIf="appService.currentLang=='fa'"  style="font-family: Yekan!important;" >{{campus.name.map.fa}}</span>
+                        <span class="campus-head-number">{{i+1}}</span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="single-campus-inner-container">
+                        <!-- <div class="name-head">
+                            <h5>name</h5>
+                        </div>
+                        <div class="name-description">
+                            <span>{{campus.name}}</span>
+                        </div> -->
+
+                        <div class="type-head">
+                            <h5>{{'OMS.address'|translate}}</h5>
+                        </div>
+                        <div class="type-description" >
+                            <p class="shrink-line"  *ngIf="appService.currentLang=='en'" >{{campus.campusAddress.map.en}}</p>
+                            <p class="shrink-line" *ngIf="appService.currentLang=='fa'"  style="font-family:Yekan!important;">{{campus.campusAddress.map.fa}}</p>
+                        </div>
+
+                        <div class="area-di-points">
+                            <span class="area-point-head">{{'OMS.building'|translate}}</span>
+                            <span class="area-value fs-24">{{campus.childCount}}</span>
+                            <span class="di-point-head">{{'OMS.gates'|translate}}</span>
+                            <span class="di-value">{{campus.campusGates}}</span>
+                        </div>
+                        <div class="area-di-points">
+                            <span class="area-point-head">{{'OMS.phone'|translate}}</span>
+                            <span class="area-value">{{campus.campusPhone}}</span>
+                        </div>
+
+                        <div class=" row box-footer"  style="margin-left: 0px!important;margin-right: 0px!important;">
+                            <div class="col-lg-4" style="padding: 3px">
+                                <button class="box-button exe-sm exe-block" *ngIf="appService.hasAccessToWrite(1,1)&&appService.spaceIsAvailable('CAMPUS')" (click)="deleteCampus(campus.id)">{{'shared.delete'|translate}}</button>
+
+                            </div>
+                            <div class="col-lg-4" style="padding: 3px">
+                                <button class="box-button exe-sm exe-block" (click)="editCampus(campus,i+1)">{{'shared.edit'|translate}}</button>
+
+                            </div>
+                            <div class="col-lg-4" style="padding: 3px">
+                                <button class="box-button exe-sm exe-block" routerLink="/rsb-modules/organization/space/structure/manage" (click)="storeCampus(campus)">{{'shared.manage'|translate}}</button>
+
+                            </div>
+                        </div>
+                        <!-- <div class="action-button-container">
+                            <span>
+                                <button class="btn manage-button" (click)="deleteCampus(campus.id)">DELETE</button>
+                            </span>
+                            <span>
+                                <button class="btn manage-button" (click)="editCampus(campus,i+1)">EDIT</button>
+                            </span>
+                            <span>
+                                <button class="btn manage-button" routerLink="/rsb-modules/organization/space/structure/manage/{{campus.id}}" (click)="storeCampus(campus)">MANAGE</button>
+                            </span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-9 workspace" [style.height]="appService.layout_height-15+'px'">
+            <div class="svg-map-container" *ngIf="fileExist && !addClicked">
+                <embed id="svg_floor_map" [src]="svgSourceUrl" style="width:inherit;height:inherit;" type="image/svg+xml" (click)="getTheCordinates($event)">
+                <!-- Adding custom contoll icons -->
+                <div class="custom-pan-zoom-controlls">
+                    <!-- Zoom in icon -->
+                    <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                        <span class="icon-zoom-in"></span>
+                    </div>
+                    <!-- reset icon -->
+                    <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                        <span class="icon-crop-button"></span>
+                    </div>
+                    <!-- Zoom out icon -->
+                    <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                        <span class="icon-zoom-out"></span>
+                    </div>
+                </div>
+            </div>
+            <app-prepare-campus *ngIf="addClicked==true" [prepareComponent]="prepareComponent" [fileData]="fileData"></app-prepare-campus>
+        </div>
+    </div>
+</div>

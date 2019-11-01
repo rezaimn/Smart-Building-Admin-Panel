@@ -1,0 +1,17 @@
+<span class="grades-header fs-23">Grades</span>
+<div class="clearfix"></div>
+<!-- {{manageGrades.length}} -->
+<div *ngIf="manageGrades.length >= 1;then dataContainer else noDataMessage"></div>
+<ng-template #dataContainer>
+  <div class="col-lg-12 grade-policy-main-container" >
+    <div class="grade-lists chips fs-23" *ngFor="let grade of manageGrades;">
+        {{grade.gradeName}}
+    </div>    
+  </div>
+</ng-template>
+<ng-template #noDataMessage>
+    <div class="col-lg-12 grade-policy-main-container" >
+        <div class="no-grades-available fs-23">No Grades available.</div>
+    </div>  
+</ng-template>
+

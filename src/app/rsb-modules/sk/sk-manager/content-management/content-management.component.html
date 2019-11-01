@@ -1,0 +1,35 @@
+<div class="row" style="margin: 0px">
+    <label   [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+             class="manage-btn upload-button">
+        <input type="file" (change)="uploadSKFile($event)" accept="video/*,image/*,audio/*,.ppt" />
+        {{'shared.upload-content'|translate}}
+    </label>
+    <div class="clearfix"></div>
+    <br>
+    <div class="col-md-12"  *ngFor="let skf of filesList; let i = index">
+        <div class="subsidiary-box mitoconnect-ui-listing-grid" >
+            <div class="clearfix"></div>
+            <div class="box-body">        
+              <div class="row" style="margin: 0px">
+                  <div class="col-md-1 inline-elements">
+                    <span>{{i+1}} </span>
+                  </div>
+                  <div class="col-md-4 inline-elements">
+                    <span>{{'SK.file-name' | translate}}</span><br>
+                    <p>{{skf.filename }}</p>
+                  </div>
+                  <div class="col-md-4 inline-elements">
+                    <span>{{'SK.file-type' | translate}}</span><br>
+                    <p> {{skf.contentType }}</p>
+                  </div>
+                  <div class="col-md-3 inline-elements">
+                    <button  *ngIf="appService.hasAccessToWrite(12,43)" class="manage-btn pull-right" style="width:120px;margin-right: 4px;margin-top: 10px" (click)="deleteFile(skf.id)" >{{'shared.delete' | translate}}</button>
+                    <a [href]="'https://appdev.mitoconnect.com/api/rsb-oms/oms/downloadFile/'+skf.id" *ngIf="appService.hasAccessToWrite(12,43)" class="manage-btn pull-right" style="width:120px;margin-right: 4px;margin-top: 10px"  >{{'shared.download' | translate}}</a>
+                  </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+  

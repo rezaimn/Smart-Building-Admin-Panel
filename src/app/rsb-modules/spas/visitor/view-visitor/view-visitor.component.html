@@ -1,0 +1,157 @@
+<div class="prepare-form">
+    <div class="prepare-form-head">
+        <span></span>
+        <h1>{{'SPAS.add-visitor' | translate}}</h1>
+    </div>
+    <div class="clear"></div>
+    <div class="prepare-form-body">
+        <div class="view-staff-overlay">
+            <form  #createVisitor="ngForm">
+
+                <div class="row">
+                    <div class="col-md-4 visitor-list-float">
+                        <div class="form-group">
+                            <label>{{'OMS.first-name'|translate}}</label>
+                            <input class="visitor-input-name" type="text" [placeholder]="'OMS.first-name'|translate"
+                                   #visitorName="ngModel" name="visitorName"
+                                   [(ngModel)]="prepareVisitor.cardholder.firstName"
+                                   required minlength="3" maxlength="30" />
+                            <div class="error-message-display">
+                                <div [hidden]="visitorName.valid || visitorName.untouched">
+                                    <div *ngIf="visitorName.errors && visitorName.errors.required">
+                                        {{'validate-message.first-name-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 visitor-list-float">
+                        <div class="form-group">
+                            <label>{{'OMS.last-name'|translate}}</label>
+                            <input class="visitor-input-name" type="text" [placeholder]="'OMS.last-name'|translate"
+                                   #visitorLastName="ngModel" name="visitorLastName"
+                                   [(ngModel)]="prepareVisitor.cardholder.lastName"
+                                   required minlength="3" maxlength="30" />
+                            <div class="error-message-display">
+                                <div [hidden]="visitorLastName.valid || visitorLastName.untouched">
+                                    <div *ngIf="visitorLastName.errors && visitorLastName.errors.required">
+                                        {{'validate-message.last-name-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 visitor-list-float">
+                        <div class="form-group">
+                            <label>{{'SELECT.select-work-group'|translate}}</label>
+                            <select class="visitor-input-name" name="selectedDepartment" #selectedWG="ngModel"
+                                    [(ngModel)]="workGroupId"  [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    required >
+                                <option *ngFor="let workGroup of workGroups;" [ngValue]="workGroup.id">
+                                    <p *ngIf="appService.currentLang=='en'">{{workGroup?.name?.map?.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'">{{workGroup?.name?.map?.fa}}</p>
+                                </option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="selectedWG.valid || selectedWG.untouched">
+                                    <div *ngIf="selectedWG.errors && selectedWG.errors.required">
+                                        {{'validate-message.work-group-required' | translate}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+                <div class="row">
+
+
+                    <div class="col-md-6 visitor-list-float">
+                        <div class="form-group">
+                            <label>{{'SPAS.card-number'|translate}}</label>
+                            <input  type="number" [placeholder]="'SPAS.card-number'|translate"
+                                    #cardNO="ngModel" name="cardNO"
+                                    [(ngModel)]="prepareVisitor.cardholder.cardNumber"
+                                    required minlength="4" maxlength="20" />
+                            <div class="error-message-display">
+                                <div [hidden]="cardNO.valid || cardNO.untouched">
+                                    <div *ngIf="cardNO.errors && cardNO.errors.required">
+                                        {{'validate-message.card-number-required' | translate}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 visitor-list-float">
+                        <div class="form-group">
+                            <label>{{'SPAS.mobile-number'|translate}}</label>
+                            <input  type="number" [placeholder]="'SPAS.mobile-number'|translate"
+                                    #mobileNO="ngModel" name="mobileNO"
+                                    [(ngModel)]="prepareVisitor.cardholder.mobileNum"
+                                    required  />
+                            <div class="error-message-display">
+                                <div [hidden]="mobileNO.valid || mobileNO.untouched">
+                                    <div *ngIf="mobileNO.errors && mobileNO.errors.required">
+                                        {{'validate-message.mobile-number-required' | translate}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+                <div class="clear"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group visitor-purpose">
+                            <label>{{'SPAS.visit-purpose-description' | translate}}</label>
+                            <textarea class="ng-pristine" type="text" name="purpose" #discription="ngModel"
+                                      [placeholder]="'SPAS.visit-purpose-description' | translate"
+                                      [(ngModel)]="prepareVisitor.purpose" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="clearfix"></div>
+                <div class="form-footer pull-right row "
+                     style="width: 100%;margin-bottom: 20px!important;margin-top: 20px!important;">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 visitor-list-btn" style="float: right">
+                        <div class="col-lg-6 visitor-list-btn-float" style="float: right;width: 50%">
+                            <button _ngcontent-c7="" *ngIf="appService.hasAccessToWrite(3,9)" (click)="addUpdateVisitor()"
+                                    type="submit" class="form-button-submit floating-bnt" style="width: 100%"
+                                    [disabled]="(createVisitor?.form?.invalid) ">{{'SPAS.execute' | translate}}
+                            </button>
+
+                        </div>
+                        <div class="col-lg-6 visitor-list-btn" style="float: left;width: 50%">
+                            <button _ngcontent-c7="" class="form-button-cancel floating-bnt" type="button" style="width: 100%"
+                                    (click)="closeModal()">{{'SPAS.cancel' | translate}}
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="clear "></div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="clear"></div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <div class="powered-by" style="bottom: -45px!important;">
+                            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+                        </div></div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

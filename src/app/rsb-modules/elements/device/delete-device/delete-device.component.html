@@ -1,0 +1,13 @@
+<div class="delete-box">
+  <h4 style="    margin-bottom: 20px!important;">{{'EMS.delete-element' | translate}}</h4>
+  <div class="del-length" *ngIf="count !== 1">{{count}}</div>
+
+  <div class="clearfix"></div>
+  <button class="form-button-submit pull-right" (click)="deleteDevice(id)" *ngIf="appService.hasAccessToWrite(13,32)">{{'shared.delete' | translate}}</button>
+  <button class="form-button-cancel pull-left" (click)="closeModal()">{{'shared.cancel' | translate}}</button>
+  <div class="clearfix"></div>
+  <div class="powered-by">
+    <img src="../../../../../assets/images/logo.png" />
+    
+  </div>
+</div>

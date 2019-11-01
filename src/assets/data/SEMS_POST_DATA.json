@@ -1,0 +1,11 @@
+{
+"location":{
+  "organizationid":1,
+  "subsidiaryid":1,
+  "campusid":1,
+  "buildingid":1,
+  "floorid":0,
+  "areaid":0
+ },
+ "devicetypecode":["TRM"]
+}

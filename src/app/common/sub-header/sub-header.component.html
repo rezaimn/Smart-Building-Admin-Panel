@@ -1,0 +1,50 @@
+<div class="sub-header-wrapper" >
+
+    <div class="sub-header">
+        <h1 style="margin-left: 0!important;">{{message?.header}}</h1>
+        <h4 style="margin-left: 0!important;">{{message?.subHeader}}</h4>
+    </div>
+
+    <div class="search-panel">
+        <span class="pageDetail noselect">{{message?.pageDetail}}
+            <img *ngIf="!appService.lightThemeC" src="../../../assets/images/common/header/sample.png">
+            <img class="sample2" *ngIf="appService.lightThemeC" src="../../../assets/images/common/header/sample2.png">
+              <img *ngIf="isLoading" src="../../../assets/images/earth-loader.gif" style="padding: 3px" >
+                    <img  *ngIf="!isLoading" class="lead-icon" [src]="message?.logoUrl" >
+            <!--<img *ngIf="!isLoading&&appService.lightThemeC" class="lead-icon" [src]="getPhotoUrl(message?.logoUrl)" >-->
+
+        </span>
+
+        <div class="clearfix"></div>
+        <form action="" autocomplete="off" method="get" *ngIf="!searchFlag">
+            <input type="text" list="search_object" name="searchText" style="width: 69%" #searchText placeholder="Search" />
+            <datalist id="search_object">
+                <option *ngFor="let element of searchElements;" value="{{element.content}}">
+            </datalist>
+            <button class="execute-btn execute-btn-search pull-right" style="width: 30%" type="submit">
+                execute
+            </button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    <div class="add-button-container pull-right" [hidden]="message?.routeName=='' || addClicked">
+        <button type="button" class="execute-btn exe-lg" (click)="isAddButtonClicked()">{{message?.routeName}}</button>
+        <!-- <svg id="Layer_1" width="270" height="50">
+            <rect class="add-svg" width="270" height="50" rx="8px" ry="8px" />
+        </svg> -->
+    </div>
+    
+    <div class="clearfix"></div>
+    <div class="btn-group btn-breadcrumb" style="margin: 1%;margin-left: 0px!important;">
+        <!-- <a href="#" class="btn btn-warning btn-sm breadcrumb-btn">
+                    OMS
+                </a>
+                <a href="#" class="btn btn-warning btn-sm breadcrumb-btn active">Subsidiary</a> -->
+        <a href="" *ngFor="let crum of allCrums;let i=index" class="btn btn-warning btn-sm breadcrumb-btn"  routerLink="{{crum.link}}" [ngClass]="{'active': i === allCrums.length - 1}">{{crum.name}}</a>
+    </div>
+    <div class="add-button-container pull-right" [hidden]="message?.secpageDetail=='' || addClicked ||message?.secpageDetail==null "  >
+        <button type="button" class="execute-btn exe-lg"  (click)="isSecAddButtonClicked()">{{message?.secpageDetail}}&nbsp;&nbsp;</button>
+
+    </div>
+
+</div>

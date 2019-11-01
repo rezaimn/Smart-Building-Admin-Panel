@@ -1,0 +1,64 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;">
+
+    <div class="col-sm-12" 	style="min-height: 500px">
+        <div class="row" *ngFor="let job of allJobs; let i=index">
+            <div class="col-sm-12">
+                <div class="subsidiary-box ">
+                    <div class="fs-23 staff-header">
+                        <p style="font-size: 21px">{{job.jobName}}</p>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'LNR.schedule'|translate}}</span><br>
+                                    <p style="font-size: 18px!important;">{{job.schedule}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'LNR.schedule-time'|translate}}</span><br>
+                                    <p style="font-size: 18px!important;">{{job.scheduleTime | date: 'dd:MMM:yyyy hh-mm-ss'}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'LNR.job-status'|translate}}</span><br>
+                                    <p>{{job.jobStatus}} </p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'LNR.job-report'|translate}}</span><br>
+                                    <p>{{job.report}} </p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'LNR.requester'|translate}}</span><br>
+                                    <p>{{job.requestor}} </p>
+                                </div>
+                                <div class="col-sm-2 inline-elements  pull-right">
+                                    <div class="col-md-12">
+                                        <button class="manage-btn pull-right" (click)="deleteJob(job.jobName)" style="width: 100%"
+                                                *ngIf="appService.hasAccessToWrite(14,2612)">
+                                            {{'shared.delete'|translate}}
+                                        </button>
+                                    </div>
+                                    <!--<div class="col-md-6">-->
+                                        <!--<button *ngIf="job.jobStatus=='SCHEDULED'" class="manage-btn pull-right" (click)="toggleStatus(job.jobName,'stop')" style="width: 100%">-->
+                                            <!--{{'LNR.stop'|translate}}-->
+                                        <!--</button>-->
+                                        <!--<button *ngIf="job.jobStatus!='SCHEDULED'" class="manage-btn pull-right" (click)="toggleStatus(job.jobName,'start')" style="width: 100%">-->
+                                            <!--{{'LNR.start'|translate}}-->
+                                        <!--</button>-->
+                                    <!--</div>-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

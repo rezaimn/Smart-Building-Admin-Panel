@@ -1,0 +1,88 @@
+<div class="page-wrapper">
+    <div class="bg-img">
+        <!-- <img [src]="loadURL" alt="BG" /> -->
+        <div class="page-overlay-wrapper">
+            <div class="page-overlay" *ngIf="!loader">
+                <div class="login-form">
+                    <!-- <div class="logo">
+                        <img src="../../assets/images/logo.png" alt="logo" />
+                    </div> -->
+                    <!-- <h2>welcome to</h2> -->
+                    <h1>RSB <span class="sys-login">System Login</span></h1>
+                    <!-- <h2>System Login</h2> -->
+                    <form #loginform="ngForm" autocomplete="off" novalidate="" (ngSubmit)="loginUser()">
+                        <div class="my-input filter-elements">
+                            <input type="text" name="systemId" [(ngModel)]="loginData.username" #systemId="ngModel" required="true" minlength="3" maxlength="150" />
+                            <label>
+                                <p>System ID/Email</p>
+                                <!-- <svg id="Layer_1" width="300" height="30">
+                                    <path class="right-holder" d="m149.25,1.090387c40.750762,-0.370517 150,-0.370517 150,0c0.000279,0 0,28.161668 0,28.159262c0,0.002438 -46.524318,0 -46.75,0"
+                                        opacity="0" />
+                                    <path class="left-holder" transform="rotate(-180 56.75006103515625,15.156614303588867) " d="m-37.75,1.092829c40.75076,-0.373774 150,-0.373774 150,0c0.00028,0 0,28.409232 0,28.40681c0,0.002452 -46.52432,0 -46.75,0"
+                                        opacity="1" />
+                                </svg> -->
+                            </label>
+                            <div class="error-message-display"> 
+                                <div [hidden]="systemId.valid || systemId.untouched">
+                                    <div *ngIf="systemId.errors && systemId.errors.required">
+                                        System ID is required
+                                    </div>
+                                    <div *ngIf="systemId.errors && systemId.errors.minlength">
+                                        Minimum 3 characters required for system ID
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-input filter-elements">
+                            <input type="password" name="password" [(ngModel)]="loginData.password" #passCode="ngModel" minlength="4" maxlength="4" required="true" />
+                            <label>
+                                <p>Passcode</p>
+                                <!-- <svg id="Layer_1" width="300" height="30">
+                                    <path class="right-holder" d="m149.25,1.090387c40.750762,-0.370517 150,-0.370517 150,0c0.000279,0 0,28.161668 0,28.159262c0,0.002438 -46.524318,0 -46.75,0"
+                                        opacity="0" />
+                                    <path class="left-holder" transform="rotate(-180 56.75006103515625,15.156614303588867) " d="m-37.75,1.092829c40.75076,-0.373774 150,-0.373774 150,0c0.00028,0 0,28.409232 0,28.40681c0,0.002452 -46.52432,0 -46.75,0"
+                                        opacity="1" />
+                                </svg> -->
+                            </label>
+                            <div class="error-message-display">
+                                <div [hidden]="passCode.valid || passCode.untouched">
+                                    <div *ngIf="passCode.errors && passCode.errors.required">
+                                        Passcode is required
+                                    </div>
+                                    <div *ngIf="passCode.errors && passCode.errors.minlength">
+                                        Passcode should be 4 characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a routerLink="/reset-password" (click)="sendEmail()">forgot passcode?</a>
+                        <button style="cursor: pointer!important;"  class="login-button" type="submit" [disabled]="!loginform.valid || loginClicked">execute</button>
+                    </form>
+                    <div class="clearfix"></div>
+                    <div class="alert alert-danger" id="errorBox">
+                        <strong>Error - {{msg}}</strong>
+                    </div>
+                </div>
+                <div class="powered-by">
+                    <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                    <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loader-wrapper" *ngIf="loader">
+        <div class="loader">
+            <h2>Populating modules</h2>
+            <div id="myProgress">
+                <div id="myBar"></div>
+            </div>
+            <div class="percentage-container">
+                <p id="percentage"></p>
+            </div>
+        </div>
+    </div>
+    <div class="copyrights">
+        <span>Copyright © 2018 Mitoconnect Technologies. All Rights Reserved.</span>
+    </div>
+</div>

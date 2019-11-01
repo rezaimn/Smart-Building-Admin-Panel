@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-xs-12">
+      <div class="prepare-form">
+          <div class="prepare-form-head">
+              <span></span>
+              <h2>{{'AMS.leave-details' | translate}}</h2>
+          </div>
+          <div class="clear"></div>
+          <div class="prepare-form-body">
+                  <div class="col-sm-6" style="padding-left: 0 !important">
+                      <div class="col-sm-12">
+                              <div class="form-group">
+                                  <label>{{'AMS.leave-status' | translate}}</label>
+                                  <div class="policy-container1">
+                                    <span>{{leaveDetails.leavestatus}}</span>
+                                  </div>
+                              </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                          <div class="form-group">
+                              <label>{{'AMS.leave-date-and-time' | translate}}</label>
+                              <div class="policy-container translatable">
+                                  <span>{{'AMS.from' | translate}}- {{leaveDetails.leavefrom}}</span>
+                                  <span>{{'AMS.to' | translate}} - {{leaveDetails.leaveto}}</span>
+                                
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label>{{'AMS.manager-comment' | translate}}</label>
+                          <div class="policy-container1">
+                            {{leaveDetails.managercomments}}
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label>{{'AMS.reason-for-leave' | translate}}</label>
+                          <div class="policy-container1">
+                            {{leaveDetails.reasonforleave}}
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="clearfix"></div>
+
+                  <div class="form-footer" style="margin-top: 2%">
+
+                      <button class="form-button-cancel pull-right" (click)="closeModal();" type="button">{{'AMS.close' | translate}}</button>
+                      <div class="clear"></div>
+                  </div>
+          </div>
+          <div class="powered-by">
+              <img src="../../../../../assets/images/logo.png" />
+
+          </div>
+      </div>
+  </div>
+</div>

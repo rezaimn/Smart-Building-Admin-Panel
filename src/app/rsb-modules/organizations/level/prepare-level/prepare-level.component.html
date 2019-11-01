@@ -1,0 +1,152 @@
+<div class="add-edit-container" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [style.height]="appService.layout_height-30+'px'">
+    <div class="prepare-floor-head">
+        <span class="prepare-floor-head-number">{{index}}</span>
+        <span *ngIf="mode=='add'" class="prepare-floor-head-type">{{'OMS.add-level'|translate}}</span>
+        <span *ngIf="mode=='edit'" class="prepare-floor-head-type">{{'OMS.edit-level'|translate}}</span>
+    </div>
+    <div class="prepare-body-container" style="height: 300px">
+        <form action=""
+              (ngSubmit)="onSubmit(prepareLevel,prepareLevelForm)"
+              #prepareLevelForm="ngForm"
+              method="post"
+              autocomplete="off"
+              novalidate="">
+            <div class="row" style="height: 250px;">
+                <div class="col-xs-6">
+                    <div class="prepare-floor-body">
+                        <div class="prepare-floor-name">
+                            <span>NAME</span>
+                            <input type="text" name="levelName"
+                                   #levelName="ngModel"
+                                   [(ngModel)]="prepareLevel.levelNameMultiLingual.map.en"
+                                   required="true" minlength="3"
+                                   maxlength="50">
+                            <div class="error-message-display" style="right: auto; left: 5px;">
+                                <div [hidden]="levelName.valid || levelName.untouched">
+                                    <div *ngIf="levelName.errors && levelName.errors.required">
+                                        NAME IS REQUIRED
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message-display"  style="right: auto; left: 5px;">
+                                <div [hidden]="levelName.valid || levelName.untouched">
+                                    <div *ngIf="levelName.errors && levelName.errors.minlength">
+                                        MINIMUM 3 CHARACTERS REQUIRED
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="error-message-display">-->
+                                <!--<div [hidden]="levelName.valid || levelName.untouched">-->
+                                    <!--<div *ngIf="levelName.errors && levelName.errors.pattern">-->
+                                        <!--{{'validate-message.alphabet-pattern-required'|translate}}-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="prepare-floor-name">
+                            <span  style="font-family: Yekan!important; float: right!important;">نام</span>
+                            <input style="direction: rtl;font-family: Yekan!important;" type="text" name="faLevelName"
+                                   #faLevelName="ngModel"
+                                   [(ngModel)]="prepareLevel.levelNameMultiLingual.map.fa"
+                                   required="true" minlength="3"
+                                   maxlength="50">
+                            <div class="error-message-display" style="font-family: Yekan!important;">
+                                <div [hidden]="faLevelName.valid || faLevelName.untouched">
+                                    <div *ngIf="faLevelName.errors && faLevelName.errors.required">
+                                        درج نام ضروری است
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message-display" style="font-family: Yekan!important;">
+                                <div [hidden]="faLevelName.valid || faLevelName.untouched">
+                                    <div *ngIf="faLevelName.errors && faLevelName.errors.minlength">
+                                        درج حداقل ۳ کاراکتر ضروری است
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="error-message-display">-->
+                            <!--<div [hidden]="levelName.valid || levelName.untouched">-->
+                            <!--<div *ngIf="levelName.errors && levelName.errors.pattern">-->
+                            <!--{{'validate-message.alphabet-pattern-required'|translate}}-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+
+                        <div class="prepare-floor-type">
+                            <span>LEVEL TYPE</span>
+                            <input type="text" name="levelType" #levelType="ngModel" [(ngModel)]="prepareLevel.levelTypeMultiLingual.map.en" required="true">
+                            <div class="error-message-display" style="right: auto; left: 5px;">
+                                <div [hidden]="levelType.valid || levelType.untouched">
+                                    <div *ngIf="levelType.errors && levelType.errors.required">
+                                        LEVEL TYPE REQUIRED
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="prepare-floor-type">
+                            <span style="font-family: Yekan!important; float: right!important;">نوع طبقه</span>
+                            <input type="text" style="font-family: Yekan!important;direction: rtl" name="faLevelType" #faLevelType="ngModel" [(ngModel)]="prepareLevel.levelTypeMultiLingual.map.fa" required="true">
+                            <div class="error-message-display" style="font-family: Yekan!important;">
+                                <div [hidden]="faLevelType.valid || faLevelType.untouched">
+                                    <div *ngIf="faLevelType.errors && faLevelType.errors.required">
+                                        درج نوع طبقه ضروری است
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="upload-file-container">
+                        <i class="fa fa-times-circle" aria-hidden="true" *ngIf="fileUploaded" (click)="resetFile()"></i>
+                        <label for="uploadFloorMap">
+                        <i class="icon-upload circle-icon" [ngClass]="{'uploaded':fileUploaded}"></i>
+                        <input type="file" name="upload-floor-map" id="uploadFloorMap" (change)="uploadSvgFile($event)" accept=".svg" >
+                    </label>
+                        <div class="file-name">
+                            <span>{{fileName}}</span>
+                        </div>
+                        <div class="hidden-file-input">
+                            <input type="text" #levelMap="ngModel" [(ngModel)]="prepareLevel.levelMap" name="levelMap" required="true">
+                        </div>
+                        <div class="error-message-display">
+                            <div [hidden]="levelMap.valid || levelMap.untouched">
+                                <div *ngIf="levelMap.errors && levelMap.errors.required">
+                                    {{'validate-message.level-map-required'|translate}}
+                                </div>
+                            </div>
+                            <div>
+                                <div *ngIf="fileTypeError">
+                                    {{'validate-message.svg-map-file'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class=" pull-right row" style="width: 100%;margin-bottom: 30px!important;margin-top: 30px!important;">
+                <div class=" form-footer col-lg-5 col-md-6 col-sm-7 col-xs-8" style="float: right">
+                    <div  class="col-lg-6 " style="float: right;width: 50%">
+                        <button type="submit" class="form-button-submit btn-block mb-9" *ngIf="appService.hasAccessToWrite(1,1)" [disabled]="!prepareLevelForm.form.valid" id="saveButton">{{'shared.execute'|translate}}</button>
+
+                    </div>
+                    <div class="col-lg-6" style="float: left;width: 50%">
+                        <button type="button" class="form-button-cancel btn-block"  (click)="cancelButton()" id="cancelButton">{{'shared.cancel'|translate}}</button>
+
+                    </div>
+                </div>
+
+                <div class="clear "></div>
+            </div>
+            <div class="clearfix"></div>
+
+
+        </form>
+    </div>
+</div>

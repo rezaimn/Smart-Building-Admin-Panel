@@ -1,0 +1,244 @@
+@import '../../OMS';
+
+textarea {
+    color: $white !important;
+    text-transform: uppercase;
+    background-color: #0a2347;
+    border: 1px solid #4c4c4c;
+    width: 100%;
+    padding: 5px;
+    resize: none;
+    font-size: 20px !important;
+}
+.error-message-display {
+    right: 15px !important;
+}
+
+.form-body {
+    min-height: 400px;
+}
+
+.prepare-staff-date-botton {
+    margin-bottom: 12px
+}
+.wizard-pager {
+    width: 360px;
+    height: 70px;
+    float: right;
+    padding-top: 20px;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            display: block;
+            position: relative;
+            text-align: center;
+            float: left;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            // background: ;
+            // @include border-gradient($secondary-clr-alpha);
+            cursor: pointer;
+            margin-right: 60px;
+            border-radius: 100%;            
+            &:last-child {
+                margin-right: 0;
+                &:after {
+                    background: none;
+                    display: none;
+                }
+            }
+            &.active {
+                background: $primary-clr;
+                @include border-gradient($primary-clr);
+                span {
+                    @include angle-gradient(rgba(3, 15, 26, 0), rgba(249, 150, 30, 1), -180deg);
+                    width: 100%;
+                    height: 100%;
+                    line-height: 40px;
+                    font-size: 24px;
+                    color: $black;
+                }
+            }
+            &:after {
+                position: absolute;
+                width: 60px;
+                height: 1px;
+                background: $primary-clr;
+                position: absolute;
+                top: 20px;
+                left: 40px;
+                content: '';
+            }
+            span {
+                font-size: 24px;
+                width: 100%;
+                height: 100%;
+                line-height: 40px;
+                color: $primary-clr;
+                padding: 0;
+                // @include angle-gradient(rgba(3, 15, 26, 0), rgba(18, 78, 151, 0.3), -180deg);
+                border-radius: 100%;
+                border: 2px solid $primary-clr;
+            }
+        }
+    }
+}
+
+.custom-width {
+    width: 75%;
+}
+
+.custom-zip-code {
+    margin-top: 25px;
+}
+
+.form-body {
+    padding-left: 30px;
+}
+
+.dob-title {
+    color: $primary-clr;
+    position: relative;
+    padding-right: 10px;
+    font-size: 22px;
+}
+
+.dob-field {
+    width: 30%;
+}
+
+
+
+.staff-profile-picture {
+    display: none;
+}
+label {
+    // margin-bottom: 5px;
+    position: relative;
+    display: block;
+    top: 0;
+}
+
+.profile-pic-image {
+    label {
+        cursor: pointer;
+    }
+    width: auto;
+    img {
+        margin-top: -25px;
+    }
+    div {
+        // margin-top: 150px;
+        color: $secondary-clr-alpha;
+        font-size: 16px;
+    }
+}
+
+.extra-padding {
+    padding-left: 45px;
+}
+
+
+
+.custom-width  {
+    .form-group {
+        margin-bottom: 20px;
+    }
+}
+
+.salary-label {
+    margin-top: 7px;
+    color: $primary-clr;
+    position: relative;
+    padding-right: 10px;
+    font-size: 22px;
+}
+
+.salary-title {
+    font-size: 22px;
+    margin-top: 7px;
+    color: $primary-clr;
+    position: relative;
+    padding-right: 10px;
+    top: 40px;
+}
+
+.salary-field {
+    // text-align: right;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.vehicle-heading {
+    font-size: 32px;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.vehicle-box {
+    position: relative;
+    background: rgba(18, 78, 151, 0.3);
+    text-transform: uppercase;
+    // padding: 30px 10px 0px 10px;
+    height: auto;
+
+    i {
+        cursor: pointer;
+    }
+}
+
+.add-vehicle {
+    color: #fff;
+    font-size: x-large;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+.sub-headers {
+    font-size: 20px;
+    color: $primary-clr;
+    margin-bottom: 0px;
+
+    span {
+        color: #fff;
+        font-size: 20px;
+        margin-left: 5px;
+    }
+}
+
+.executing-class {
+    h2 {
+        float: right;
+        color: $primary-clr;
+        padding-right: 30px;
+    }
+}
+.pt-38 {
+    padding-top: 38px;
+}
+.mt-40 {
+    margin-top: 38px;
+}
+.btns-div {
+    
+    button {
+        display: block;
+        margin-bottom: 15px;        
+    }
+}
+.pt-30 {
+    padding-top: 30px;
+}
+.amount-icon {
+    position: absolute;
+    top: 5px;
+    z-index: 99;
+    right: 180px;
+    color: #fff;
+    font-size: 22px;
+}

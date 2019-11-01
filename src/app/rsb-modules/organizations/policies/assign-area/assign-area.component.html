@@ -1,0 +1,58 @@
+<div class="col-lg-12">
+  <div class="col-lg-6">
+    <!-- All grades -->
+    <div class="assign-area-left-wrapper" style="padding-right:15px;">
+      <span class="col-lg-6 grades-header fs-23 pull-left no-padding-left">All Grades</span>
+      <div class="col-lg-6 buttons-div">
+        <span class="col-lg-5"><button class="execute-btn execute-btn-search " (click)="openPrepareGrade()"> create </button></span>
+        <span class="col-lg-offset-2 col-lg-5 no-padding-right"><button class="form-button-cancel execute-btn exe-sm exe-block " type="button" (click)="deleteGrade()" [disabled]="">Delete</button> </span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="grade-policy-main-container">
+        <div *ngIf="manageGrades.length >= 1">
+          <div class="grade-lists chips fs-23" *ngFor="let grade of manageGrades;let i = index;" (click)="selectGrades($event,i,grade)">
+            <i class="glyphicon glyphicon-ok-sign select-icon"></i> {{grade.gradeName}}
+          </div>
+        </div>
+
+        <div *ngIf="manageGrades.length < 1">
+          <div class="no-grades-availble fs-23">
+            No grades available.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Selected grades -->
+  <div class="col-lg-6">
+
+    <span class="previous-icon" (click)="pushSelectedAreasToSelectedGrades();">
+      <i class="icon-right-arrow"></i>
+    </span>
+
+    <div class="assign-area-left-wrapper" style="padding-left:15px;">
+      <span class="col-lg-6 selected-grades-header fs-23 pull-left no-padding-left">selected Grades</span>
+      <div class="clearfix"></div>
+      <div class="grade-policy-main-container"> 
+        <div class="grade-lists chips fs-23" *ngFor="let selectedDesigGrade of selectedGradeArr; let i = index;">
+          {{selectedDesigGrade.gradeName}}
+          <i class="glyphicon glyphicon-remove-sign delete-icon" (click)="removeGrades($event,i,grade)"></i>
+        </div>                
+        <div *ngIf="selectedGradeArr.length<1">
+          <div class="no-grades-availble fs-23">
+            No grades assigned.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 bottom-buttons-div">
+        <!-- col-lg-offset-6 -->
+      <span class="col-lg-3 col-lg-offset-9  no-padding-right">
+        <button style="margin-bottom:15px;" class="form-next-button execute-btn exe-sm exe-block" type="button" (click)="saveGradesForParticularDesig()">execute</button>
+        <button class="form-button-cancel execute-btn exe-sm exe-block " type="button" (click)="cancelAssignArea()" >cancel</button>
+      </span>
+      <!-- <span class="col-lg-3 no-padding-right pull-right"></span> -->
+      
+    </div>
+  </div>
+</div>

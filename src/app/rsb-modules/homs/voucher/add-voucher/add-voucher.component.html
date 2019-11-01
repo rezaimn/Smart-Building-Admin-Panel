@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2> {{'HOMS.add-edit-voucher' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form action="" (ngSubmit)="updateVoucher(voucher)" #createAccessZoneForm="ngForm" method="post" autocomplete="off">
+                   
+                      
+                    <div class="col-sm-6 translatable-float-right" style="padding-left: 0 !important">
+                        <div class="form-group">
+                            <label>{{'HOMS.staff-id' | translate}}</label>
+                            
+                                <input  type="text" name="employeeid" required #employeeid=ngModel [(ngModel)]="voucher.employeeid"  required="true" />
+                                <div class="error-message-display">
+                                    <div [hidden]="employeeid.valid || employeeid.untouched">
+                                      <div *ngIf="employeeid.errors && employeeid.errors.required">
+                                          {{'validate-message.staff-id-required' | translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 translatable-float-right">
+                        <div class="form-group">
+                            <label>{{'HOMS.voucher-number' | translate}}</label>
+                            
+                                <input  type="text" name="number" required #number=ngModel [(ngModel)]="voucher.number"  required="true" />
+                                <div class="error-message-display">
+                                    <div [hidden]="number.valid || number.untouched">
+                                      <div *ngIf="number.errors && number.errors.required">
+                                          {{'validate-message.voucher-number-required' | translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 translatable-float-right" style="padding-left: 0 !important">
+                        <div class="form-group">
+                            <label>{{'HOMS.amount' | translate}}</label>
+                            
+                                <input  type="number" name="amount" required #amount=ngModel [(ngModel)]="voucher.amount"  required="true" />
+                                <div class="error-message-display">
+                                    <div [hidden]="amount.valid || amount.untouched">
+                                      <div *ngIf="amount.errors && amount.errors.required">
+                                          {{'validate-message.amount-required' | translate}}
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                        </div>
+                    </div>
+                   
+                    
+
+                   
+                   
+                    
+                    <div class="clearfix"></div>
+                    
+                    <div class="form-footer add-voucher-btn">
+                            
+                              <button class="form-button-submit pull-right" *ngIf="appService.hasAccessToWrite(11,28)"  [disabled]="(createAccessZoneForm.form.invalid) ">{{'HOMS.execute' | translate}}</button>
+                              <button class="form-button-cancel pull-right" type="button" (click)="closeModal()">{{'HOMS.cancel' | translate}}</button>
+
+                            <div class="clear"></div>
+                        </div>
+                        <!--<div class="clearfix"></div>-->
+                        <!--<div class="form-footer" style="margin-top: 2%">-->
+                                <!---->
+                               <!---->
+                                <!--<div class="clear"></div>-->
+                            <!--</div>-->
+                        <!---->
+                      <!--   <div class="row">
+                                <div class="col-sm-12 text-right">
+                                  <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                  <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                                </div>
+                              </div> -->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div>
+        </div>
+    </div>
+</div>

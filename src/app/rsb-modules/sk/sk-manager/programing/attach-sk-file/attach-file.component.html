@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form"   malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+            <div class="prepare-form-head">
+                <h2 style="padding-bottom: 10px;width: 100%" [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">{{'SK.attach-file-to-sk'|translate}}</h2>
+                <h3 class="sk-device-name" style="color: #fff;padding: 0px;font-family: tw-regular">{{skFiles.deviceName}}</h3>
+            </div>
+            <div class="prepare-form-body" style="padding-top: 30px">
+                <div style="width: 100%;margin-bottom: 20px">
+                    <img class="plus-icon pull-right"  src="../../../../../../assets/images/plus.png" height="32" style=""
+                         (click)="addNewFileToSK()">
+                </div>
+
+                <hr style="margin: 10px">
+                <form>
+                    <div class="row" *ngFor="let file of skFiles.files;let i=index" style="margin-bottom: 10px">
+                        <div class="col-lg-4 input1">
+                            <div class=" filter-elements">
+                                <label>{{'SK.select-file' | translate}}</label>
+                                <select style="width: 100%;font-family: tw-regular"
+                                        class="select-dropdowns area-filters" [name]="'selectedFile'+i"
+                                        #selectedFile="ngModel" [(ngModel)]="file.fileId" (change)="fileIsUpdated(i)"
+                                        required>
+                                    <option *ngFor="let fileT of filesList;" [ngValue]="fileT.id">
+                                        <p>{{fileT.filename}}.{{fileT.contentType}}</p>
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 input1">
+                            <label [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">{{'SK.presence'|translate}}</label>
+                            <input class="pull-left-check" type="checkbox" [name]="'presence'+i"
+                                   #presence  [(ngModel)]="file.presence" style="height: 20px;width: 20px;margin-top: 15px;"
+                                   (change)="fileIsUpdated(i);presenceChanged(presence,i)" >
+                        </div>
+                        <div class="col-lg-3 input1">
+                            <label>{{'SK.time-schedule'|translate}}</label>
+                            <input type="time" (change)="fileIsUpdated(i)" [name]="'time'+i" [(ngModel)]="file.dailyScheduleTime" [disabled]="file.presence">
+                        </div>
+                        <div class="col-lg-2 input1">
+                            <label [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'">{{'SK.repeatAgain'|translate}}</label>
+                            <input class="pull-left-check" type="checkbox" [name]="'repeat'+i"  [(ngModel)]="file.repeatAgain" style="height: 20px;width: 20px;margin-top: 15px;" (change)="fileIsUpdated(i)" >
+                        </div>
+                        <div class="col-lg-1 input1" style="height: 100%">
+
+                            <img class="pull-right" *ngIf="file.isUpdated" (click)="attachFileToSK(file)"
+                                 src="../../../../../../assets/images/tick.png" height="32"
+                                 style="float: right;cursor: pointer;margin-top:24px">
+                            <img class="pull-right" *ngIf="!file.isUpdated" (click)="detachFileToSK(file,i)"
+                                 src="../../../../../../assets/images/min.png" height="32"
+                                 style="float: right;cursor: pointer;margin-top:24px">
+                        </div>
+                    </div>
+
+
+                </form>
+                <div class="clearfix"></div>
+                <div class="form-footer  row" style="width: 100%;margin-bottom: 20px!important;margin-top: 20px">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" style="float: right;padding: 0px">
+                        <div class="col-lg-6 pull-right" style="float: right;width: 50%;padding: 5px">
+                            <button  class="form-button-cancel pull-right" type="button" (click)="closeModal()" style="width: 100%;">
+                                {{'shared.close'|translate}}
+                            </button>
+                        </div>
+                        <div class="col-lg-6 pull-left" style="float: left;width: 50%;padding: 5px">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+        <div class="powered-by" style="padding: 10px">
+            <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+            <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+        </div>
+    </div>
+</div>

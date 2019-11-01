@@ -1,0 +1,184 @@
+@import '../../_variables.scss';
+footer {
+    padding: 5px 0;
+    position: relative;
+    border: 1px solid $primary-clr;
+    display: block;
+    height: 62px;
+    margin: -10px 0 0;
+    background: #010813;
+    .action-icons {
+        ul {
+            position: relative;
+            list-style: none;
+            margin: 0 0 0 5px;
+            padding: 0;
+            border: 1px solid $primary-clr;
+            width: 100%;
+            li {
+                // display: inline-block;
+                float: left;
+                width: 25%;
+                text-align: center;
+                border-right: 1px solid $primary-clr;
+                &:nth-child(4) {
+                    border: none;
+                }
+                a {
+                    color: $primary-clr;
+                    display: table;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 28px;
+                    text-align: center;
+                    padding: 10px;
+                    @media (max-width: 1280px) {
+                        font-size: 22px;
+                    }
+                    i {
+                        display: table-cell;
+                        height: 100%;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+    .notify-buttons {
+        ul {
+            position: relative;
+            margin: 6px 0 0;
+            padding: 0;
+            list-style: none;
+            display: table;
+            width: 100%;
+            height: 100%;
+            @media (max-width: 1280px) {
+                margin: 2px 0 0;
+            }
+            li {
+                position: relative;
+                display: table-cell;
+                height: 100%;
+                width: 33.333333%;
+                vertical-align: middle;
+                text-align: center;
+                a {
+                    background: #f9961e;
+                    color: #010813;
+                    font-size: 22px;
+                    padding: 4px 60px 4px 10px;
+                    text-align: left;
+                    position: relative;
+                    width: 168px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    span {
+                        text-align: left;
+                    }
+                    span.badge {
+                        background: $btnred;
+                        color: $white;
+                        width: 30px;
+                        height: 30px;
+                        font-size: 16px;
+                        line-height: 25px;
+                        border-radius: 100px;
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    .powered-by {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        padding: 10px 5px 5px 10px;
+        @media (max-width:1600px){
+            img {
+                width: 120px;
+                padding-top: 6px;
+            }
+        }
+        @media (min-width: 1366px) and (max-width:1440px){
+            img {
+                width: 98px;
+                padding-top: 6px;
+            }
+        }
+        @media (max-width: 1280px) {
+            img {
+                width: 85px;
+                padding-top: 6px;
+            }
+        }
+    }
+}
+
+//new Footer Created By Farshid Boroomand
+
+.footer{
+    height:61px;
+    border: 2px solid $primary-clr;
+}
+
+.footer__version{
+    color: #f79621;
+    position: relative;
+    top: 17px;
+    margin-right: -13px;
+    font-size: 15px;
+}
+
+.footer__version-box{
+    margin-top: 9px;
+}
+
+.notification{
+   // max-width: 130px;
+    background-color: $primary-clr;
+    margin-top: 5%;
+    border-radius: 2px;
+}
+
+.notification__span{
+    font-size: 20px;
+    font-family: "Tw Cen MT Condensed";
+    color: black;
+    padding-left: 10px;
+}
+
+.notification__number{
+  background-color: #C8373C;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  padding: 4px;
+  position: relative;
+  top: -3px;
+    min-width: 15px;
+}
+
+
+.footer-date{
+    color: $primary-clr;
+   
+    font-size: 1.1em;
+    font-family: "Tw Cen MT Condensed";
+    margin-top: 10%;
+}
+
+.footer-left-logo{
+    position: relative;
+    top: 6px;
+    right: 12px;
+}
+.img-responsive{
+    display: block;
+     max-width:200px;
+    height: 35px;
+}

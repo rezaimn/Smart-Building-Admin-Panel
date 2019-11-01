@@ -1,0 +1,21 @@
+<div *ngIf="check">
+  <div *ngFor="let online of inList; let i = index ">
+
+    <div class="col-sm-3 pull-right call-pop name-side call-back" *ngIf="online.status==1">
+      <div class="row">
+        <div class="col-sm-12 ">
+          <span class="name">{{online.callingName}}</span> <span class="name calling-name" style="color: white">{{'CALL.is-calling' | translate}}</span>
+          <img class="call-pic incoming-c" src="../../../../../assets/images/inComing-Copy.png" alt="">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 " style="margin-top: 1vw !important">
+          <button class="manage-btn pull-right call-btn-margin" (click)="acceptVideo(online)" style="background-color:#197b30!important; border:none; color: white">{{'CALL.accept' | translate}}</button>
+          <button class="manage-btn pull-left" (click)="rejectVideo(online)" style="background-color:#f00!important; border:none; color: white">{{'CALL.reject' | translate}}</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

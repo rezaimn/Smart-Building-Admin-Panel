@@ -1,0 +1,167 @@
+<div class="">
+    <div class="prepare-form">
+        <div class="custom-form-width">
+            <div class="prepare-form-head index-of-allowance">
+                <span>{{index}}</span>
+                <h2>{{mode}} allowance</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form action="" (ngSubmit)="onSubmit()" #prepareAllowanceForm="ngForm" method="post" autocomplete="off" novalidate="">
+                    <div id="left-elements">
+                        <div class="form-group">
+                            <input placeholder="Enter allowance policy name" type="text" name="allowanceName" #allowanceName="ngModel" [(ngModel)]="prepareAllowance.allowanceName"
+                                required="true" tabindex="1" minlength="3" maxlength="30" pattern="[a-zA-Z ]+" />
+                            <div class="error-message-display">
+                                <div [hidden]="allowanceName.valid || allowanceName.untouched">
+                                    <div *ngIf="allowanceName.errors && allowanceName.errors.required">
+                                        Name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message-display">
+                                <div [hidden]="allowanceName.valid || allowanceName.untouched">
+                                    <div *ngIf="allowanceName.errors && allowanceName.errors.minlength">
+                                        Minimum 3 characters required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message-display">
+                                <div [hidden]="allowanceName.valid || allowanceName.untouched">
+                                    <div *ngIf="allowanceName.errors && allowanceName.errors.pattern">
+                                        Only alphabets allowed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select [disabled]="mode=='edit'" tabindex="2" name="selectGrade" #selectGrade="ngModel" [(ngModel)]="selectedGrade"
+                                aria-placeholder="select type of building" required="true">
+                                <option *ngIf="gradePolicy.length>0" value="" selected  >{{'SELECT.select-grade' | translate}}</option>
+                                <option *ngIf="gradePolicy.length<=0" value="" disabled [selected]="gradePolicy.length<=0" style="font-family: Yekan!important;">{{'SELECT.no-grades-available' | translate}}</option>
+                                <option [ngValue]="grade" *ngFor="let grade of gradePolicy">{{grade.gradeName}}</option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="selectGrade.valid || selectGrade.untouched">
+                                    <div *ngIf="selectGrade.errors && selectGrade.errors.required">
+                                        grade is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 no-padding-left type-of-allowance-heading">
+                            <span class="fs-23">parking</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="col-lg-4 no-padding-left no-padding-right">
+                                <span class="sub-head">Amount</span>
+                                <input type="text" placeholder="enter amount" class="amount-input" name="allowanceAmount" #allowanceAmount="ngModel" [(ngModel)]="prepareAllowance.parkingAmount"
+                                    required="true" tabindex="3" pattern="[0-9]+" minlength="7" maxlength="10" />
+                                <span class="amount-icon">irr</span>
+                                <div class="error-message-display">
+                                    <div [hidden]="allowanceAmount.valid || allowanceAmount.untouched">
+                                        <div *ngIf="allowanceAmount.errors && allowanceAmount.errors.required">
+                                            amount is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error-message-display">
+                                    <div [hidden]="allowanceAmount.valid || allowanceAmount.untouched">
+                                        <div *ngIf="allowanceAmount.errors && allowanceAmount.errors.minlength">
+                                            minimum 7 characters required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error-message-display">
+                                    <div [hidden]="allowanceAmount.valid || allowanceAmount.untouched">
+                                        <div *ngIf="allowanceAmount.errors && allowanceAmount.errors.pattern">
+                                            Only digits allowed
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-4 no-padding-right">
+                                <span class="sub-head">recharge period</span>
+                                <select name="parkingPeriod" #parkingPeriod="ngModel" tabindex="3" [(ngModel)]="prepareAllowance.parkingPeriod" aria-placeholder="recharge period"
+                                required="true">
+                                    <option value="" selected  >{{'SELECT.recharge-period' | translate}}</option>
+                                    <option value="30">Monthly</option>
+                                    <option value="90">Quarterly</option>
+                                    <option value="180">Half yearly</option>
+                                    <option value="364">annually</option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="parkingPeriod.valid || parkingPeriod.untouched">
+                                        <div *ngIf="parkingPeriod.errors && parkingPeriod.errors.required">
+                                            recharge is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-lg-12 no-padding-left type-of-allowance-heading">
+                            <span class="fs-23">meals</span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-4 no-padding-left no-padding-right">
+                                <span class="sub-head">Amount</span>
+                                <input placeholder="enter amount" class="amount-input" name="mealsAmount" #mealsAmount="ngModel" [(ngModel)]="prepareAllowance.mealsAmount"
+                                    required="true" tabindex="4" pattern="[0-9]+" minlength="7" maxlength="10" />
+                                <span class="amount-icon">irr</span>
+                                <div class="error-message-display">
+                                    <div [hidden]="mealsAmount.valid || mealsAmount.untouched">
+                                        <div *ngIf="mealsAmount.errors && mealsAmount.errors.required">
+                                            amount is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error-message-display">
+                                    <div [hidden]="mealsAmount.valid || mealsAmount.untouched">
+                                        <div *ngIf="mealsAmount.errors && mealsAmount.errors.minlength">
+                                            minimum 7 characters required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error-message-display">
+                                    <div [hidden]="mealsAmount.valid || mealsAmount.untouched">
+                                        <div *ngIf="mealsAmount.errors && mealsAmount.errors.pattern">
+                                            Only digits allowed
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-4 no-padding-right">
+                                <span class="sub-head">recharge period</span>
+                                <select name="mealsPeriod" #mealsPeriod="ngModel" tabindex="5" [(ngModel)]="prepareAllowance.mealsPeriod" aria-placeholder="recharge period"
+                                    required="true">
+                                    <option value="" selected  >select recharge period</option>
+                                    <option value="30">Monthly</option>
+                                    <option value="90">Quarterly</option>
+                                    <option value="180">Half yearly</option>
+                                    <option value="364">annually</option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="mealsPeriod.valid || mealsPeriod.untouched">
+                                        <div *ngIf="mealsPeriod.errors && mealsPeriod.errors.required">
+                                            recharge is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="btn-divs col-lg-offset-8 col-lg-4 no-padding-right">
+                        <button class="form-button-submit execute-btn exe-sm exe-block" tabindex="7" [disabled]="!prepareAllowanceForm.form.valid">execute</button>
+                        <button class="form-button-cancel execute-btn exe-sm exe-block" type="button" tabindex="6" (click)="returnToManage()">cancel</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

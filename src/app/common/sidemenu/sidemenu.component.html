@@ -1,0 +1,27 @@
+<div class="sidemenu-wrapper">
+    <div class="sidemenu">
+        <ul>
+            <li *ngFor="let sideBar of sideBarData" [ngClass]="{'active' : activeClass ===sideBar.keyCode}" (click)="naviagte(sideBar)">
+                <!-- <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 138 37.6" enable-background="new 0 0 138 37.6" fill="#f9961e">
+                    <g class="arrow">
+                      <g class="body-top">
+                        <rect id="XMLID_9_" x="24.8" y="6.1" width="74.5" height="1" fill="#f9961e" />
+                      </g>
+                      <g class="tail">
+                        <path id="XMLID_6_" d="M24.8,31.8H6.3c-3.4,0-6.3-2.5-6.3-5.6V11.7c0-3.1,2.8-5.6,6.3-5.6h18.6v1H6.3
+                c-2.8,0-5.2,2.1-5.2,4.6v14.5c0,2.6,2.3,4.6,5.2,4.6h18.6V31.8z" />
+                      </g>
+                      <g class="body-bottom">
+                        <rect id="XMLID_3_" x="24.8" y="30.9" width="74.5" height="1" fill="#f9961e" />
+                      </g>
+                      <g class="head">
+                        <polygon id="XMLID_2_" points="114.9,37.6 115,31.8 99.3,31.8 99.3,30.9 116.1,30.9 116,35.4 136.4,18.7 
+                116.3,2.2 116.3,7.1 99.3,7.1 99.3,6.1 115.2,6.1 115.3,0 138,18.7 		" />
+                      </g>
+                    </g>
+                  </svg> -->
+                <a href="javascript:void(0);">{{sideBar.name}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

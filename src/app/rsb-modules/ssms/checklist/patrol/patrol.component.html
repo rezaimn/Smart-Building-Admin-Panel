@@ -1,0 +1,299 @@
+<!--<div class="page-wrapper"  #pageWrapper>-->
+<div class="row" style="margin-right: 0px;margin-left: 0px">
+    <div class="col-sm-12">
+
+        <div class="row" style="margin-left: 0px;margin-right: 0px">
+            <!-- <div class="col-sm-3 input1">
+              <p><span class="staff-header">CAMPUS</span></p>
+
+
+                <select name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId" aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                  <option value="0" disabled>Select a campus</option>
+                  <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">{{campus.name}}</option>
+                </select>
+
+            </div> -->
+
+
+            <div class="row" *ngIf="circleSubsidiary">
+                <div class="row text-center subs">
+                    <h2 (click)='getAllSub()'>ORGANIZATION</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+
+                </div>
+                <div *ngFor="let sub of subDropdownList; let i = index">
+                    <div *ngIf="i == 3 || i == 8; then content else other_content"></div>
+
+                    <ng-template #content>
+                        <div class="col-sm-3 col-sm-offset-3">
+                            <div class="circle text-center" (click)="getAllCampus(sub.id)">
+                                <h3>{{sub.name}}</h3>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #other_content>
+                        <div class="col-sm-3 col-sm-offset-1">
+                            <div class="circle text-center" (click)="getAllCampus(sub.id)">
+                                <h3>{{sub.name}}</h3>
+                            </div>
+                        </div>
+                    </ng-template>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="row" *ngIf="circleCampus">
+                <div class="row text-center subs">
+                    <h2 (click)='getAllSub()'>ORGANIZATION</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+                    <h2 (click)="getAllCampusTitle()">SUBISDIARY</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+
+                </div>
+                <!-- <div class="col-sm-3 col-sm-offset-3" *ngFor="let campus of campusDropdownList;" >
+                    <div class="circle text-center" (click)="getAllBuildingsNew(campus.id)">
+                        <h3>{{campus.name}}</h3>
+                    </div>
+                </div> -->
+
+                <div *ngFor="let campus of campusDropdownList; let i = index">
+                    <div *ngIf="i == 3 || i == 8; then contentcam else other_contentcam"></div>
+
+                    <ng-template #contentcam>
+                        <div class="col-sm-3 col-sm-offset-3">
+                            <div class="circle text-center" (click)="getAllBuildingsNew(campus.id)">
+                                <h3>{{campus.name}}</h3>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #other_contentcam>
+                        <div class="col-sm-3 col-sm-offset-1">
+                            <div class="circle text-center" (click)="getAllBuildingsNew(campus.id)">
+                                <h3>{{campus.name}}</h3>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </div>
+            </div>
+                    <div class="row" *ngIf="circleBuilding==true">
+
+                        <div class="row text-center subs">
+                            <h2 (click)='getAllSub()'>ORGANIZATION</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+                            <h2 (click)="getAllCampusTitle()">SUBISDIARY</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+                            <h2 (click)="getAllBuildingsNewTitle()">CAMPUS</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+
+                        </div>
+                      <!--<div class="col-sm-3 col-sm-offset-3" *ngFor="let building of buildingDropdownList;" >-->
+                            <!--<div class="circle text-center" (click)="getAllFloorsNew(building.id)">-->
+                                <!--<h3>{{building.name}}</h3>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div *ngFor="let building of buildingDropdownList; let i = index">
+
+                            <div *ngIf="i == 3 || i == 8; then contentbil else other_contentbil"></div>
+
+                            <ng-template #contentbil>
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <div class="circle text-center" (click)="getAllFloorsNew(building.id)">
+                                        <h3>{{building.name}}</h3>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template #other_contentbil>
+                                <div class="col-sm-3 col-sm-offset-1">
+                                    <div class="circle text-center" (click)="getAllFloorsNew(building.id)">
+                                        <h3>{{building.name}}</h3>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row" *ngIf="circleFloor">
+                        <div class="row text-center subs">
+                            <h2 (click)='getAllSub()'>ORGANIZATION</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+                            <h2 (click)="getAllCampusTitle()">SUBISDIARY</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+                            <h2 (click)="getAllBuildingsNewTitle()">CAMPUS</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+                            <h2 (click)="getAllFloorsNewTitle()">BUILDING</h2>
+                            <img src="assets/images/checklist/sub.png" alt="">
+
+
+                        </div>
+                        <!-- <div class="col-sm-3 col-sm-offset-3" *ngFor="let floor of floorDropdownList;" >
+                            <div class="circle text-center" (click)="getCheckListsNew(floor.id)">
+                                <h3>{{floor.name}}</h3>
+                            </div>
+                        </div> -->
+
+                        <div *ngFor="let floor of floorDropdownList; let i = index">
+                            <div *ngIf="i == 3 || i == 8; then contentflo else other_contentflo"></div>
+
+                            <ng-template #contentflo>
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <div class="circle text-center" (click)="getCheckListsNew(floor.id)">
+                                        <h3>{{floor.name}}</h3>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template #other_contentflo>
+                                <div class="col-sm-3 col-sm-offset-1">
+                                    <div class="circle text-center" (click)="getCheckListsNew(floor.id)">
+                                        <h3>{{floor.name}}</h3>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+
+                        </div>
+                    </div>
+
+
+
+
+            <div class="row" *ngIf="circleList">
+                <div class="row text-center subs">
+                    <h2 (click)='getAllSub()'>ORGANIZATION</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+                    <h2 (click)="getAllCampusTitle()">SUBISDIARY</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+                    <h2 (click)="getAllBuildingsNewTitle()">CAMPUS</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+                    <h2 (click)="getAllFloorsNewTitle()">BUILDING</h2>
+                    <img src="assets/images/checklist/sub.png" alt="">
+
+                    <h2>FLOOR</h2>
+
+
+                </div>
+                <!-- <div class="col-sm-3 col-sm-offset-3"  *ngFor="let checkList of checks;" >
+                    <div class="circle text-center" (click)="editCheck(checkList)">
+                        <h3>{{checkList.scheduledtime}} <br>
+                          {{checkList.name}}
+                        </h3>
+                    </div>
+                </div> -->
+
+                <div *ngFor="let checkList of checks; let i = index">
+                    <div *ngIf="i == 3 || i == 8; then contentflo else other_contentflo"></div>
+
+                    <ng-template #contentflo>
+                        <div class="col-sm-3 col-sm-offset-3">
+                            <div class="circle text-center" (click)="editCheck(checkList)">
+                                <h3>{{checkList.scheduledtime}} <br>
+                                    {{checkList.name}}
+                                </h3>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #other_contentflo>
+                        <div class="col-sm-3 col-sm-offset-1">
+                            <div class="circle text-center" (click)="editCheck(checkList)">
+                                <h3>{{checkList.scheduledtime}} <br>
+                                    {{checkList.name}}
+                                </h3>
+                            </div>
+                        </div>
+                    </ng-template>
+
+
+                </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-sm-4" *ngFor="let checkList of checks;" >
+                <div class="content1">
+                  <div class="row">
+                    <span class="text-center col-sm-12">{{checkList.scheduledtime}}</span>
+                  </div>
+                  <div class="row">
+                      <span class="text-center col-sm-12">{{checkList.name}}</span>
+                    </div>
+                    <div class="row btns">
+                        <div class="col-sm-12">
+                          <button class="manage-btn" (click)="editCheck(checkList)">CHECK</button>
+                        </div>
+                        <!-- <div class="col-sm-4">
+                            <button class="manage-btn" (click)="editCheck(checkList)">edit</button>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="manage-btn" (click)="deleteVisitorAccess(checkList)">DELETE</button>
+                            </div> -->
+            <!-- </div>
+      </div>
+    </div>  -->
+            <!-- <div class="col-sm-4">
+                <div class="content1">
+                  <div class="row">
+                    <span class="text-center col-sm-12">12:00</span>
+                  </div>
+                  <div class="row">
+                      <span class="text-center col-sm-12">EVENING CHECK LIST</span>
+                    </div>
+                    <div class="row btns">
+                        <div class="col-sm-4">
+                          <button class="manage-btn">view</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="manage-btn">edit</button>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="manage-btn">manage</button>
+                            </div>
+                      </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="content1">
+                    <div class="row">
+                      <span class="text-center col-sm-12">22:00</span>
+                    </div>
+                    <div class="row">
+                        <span class="text-center col-sm-12">NIGHT CHECK LIST</span>
+                      </div>
+                      <div class="row btns">
+                          <div class="col-sm-4">
+                            <button class="manage-btn">view</button>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="manage-btn">edit</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="manage-btn">manage</button>
+                              </div>
+                        </div>
+                  </div>
+                </div> -->
+            <!-- </div> -->
+        </div>
+
+    </div>
+</div>
+      

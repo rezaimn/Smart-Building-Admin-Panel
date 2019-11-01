@@ -1,0 +1,317 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form" style="width: 100%">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'SP.add-edit-scenario'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <div class="scroll">
+                    <div class="scroll1">
+                        <form #ScenarioForm="ngForm" class="add-device-fa">
+                            <div class="col-sm-12" style="margin-top: 20px">
+                                <div class="form-group" >
+                                    <label style="width: 100%">{{'SP.name'|translate}}</label>
+                                    <!--ngDefaultControl  #selectElem (change)="model.devicetypeid=selectElem.value" -->
+                                    <!--<select id="" placeholder="DEVICE TYPE" [(ngModel)]="model.devicetypename" name="devicetypename" >-->
+                                    <input class="frequency" type="text"
+                                           [(ngModel)]="name" name="name" #Name="ngModel"
+                                           style="width: 100%; " required >
+                                    <div class="error-message-display">
+                                        <div [hidden]="Name.valid || Name.untouched"  >
+                                            <div *ngIf="Name.errors && Name.errors.required" >
+                                                {{'validate-message.name-required'|translate}}
+                                            </div>
+                                        </div>
+                                        <!--<div [hidden]="Name.valid || Name.untouched">-->
+                                            <!--<div *ngIf="Name.errors && Name.errors.pattern">-->
+                                                <!--Name is required-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-right: 0px;margin-left: 0px">
+                                <!--<div *ngIf="model.devicetypename == 'SPD' || model.devicetypename == 'TRM' || model.devicetypename == 'LTN'; else othertype">-->
+
+                                <div class="col-lg-4 translatable-float-right" style="margin-top: 15px!important;">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-type'|translate}}</label>
+                                        <select placeholder="DEVICE TYPE" [(ngModel)]="inputtypeid" name="inputtypeid"
+                                                required #InputType="ngModel" (change)="getInputdevice()">
+                                            <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}-->
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option *ngFor="let devicetype of inputtype" name=""
+                                                    [value]="devicetype.id">
+                                                {{devicetype.name}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputType.valid || InputType.untouched">
+                                                <div *ngIf="InputType.errors && InputType.errors.required">
+                                                    {{'validate-message.input-type-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 translatable-float-right" style="margin-top: 15px!important;">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-device'|translate}}</label>
+                                        <select id="" placeholder="INPUT DEVICE" [(ngModel)]="inputdevice"
+                                                name="inputdevice" required #InputDevice="ngModel">
+                                            <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}-->
+                                            <option value="" selected style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option *ngFor="let devicetype of inputdevices" name=""
+                                                    [value]="devicetype.id">
+                                                {{devicetype.name}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputDevice.valid || InputDevice.untouched">
+                                                <div *ngIf="InputDevice.errors && InputDevice.errors.required">
+                                                    {{'validate-message.input-device-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 translatable-float-right" *ngIf="showInputtext == false &&(inputtypeid==15||inputtypeid==14) " style="margin-top: 15px!important;">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-value'|translate}}</label>
+                                        <select placeholder="DEVICE TYPE" name="input1" [(ngModel)]="inputvalue"
+                                                required #InputValue="ngModel">
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option *ngFor="let inpu of skStatus" name="" [value]="inpu.id">
+                                                {{inpu.value}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputValue.valid || InputValue.untouched">
+                                                <div *ngIf="InputValue.errors && InputValue.errors.required">
+                                                    {{'validate-message.input-value-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 translatable-float-right" *ngIf="showInputtext == false &&!(inputtypeid==15||inputtypeid==14) " style="margin-top: 15px!important;">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-value'|translate}}</label>
+                                        <select placeholder="DEVICE TYPE" name="input1" [(ngModel)]="inputvalue"
+                                                required #InputValue="ngModel">
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option *ngFor="let inpu of inputSelections" name="" [value]="inpu.id">
+                                                {{inpu.value}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputValue.valid || InputValue.untouched">
+                                                <div *ngIf="InputValue.errors && InputValue.errors.required">
+                                                    {{'validate-message.input-value-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 translatable-float-right" *ngIf="showInputtext == true">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-value'|translate}}</label>
+                                        <select placeholder="DEVICE TYPE" name="input2" [(ngModel)]="inputvalue"
+                                                required #InputValue2="ngModel">
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option *ngFor="let inpu of inputHVACSelections" name="" [value]="inpu.id">
+                                                {{inpu.value}}
+                                            </option>
+                                        </select>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputValue2.valid || InputValue2.untouched">
+                                                <div *ngIf="InputValue2.errors && InputValue2.errors.required">
+                                                    {{'validate-message.input-value-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 translatable-float-right" *ngIf="showInputtext == true">
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.input-value'|translate}}</label>
+                                        <input class="frequency" type="text" [(ngModel)]="inputtextvalue"
+                                               name="inputname" required #InputValue3>
+                                        <div class="error-message-display">
+                                            <div [hidden]="InputValue3.valid || InputValue3.untouched">
+                                                <div *ngIf="InputValue3.errors && InputValue3.errors.required">
+                                                    {{'validate-message.input-value-required'|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="clearfix"></div>
+
+
+                            </div>
+
+
+                            <div class="col-lg-4 translatable-float-right" style="float: right;margin-bottom: 30px; " >
+
+                                <button class="form-button-submit pull-right" (click)="addComponent(null)"
+                                        style="background-color:  #f9961e;width: 100%!important;">{{'SP.add-output'|translate}}
+                                </button>
+                                <div class="clear"></div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+                            <div class="row" #parent></div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="row" style="margin-right: 0px;margin-left: 0px">
+                                <!--<div *ngIf="model.devicetypename == 'SPD' || model.devicetypename == 'TRM' || model.devicetypename == 'LTN'; else othertype">-->
+
+                                <div class="col-sm-4 translatable-float-right select-cycle">
+                                    <div class="form-group filter-elements " style="width: 100%">
+                                        <label>{{'SP.cycle'|translate}}</label>
+                                        <select [(ngModel)]="frequency" name="frequency" (change)="showday()">
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option value="Daily" style="font-family: Yekan!important;">{{ 'SELECT.daily' | translate}}</option>
+                                            <option value="Weekly" style="font-family: Yekan!important;">{{ 'SELECT.weekly' | translate}}</option>
+                                            <option value="Monthly" style="font-family: Yekan!important;">{{ 'SELECT.monthly' | translate}}</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-4 translatable-float-right select-day" *ngIf="showweek" >
+                                    <div class="form-group filter-elements " style="width: 100%">
+                                        <label>{{'SP.day'|translate}}</label>
+                                        <select [(ngModel)]="weekday" name="frequency">
+                                            <option value="" style="font-family: Yekan!important;">{{ 'SELECT.select' | translate}}</option>
+                                            <option value="1" style="font-family: Yekan!important;">{{ 'SELECT.saturday' | translate}}</option>
+                                            <option value="2" style="font-family: Yekan!important;">{{ 'SELECT.sunday' | translate}}</option>
+                                            <option value="3" style="font-family: Yekan!important;">{{ 'SELECT.monday' | translate}}</option>
+                                            <option value="4" style="font-family: Yekan!important;">{{ 'SELECT.tuesday' | translate}}</option>
+                                            <option value="5" style="font-family: Yekan!important;">{{ 'SELECT.wednesday' | translate}}</option>
+                                            <option value="6" style="font-family: Yekan!important;">{{ 'SELECT.thursday' | translate}}</option>
+                                            <option value="7" style="font-family: Yekan!important;">{{ 'SELECT.friday' | translate}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-4 translatable-float-right" *ngIf="showmonth">
+
+                                    <div class="form-group filter-elements" style="width: 100%">
+                                        <label>{{'SP.day'|translate}}</label>
+                                        <select [(ngModel)]="frequencyDate.fromDate" name="fromDate">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-4 translatable-float-right select-cycle">
+                                    <div class="form-group filter-elements">
+                                        <label>{{'SP.time'|translate}}</label>
+                                        <input type="time" name="time" [(ngModel)]="frequencyTime" step="1">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- <div class="col-lg-4">
+                                          <div class="form-group">
+                                              <label>FREQUENCY</label>
+                                              <select id="" placeholder="INPUT DEVICE" [(ngModel)]="inputdevice" name="inputdevice" required #InputDevice="ngModel">
+                                                  <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}
+                                                  <option *ngFor="let devicetype of inputdevices" name="" [value]="devicetype.id">
+                                                      {{devicetype.name}}
+                                                  </option>
+                                              </select>
+                                              <div class="error-message-display">
+                                                  <div [hidden]="InputDevice.valid || InputDevice.untouched">
+                                                      <div *ngIf="InputDevice.errors && InputDevice.errors.required">
+                                                          Input frequency is required.
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                      </div>-->
+
+
+                            <div class="form-footer  row" style="width: 100%;margin-bottom: 30px!important;">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" style="float: right">
+
+
+                                    <div class="col-lg-6" style="float: right;width: 50%">
+                                        <button *ngIf="appService.hasAccessToWrite(4,34)" class="form-button-submit pull-right" [disabled]="!ScenarioForm.valid"
+                                                (click)="addscene()" style="width: 100%">{{'shared.execute'|translate}}
+                                        </button>
+
+                                    </div>
+                                    <div class="col-lg-6" style="float: left;width: 50%">
+                                        <button class="form-button-cancel pull-right" type="button"
+                                                (click)="closeModal()" style="width: 100%">{{'shared.cancel'|translate}}
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div class="clear "></div>
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+            </div>
+        </div>
+    </div>
+</div>

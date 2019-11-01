@@ -1,0 +1,79 @@
+    $primary-clr:#f9961e;
+    $primary-clr-alpha: #ffd097;
+    $secondary-clr: #010813;
+    $secondary-clr-alpha: #4374bb;
+    $white:#fff;
+    $black:#000;
+    $tile-blue:#04142b;
+    $garviton-blue: #05152A;
+    $screenHeight: var(--screen-height);
+    $componentHeight: var(--component-height);
+    $btnred: #c8373c;
+    $btngreen: #058141;
+    $inputfill:#0a2347; // for break points
+    // $breakpt-nor-start: 1280px;
+    // $breakpt-nor-end: 1500px;
+    // $breakpt-hd:1920px;
+    @mixin linear-gradient($from, $to) {
+        background: $to;
+        background: -moz-linear-gradient(top, $from 0%, $to 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $from), color-stop(100%, $to));
+        background: -webkit-linear-gradient(top, $from 0%, $to 100%);
+        background: -o-linear-gradient(top, $from 0%, $to 100%);
+        background: linear-gradient(to bottom, $from 0%, $to 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to})
+    }
+    
+    @mixin angle-gradient($from, $to, $angle) {
+        background: $to;
+        background: -moz-linear-gradient($angle, $from 10%, $to 90%);
+        background: -webkit-linear-gradient($angle, $from 10%, $to 90%);
+        background: -o-linear-gradient($angle, $from 10%, $to 90%);
+        background: -ms-linear-gradient($angle, $from 10%, $to 90%);
+        background: linear-gradient($angle, $from 10%, $to 90%);
+    }
+    
+    @mixin border-radius($rad) {
+        -webkit-border-radius: $rad;
+        -moz-border-radius: $rad;
+        border-radius: $rad;
+    }
+    
+    @mixin border-gradient($clr) {
+        border-bottom: 1px solid $clr;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to($clr));
+        background-image: -webkit-linear-gradient(transparent, $clr);
+        background-image: -moz-linear-gradient(transparent, $clr), -moz-linear-gradient(transparent, $clr);
+        background-image: -o-linear-gradient(transparent, $clr), -o-linear-gradient(transparent, $clr);
+        background-image: linear-gradient(transparent, $clr), linear-gradient(transparent, $clr);
+        -moz-background-size: 1px 100%;
+        background-size: 1px 100%;
+        background-position: 0 0, 100% 0;
+        background-repeat: no-repeat;
+    }
+    
+    @mixin invert-border-gradient($clr) {
+        border-top: 1px solid $clr;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from($clr), to(transparent));
+        background-image: -webkit-linear-gradient($clr, transparent);
+        background-image: -moz-linear-gradient($clr, transparent), -moz-linear-gradient($clr, transparent);
+        background-image: -o-linear-gradient($clr, transparent), -o-linear-gradient($clr, transparent);
+        background-image: linear-gradient($clr, transparent), linear-gradient($clr, transparent);
+        -moz-background-size: 1px 100%;
+        background-size: 1px 100%;
+        background-position: 0 0, 100% 0;
+        background-repeat: no-repeat;
+        border-bottom: none;
+    }
+    
+    @mixin sentence-case() {
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
+    
+    // @mixin createMargin($attr,$val){
+    //   $attr:$val;
+    // }
+    // @mixin createPadding($attr,$val){
+    // }

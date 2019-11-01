@@ -1,0 +1,124 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px;" >
+
+    <div class="col-sm-12" style="min-height: 500px">
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col-sm-12">
+                <div class="row" >
+                    <div class="col-sm-3 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                        <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                        <div >
+                            <input (ngModelChange)="convertGregorianDateToUTC(myDate)" style="direction: ltr!important;font-family:tw-regular!important;" matInput name="pickedDate" [(ngModel)]="pickedDate" [matDatepicker]="myDate" placeholder="{{date}}"
+                                   required class="dob-field" readonly="true" style="direction: ltr!important;">
+                            <mat-datepicker-toggle [for]="myDate"></mat-datepicker-toggle>
+                            <mat-datepicker #myDate [startAt]="pickedDate"  ></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                        <p><span class="staff-header">{{'LNR.date' | translate}}</span></p>
+                        <div >
+                            <dp-date-picker   style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                              dir="rtl"
+                                              [(ngModel)]="pickedDate"
+                                              mode="day"
+                                              placeholder="تاریخ"
+                                              theme="dp-material" (ngModelChange)="convertJalaliDateToUTC(pickedDate)" >
+                            </dp-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 filter-elements">
+                        <p><span class="staff-header">{{'LNR.search-type' | translate}}</span></p>
+                        <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" name="selectedSubDepartment" #selectSearchType="ngModel" [(ngModel)]="searchType" aria-placeholder="select search type"
+                                required>
+                            <option value="0" selected >{{'SELECT.select-search-type' | translate}}</option>
+                            <option value="1" >{{'OMS.first-name' | translate}}</option>
+                            <option value="2" >{{'OMS.last-name' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 input1 filter-elements">
+                        <p><span class="staff-header">{{'LNR.search-text' | translate}}</span></p>
+                        <div>
+                            <input name="search" [placeholder]="'LNR.search-text' | translate" [(ngModel)]="searchValue"
+                                   required class="dob-field" >
+                        </div>
+                    </div>
+                    <div class="col-sm-2 filter-elements">
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <button class="execute-btn execute-btn-search" (click)="excute()" >{{'shared.execute'|translate}}</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 filter-elements" >
+                        <p><span class="staff-header">&nbsp;</span></p>
+                        <div class="filter-area">
+                            <img src="../../../assets/images/CSV.png" style="height: 35px;width: 35px" class="CSV-icon" *ngIf="!disableCSV&&!appService.lightThemeC"
+                                 (click)="exportCSV()">
+                            <img  src="../../../assets/images/CSV2.png" style="height: 35px;width: 35px" class="CSV-icon" *ngIf="!disableCSV&&appService.lightThemeC"
+                                  (click)="exportCSV()">
+                            <img src="../../../assets/images/CSV-disabled.png" style="height: 35px;width: 35px;cursor: default" class="CSV-icon" *ngIf="disableCSV"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('first')" ></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"  (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage('last')" ></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="models1.length>0">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>{{'LNR.no'|translate}}</th>
+                        <th>{{'LNR.first-name'|translate}}</th>
+                        <th>{{'LNR.last-name'|translate}}</th>
+                        <th>{{'LNR.entrance'|translate}}</th>
+                        <th>{{'LNR.exit'|translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let attendance of models1;let i=index">
+                        <td>{{(perPage*(page-1))+i+1}}</td>
+                        <td style="text-align: left!important" *ngIf="appService.currentLang=='en'">{{attendance.fnameMultiLingualMap.map.en}}</td>
+                        <td style="text-align: right !important;font-family: Yekan!important;" *ngIf="appService.currentLang=='fa'" >{{attendance.fnameMultiLingualMap.map.fa}}</td>
+                        <td style="text-align: left!important" *ngIf="appService.currentLang=='en'"> {{attendance.lnameMultiLingualMap.map.en}}</td>
+                        <td style="text-align: right!important;font-family: Yekan!important;" *ngIf="appService.currentLang=='fa'"> {{attendance.lnameMultiLingualMap.map.fa}}</td>
+                        <td style="direction: ltr!important;">{{attendance.fromdate}}</td>
+                        <td style="direction: ltr!important;">{{attendance.todate}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

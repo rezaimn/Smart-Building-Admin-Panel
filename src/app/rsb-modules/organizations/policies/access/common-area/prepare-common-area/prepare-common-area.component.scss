@@ -1,0 +1,105 @@
+@import '../../../../OMS';
+.prepare-common-area-header {
+    color: $primary-clr;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.prepare-common-area-body {
+    .mt-15 {
+        margin-top: 15px;
+    }
+}
+
+.prepare-form-body {
+    .previous-icon {
+        position: absolute;
+        top: 100px !important;
+        left: -80px !important;
+        font-size: 35px;
+        background: #f9961e;
+        color: #000; // border: 1px solid #f9961e;
+        border-radius: 100px;
+        width: 80px;
+        height: 80px;
+        line-height: 87px;
+        text-align: center;
+        cursor: pointer;
+    }
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.activeChip {
+    color: #000 !important;
+}
+
+.no-areas-availble {
+    text-align: center;
+    color: $primary-clr;
+}
+
+.margin-top-ten {
+    margin-top: 10px;
+}
+
+.selected-areas-header {
+    color: #f9961e; // margin-bottom: 5px;
+    font-size: 22px
+}
+
+select option[disabled] {
+    color: #444546;
+}
+
+.area-main-container {
+    background-color: rgba(67, 116, 187, 0.1);
+    padding: 15px;
+    height: 300px !important;
+    min-height: 0vh;
+    overflow-y: scroll;
+    .area-lists {
+        background-color: #f9961e;
+        color: #010913;
+        padding: 4px 8px;
+        margin-right: 7px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+}
+
+// .glyphicon-ok-sign {
+//     color: $primary-clr;
+// }
+.glyphicon-ok-sign .activeChip {
+    color: #000 !important;
+}
+
+.error-msg {
+    color: #f00;
+    text-align: right;
+    font-size: 16px;
+    position: absolute;
+    right: 22px;
+    z-index: 99999;
+}
+
+.mt-10 {
+    margin-top: 4px;
+}
+
+.no-area {
+    color: #f00;
+    text-align: right;
+    font-size: 16px;
+    position: absolute;
+    right: 0;
+    top: 86%;
+    z-index: 99999;
+}

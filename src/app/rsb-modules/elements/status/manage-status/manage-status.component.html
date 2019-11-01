@@ -1,0 +1,100 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px">
+    <div class="col-md-12 ems-device-status-main-container">
+        <div class="col-md-3 filter-elements">
+            <label>{{'EMS.campus' | translate}}</label>
+            <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                    class="select-dropdowns area-filters" name="selectedCampus" #selectedCampus="ngModel"
+                    [(ngModel)]="selectedCampusId"
+                    aria-placeholder="Campus" required (ngModelChange)="getAllBuildings($event)">
+                <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-campus' | translate}}</option>
+                <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                    {{'SELECT.select-campus' | translate}}
+                </option>
+                <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                    <p *ngIf="appService.currentLang=='en'">{{campus.name.map.en}}</p>
+                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{campus.name.map.fa}}</p>
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3 filter-elements">
+            <label>{{'EMS.building' | translate}}</label>
+            <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                    class="select-dropdowns area-filters" name="selectedBuilding" #selectedBuilding="ngModel"
+                    [(ngModel)]="selectedBuildingId"
+                    aria-placeholder="building / structure" required (ngModelChange)="getAllFloors($event)">
+                <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-building' | translate}}</option>
+                <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                    {{'SELECT.select-building' | translate}}
+                </option>
+                <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                    <p *ngIf="appService.currentLang=='en'">{{building.name.map.en}}</p>
+                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{building.name.map.fa}}</p>
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3 filter-elements">
+            <label>{{'EMS.floor-level' | translate}}</label>
+            <select [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                    class="select-dropdowns area-filters" name="selectedFloor" #selectedFloor="ngModel"
+                    [(ngModel)]="selectedFloorId"
+                    aria-placeholder="Select a Level / Floor" required (ngModelChange)="getAreaByFloor($event)">
+                <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' | translate}}</option>
+                <option value="0" *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">
+                    {{'SELECT.select-floor' | translate}}
+                </option>
+                <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor.id">
+
+                    <p *ngIf="appService.currentLang=='en'">{{floor.levelName.map.en}}</p>
+                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{floor.levelName.map.fa}}</p>
+                </option>
+            </select>
+        </div>
+        <div class="col-md-2 filter-elements">
+            <button class="execute-btn find-floor-button" (click)="renderFloorDetails()">{{'shared.execute' |
+                translate}}
+            </button>
+            <!--getAllAreas-->
+        </div>
+    </div>
+
+    <br>
+    <div class="col-md-9 pull-left">
+        <div class="col-md-12 no-padding" *ngIf="mapPresent">
+            <div class="svg-area-map-container">
+                <embed id="svg_floor_map" [src]="svgSourceUrl" alt="svg map" style="width:inherit;height:inherit;"
+                       type="image/svg+xml">
+                <!-- Adding custom contoll icons -->
+                <div class="custom-pan-zoom-controlls">
+                    <!-- Zoom in icon -->
+                    <div class="individual-icon-wrapper" (click)="zoomInSVG($event)">
+                        <span class="icon-zoom-in"></span>
+                    </div>
+                    <!-- reset icon -->
+                    <div class="individual-icon-wrapper" (click)="resetZoomSVG($event)">
+                        <span class="icon-crop-button"></span>
+                    </div>
+                    <!-- Zoom out icon -->
+                    <div class="individual-icon-wrapper" (click)="zoomOutSVG($event)">
+                        <span class="icon-zoom-out"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" *ngIf="mapPresent">
+            <div class="panel-group" id="devices-status-accordion">
+                <div id="ems-device-aa-status" class="panel panel-default ems-device-ip-op-status-accordion invert-brd">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 pull-right"  *ngIf="mapPresent" >
+        <div class="row" *ngFor="let legend of masterDataService.legend" style="margin-bottom: 5px" >
+            <div class="col-md-3">
+                <img style="height: 30px;width: 30px;background: #fff;border-radius: 30px" [src]="'../../../../../assets/images/device-icon/'+masterDataService.getDevicePointIconUrl(legend.name)"/>
+            </div>
+            <div class="col-md-9">
+                <p class="legend-text" >{{legend.name}}</p>
+            </div>
+        </div>
+    </div>
+</div>

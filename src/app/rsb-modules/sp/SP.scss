@@ -1,0 +1,241 @@
+@import "../../variables";
+@import "../../common";
+.frequency{
+  width:100% !important;
+  display: inline-block;
+}
+.frequency-label{
+  display: inline-block !important;
+  margin: 0 5px;
+  font-size: 1.3vw;
+}
+
+.mat-datepicker-toggle {
+  color: $secondary-clr-alpha !important;
+  height: auto !important;
+  width: 24px;
+  content: "\e109";
+  background: none;
+  font-family: 'Glyphicons Halflings';
+  position: relative;
+  &:before {
+    content: "\e109";
+    font-size: 1.8vw;
+
+  }
+}
+p{
+  margin-bottom: 0 !important;
+}
+.manage-btn{
+  padding: .15vw !important;
+  margin-left: .5vw;
+  width: 29.8% !important;
+  font-size: 1.25vw !important;
+}
+.execute-btn{
+  height: 11.5%;
+  font-size: 1.3vw;
+  padding: 0.25vw;
+  width: 100% !important;
+}
+.btns{
+  padding-left: 0 !important;
+}
+.col-sm-3{
+  padding-right: 0 !important;
+}
+.header-number{
+  font-size: 1.5vw !important;
+}
+.subsidiary-box {
+  height: auto !important;
+  width: 100%;
+  padding: 0.5vw !important;
+  margin-top:0 !important;
+  margin-bottom: 1vw !important;
+
+}
+.box-body{
+  span {
+    font-size: 1.15vw !important;
+  }
+
+  p{
+    font-size: 1.2vw !important;
+  }
+
+}
+.staff-header {
+  color: $primary-clr;
+  font-size: 1.7vw;
+  margin-bottom: 0 !important;
+  span {
+    height: 1.5vw;
+    display: block;
+    float: left;
+  }
+}
+td{
+  border: 1px solid #f9961e !important;
+  background-color: #04142b !important;
+  color: #fff !important;
+  padding: 0.4vw !important;
+  font-size: 1.1vw !important;
+}
+th{
+  border: 1px solid #f9961e !important;
+  background-color: #f9961e !important;
+  color: #000 !important;
+  text-align: center;
+  padding: 0.3vw !important;
+  font-size: 1.3vw !important;
+  font-weight: bolder;
+}
+.select{
+  width: 21.5%;
+}
+.input1{
+  padding-right: 0 !important;
+  input{
+
+    text-transform: uppercase !important;
+    background: #0a2347;
+    border: 1px solid #4c4c4c;
+    height: 12.5%;
+    padding: 0.6vw;
+    width: 80%;
+    color: #fff !important;
+    font-size: 1.1vw !important;
+    outline: none;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 99;
+    border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+
+  }
+
+}
+.no-left-padding{
+  padding-left: 0 !important;
+}
+.calendar1{
+  color: #23527c;
+  font-size: 1.5vw;
+  position: relative;
+  top: .38vw;
+  left: .38vw;
+  cursor: pointer;
+
+}
+
+.glyphicon-menu-left-d:before{
+  content: "\E257\E257";
+
+}
+
+.glyphicon-menu-right-d:before{
+  content: "\E258\E258";
+}
+
+.filter-icon {
+  background: $primary-clr;
+  padding: 0.4vw 0.3vw;
+  color: $tile-blue;
+}
+.filter-int {
+  background: $primary-clr;
+  padding: 0.06vw 0.5vw !important;
+  position: relative;
+  top: -0.1.5vw !important;
+  color: $tile-blue;
+}
+
+.filter {
+  margin-top: 1vw;
+  .pagers {
+    float: right;
+
+    ul {
+      list-style: none;
+      padding: 0 !important;
+
+      li {
+        margin-left: 0.2vw !important;
+        display: inline-block;
+        color: $white;
+        font-size: 0.7vw;
+
+        cursor: pointer;
+        i {
+          &.transformed {
+            transform: rotate(180deg);
+          }
+        }
+        span {
+
+          display: inline-block;
+
+          font-size: 1vw;
+
+          padding:  0 !important;
+          color: $tile-blue ;
+          background: $primary-clr;
+        }
+
+      }
+    }
+  }
+  .filter-area {
+    float: right;
+    i {
+      color: $secondary-clr-alpha;
+      font-size: 20px;
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .col-s-1{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width:20%;
+    float: left;
+  }
+  .col-s-2{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width:20%;
+    float: left;
+  }
+  .col-s-3{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width:25%;
+    float: left;
+  }
+
+  .col-s-6{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width:35%;
+    float: left;
+  }
+}
+// amir add
+
+.frequency-box{
+  .fer-margin{
+    margin-bottom: 20px;
+    margin-right: 5px;
+  }
+}

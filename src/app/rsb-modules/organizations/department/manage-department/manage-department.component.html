@@ -1,0 +1,81 @@
+<div class="main-container row" *ngIf="manageDepartments.length > 0;then dataBlock else emptyTextBlock">
+</div>
+<ng-template #dataBlock >
+    <div class="wrapper col-lg-12 col-md-12" *ngFor="let department of manageDepartments; let i = index">
+        <div class="subsidiary-box height-auto">
+            <div *ngIf="manageDepartments.length < 1">
+                {{'OMS.no-department-available'|translate}}
+            </div>
+            <div class="box-header">
+                <h4 *ngIf="appService.currentLang=='en'"><span class="index" >{{i + 1}}</span><span class="name  " >{{ department.deptnameMultiLingual.map.en}}</span>
+                    <div class="clearfix"></div></h4>
+                <h4 *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;"><span class="index "  style="float: right!important;">{{i + 1}}</span><span class="name " style="float: right!important;padding-bottom: 10px">{{ department.deptnameMultiLingual.map.fa}}</span>
+                    <div class="clearfix"></div></h4>
+            </div>
+            <div class="department-content-wrapper">
+                <!-- first row -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-8 col-md-8 no-padding-left box-elements">
+                            <div class="col-lg-5 col-md-5 ">
+                                <span class="sub-head">{{'OMS.code'|translate}}</span>
+                                <span class="main-text">{{ department.departmentCode }} </span>
+                            </div>
+                            <div class="col-lg-3 col-md-4">
+                                <span class="sub-head">{{'OMS.sub-department'|translate}}</span>
+                                <span class="main-text">{{ department.subDepartments ? department.subDepartments.length : 0 }}</span>
+                            </div>
+                            <div class="col-lg-4 col-md-3">
+                                <span class="sub-head">{{'OMS.defined-policies'|translate}}</span>
+                                <span class="main-text">{{ department.designations ? department.designations.length : 0 }}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 box-elements">
+                            <div class="department-box-footer pull-right" style="width: 100%">
+                                <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                    <button class="manage-btn " *ngIf="appService.hasAccessToWrite(1,2)" (click)="deleteDepartment(department.id)">{{'shared.delete'|translate}}</button>
+
+                                </div>
+                                <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                    <button class="manage-btn " (click)="prepareDepartment('edit', i+1, department)">{{'shared.edit'|translate}}</button>
+
+                                </div>
+                                <div class="col-lg-4 col-md-4" style="padding: 3px">
+                                    <button class="manage-btn  " (click)="storeDepartment(department)" routerLink="/rsb-modules/organization/dept/subdepartment/manage">{{'shared.manage'|translate}}</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Allocated area's -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 ">
+                        <div class="col-lg-4 col-md-4 box-elements oms-allocated-move" style="margin-bottom: 15px;">
+                            <span class="sub-head"> {{'OMS.allocated-area'|translate}}</span>
+                            <span class="main-text">{{ department.areaNames ? department.areaNames.length : 0}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Allocated boxes -->
+                <div class="">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="allocated-dept-area-name" *ngFor="let dpname of department.areaNames">
+                            {{ dpname }}
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #emptyTextBlock>
+    <div class="department-box">
+        <div class="no-dept-availble fs-23">
+            {{'OMS.no-department-available'|translate}}
+        </div>
+    </div>
+</ng-template>
+

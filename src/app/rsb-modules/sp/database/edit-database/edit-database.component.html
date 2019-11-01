@@ -1,0 +1,103 @@
+<div class="row" >
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'SP.edit-database'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form #mymodel="ngForm" (ngSubmit)="editDatabase()">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{'SP.server-name'|translate}}</label>
+                            <input type="text" [(ngModel)]="model.server"
+                                   name="server" [placeholder]="'SP.server-name'|translate"
+                                   #serverName="ngModel" required>
+                            <div class="error-message-display">
+                                <div [hidden]="serverName.valid || serverName.untouched">
+                                    <div *ngIf="serverName.errors && serverName.errors.required">
+                                        {{'validate-message.server-name-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{'SP.database-name'|translate}}</label>
+                            <input type="text" [(ngModel)]="model.dbname" name="dbname" [placeholder]="'SP.database-name'|translate"
+                                   required #databaseName="ngModel">
+                            <div class="error-message-display">
+                                <div [hidden]="databaseName.valid || databaseName.untouched">
+                                    <div *ngIf="databaseName.errors && databaseName.errors.required">
+                                        {{'validate-message.database-name-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{'SP.username'|translate}}</label>
+                            <input type="text" [(ngModel)]="model.username" name="username" [placeholder]="'SP.username'|translate"
+                                   required #userName="ngModel">
+                            <div class="error-message-display">
+                                <div [hidden]="userName.valid || userName.untouched">
+                                    <div *ngIf="userName.errors && userName.errors.required">
+                                        {{'validate-message.username-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{'SP.password'|translate}}</label><!--(click)="x(formdata.value)" -->
+                            <input type="password" [(ngModel)]="model.password" name="password" [placeholder]="'SP.password'|translate"
+                                   required #password="ngModel">
+                            <div class="error-message-display">
+                                <div [hidden]="password.valid || password.untouched">
+                                    <div *ngIf="password.errors && password.errors.required">
+                                        {{'validate-message.password-required'|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                    <div class="form-footer  row" style="width: 100%;margin-bottom: 30px!important;">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" style="float: right;padding: 0px">
+                            <div class="col-lg-6 pull-right" style="float: right;width: 50%;padding: 5px">
+                                <button *ngIf="appService.hasAccessToWrite(13,31)" type="submit" (click)="editDatabase();" class="form-button-submit pull-right" [disabled]="!mymodel.valid" style="width: 100%;">
+                                    {{'shared.execute'|translate}}
+                                </button>
+
+                            </div>
+                            <div class="col-lg-6" style="float: left;width: 50%;padding: 5px">
+                                <button  class="form-button-cancel pull-right" type="button" (click)="closeModal()" style="width: 100%">
+                                    {{'shared.cancel'|translate}}
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+
+            </div>
+        </div>
+    </div>
+</div>

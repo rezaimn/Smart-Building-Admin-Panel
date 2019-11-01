@@ -1,0 +1,75 @@
+<div class="row" style="    margin-right: 0px;
+    margin-left: 0px;">
+    <div class="col-sm-12" *ngIf="models.length>0">
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div class="row" *ngFor="let model of models; let i= index">
+            <div class="col-sm-12">
+                <div class="subsidiary-box ">
+                     <div class="fs-23 staff-header">
+                         <span class="header-number">{{i+1}}</span>
+                    </div>
+                      <div class="box-body">        
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="col-sm-3 inline-elements">
+                              <span></span><br>
+                              <p>{{model.system}}</p>
+                            </div>
+
+                            <div class="col-sm-3 inline-elements">
+                                <span>{{'SP.url'|translate}}</span><br>
+                                <p>{{model.url}}</p>
+                              </div>
+                            
+                                
+              
+                            <div class="col-sm-6 inline-elements  pull-right">
+                      
+                              <button class="manage-btn pull-right" (click)="editUrl(model)">{{'shared.edit'|translate}}</button>
+               
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+        
+    </div>
+    
+  </div>
+    <!--<div *ngIf="models.length==0">-->
+        <!--<h2 style="text-align: center;color: white;">No data to show</h2>-->
+    <!--</div>-->
+</div>
+  

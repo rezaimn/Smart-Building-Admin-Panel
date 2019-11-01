@@ -1,0 +1,92 @@
+
+<div class="">
+    <div class="col-md-5th subsidiary-grid" *ngFor="let subsidiary of manageSubsidiaries; let i = index">
+        <div class="subsidiary-box">
+            <div class="box-header">
+                <h4 >
+                    <!-- <span>{{i + 1}}</span>{{ subsidiary.name }}</h4> -->
+                    <span class="index">{{i+1}}</span>
+                    <span class="name" *ngIf="appService.currentLang=='en'" style="padding-bottom: 5px">{{ subsidiary.name.map.en }}</span>
+                    <span class="name" *ngIf="appService.currentLang=='fa' " style="font-family: Yekan!important;padding-bottom: 5px">{{ subsidiary.name.map.fa }}</span>
+                    <div class="clearfix"></div>
+                </h4>
+            </div>
+            <div class="box-body">
+                <!-- <div class="block-elements">
+                    <span>campus</span>
+                    <p class="shrink-line">{{ subsidiary.childCount }}.</p>
+                </div> -->
+                <div class="clear"></div>
+                <div class="inline-elements">
+                    <div class="block-elements">
+                        <span>{{'OMS.address'|translate}}</span>
+                        <p class="shrink-line " *ngIf="appService.currentLang=='en'">{{ subsidiary.address.map.en }}.</p>
+                        <p class="shrink-line " *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;direction: rtl!important;;text-align: right!important;">{{ subsidiary.address.map.fa }}.</p>
+                    </div>
+
+                    <span>{{'OMS.campus'|translate}}</span>
+                    <p>{{ subsidiary.childCount }} </p><br>
+                    <span>{{'OMS.name'|translate}}</span>
+                    <p *ngIf="appService.currentLang=='en'">{{ subsidiary.subsidiaryContactPersonName.map.en }} </p>
+                    <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan!important;direction: rtl!important;;text-align: right!important;">{{ subsidiary.subsidiaryContactPersonName.map.fa }} </p>
+                    <br>
+
+                    <span>{{'OMS.phone'|translate}}</span>
+                    <p>{{ subsidiary.subsidiaryContactPersonMobile }}</p><br>
+                    <div class="clear"></div>
+                    <span>{{'OMS.email'|translate}}</span>
+                    <p>{{ subsidiary.subsidiaryContactPersonEmail }}</p>
+                    <div class="clear"></div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="box-footer row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="padding: 3px!important;" >
+                    <button class="box-button exe-sm button-org" *ngIf="appService.hasAccessToWrite(1,42)&& appService.spaceIsAvailable('SUBSIDIARY')"
+                            (click)="deleteSubsidiary(subsidiary.id)">{{'shared.delete'|translate}}
+                    </button>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 3px!important;">
+                    <button class="box-button exe-sm button-org"
+                            (click)="prepareSubsidiary('edit', ( i + 1), subsidiary)">{{'shared.edit'|translate}}
+                    </button>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 3px!important;">
+                    <button class="box-button exe-sm button-org" (click)="storeSubsidiary(subsidiary)">
+                        {{'shared.manage'|translate}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end o c -->
+<!-- <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-3 subsidiary-grid" *ngFor="let subsidiary of manageSubsidiaries;let i = index">
+        <div class="s-no">
+            <p>S{{i+1}}</p>
+        </div>
+        <div class="tile-one">
+            <h4>{{ subsidiary.name }}</h4>
+            <h6>campus </h6><span>{{ subsidiary.childCount }}</span>
+        </div>
+        <div class="tile-two">
+            <h4>contact-person</h4>
+            <p>name <span>{{ subsidiary.subsidiaryContactPersonName }}</span></p>
+            <p>phone <span>{{ subsidiary.subsidiaryContactPersonMobile }}</span></p>
+            <p>email <span>{{ subsidiary.subsidiaryContactPersonEmail }}</span></p>
+        </div>
+        <div class="tile-three">
+            <h4>Address</h4>
+            <p>{{ subsidiary.address }}</p>
+        </div>
+        <div class="tile-four">
+            <button class="execute-btn exe-sm" (click)="deleteSubsidiary(subsidiary.id)">delete</button>
+            <button class="execute-btn exe-sm" (click)="prepareSubsidiary('edit', ( i + 1), subsidiary)">edit</button>
+            <button class="execute-btn exe-sm" routerLink="/rsb-modules/organization/space/campus/manage" (click)="storeSubsidiary(subsidiary)">manage</button>
+        </div>
+    </div>
+</div> -->

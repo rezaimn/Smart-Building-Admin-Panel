@@ -1,0 +1,211 @@
+<div class="prepare-form">
+    <div class="prepare-form-head">
+        <h2 *ngIf="mode=='new'">{{'SPAS.new-work-group' | translate}}</h2>
+        <h2 *ngIf="mode=='edit'">{{'SPAS.edit-work-group' | translate}}</h2>
+    </div>
+    <div class="clear"></div>
+    <div class="prepare-form-body">
+        <div class="view-staff-overlay">
+            <div class="row" style="margin-bottom: 10px">
+
+
+                <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                    <p><span class="staff-header">{{'ALMS.from-date' | translate}}</span></p>
+                    <div>
+                        <input (ngModelChange)="convertGregorianDateToUTC(myFromDate,'from')"
+                               style="direction: ltr!important;font-family:tw-regular!important;"
+                               matInput name="pickedFromDate" [(ngModel)]="pickedFromDate"
+                               [matDatepicker]="myFromDate" placeholder="{{fromDate}}"
+                               required class="dob-field" readonly="true" style="direction: ltr!important;">
+                        <mat-datepicker-toggle [for]="myFromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #myFromDate [startAt]="pickedFromDate"></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-6 input1 filter-elements-cal"
+                     *ngIf="appService.currentCalendar=='jalali'">
+                    <p>
+                        <span class="staff-header">{{'ALMS.from-date' | translate}}</span>
+                    </p>
+                    <div>
+                        <dp-date-picker
+                                style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                dir="rtl"
+                                [(ngModel)]="pickedFromDate"
+                                mode="day"
+                                placeholder="تاریخ"
+                                theme="dp-material"
+                                (ngModelChange)="convertJalaliDateToUTC(pickedFromDate,'from')">
+                        </dp-date-picker>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 input1 filter-elements" *ngIf="appService.currentCalendar=='gregorian'">
+                    <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                    <div>
+                        <input (ngModelChange)="convertGregorianDateToUTC(myToDate,'to')"
+                               style="direction: ltr!important;font-family:tw-regular!important;" matInput
+                               name="pickedToDate" [(ngModel)]="pickedToDate" [matDatepicker]="myToDate"
+                               placeholder="{{toDate}}"
+                               required class="dob-field" readonly="true" style="direction: ltr!important;">
+                        <mat-datepicker-toggle [for]="myToDate"></mat-datepicker-toggle>
+                        <mat-datepicker #myToDate [startAt]="pickedToDate"></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-6 input1 filter-elements-cal" *ngIf="appService.currentCalendar=='jalali'">
+                    <p><span class="staff-header">{{'ALMS.to-date' | translate}}</span></p>
+                    <div>
+                        <dp-date-picker style="width: 100%;font-family: Yekan!important;height: 35px!important;"
+                                        dir="rtl"
+                                        [(ngModel)]="pickedToDate"
+                                        mode="day"
+                                        placeholder="تاریخ"
+                                        theme="dp-material"
+                                        (ngModelChange)="convertJalaliDateToUTC(pickedToDate,'to')">
+                        </dp-date-picker>
+                    </div>
+                </div>
+
+            </div>
+            <form #workGroupForm="ngForm">
+
+                <div class="row">
+                    <div class="col-md-6 filter-elements">
+                        <div class="form-group">
+                            <span style="font-family: tw-regular!important;font-size: 14px">WORK GROUP NAME</span>
+                            <input type="text" name="name"
+                                   style="font-family: tw-regular!important;direction: ltr!important;"
+                                   #workGroupName="ngModel"
+                                   [(ngModel)]="prepareWorkGroup.name.map.en"
+                                   required="true" minlength="3"
+                                   maxlength="50"
+                            >
+
+                            <div class="error-message-display"
+                                 style="right: auto ; left: 15px;font-family: tw-regular!important;">
+                                <div [hidden]="workGroupName.valid || workGroupName.untouched">
+                                    <div *ngIf="workGroupName.errors && workGroupName.errors.required">
+                                        WORK GROUP NAME REQUIRED
+                                    </div>
+                                </div>
+                                <div [hidden]="workGroupName.valid || workGroupName.untouched">
+                                    <div *ngIf="workGroupName.errors && workGroupName.errors.minlength">
+                                        MIN LENGTH IS 3
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 filter-elements">
+                        <div class="form-group">
+                            <span style="font-family: Yekan!important;  float: right;font-size: 14px">نام کار گروه</span>
+                            <input style="direction: rtl;font-family: Yekan!important;" type="text"
+                                   name="faname"
+                                   #faWorkGroupName="ngModel"
+                                   [(ngModel)]="prepareWorkGroup.name.map.fa"
+                                   required="true" minlength="3"
+                                   maxlength="50"
+                            >
+                            <div class="error-message-display"
+                                 style="font-family: Yekan!Important;margin-right: 20px;margin-bottom: 5px">
+                                <div [hidden]="faWorkGroupName.valid || faWorkGroupName.untouched">
+                                    <div *ngIf="faWorkGroupName.errors && faWorkGroupName.errors.required">
+                                        درج نام کار گروه ضروری است
+                                    </div>
+                                </div>
+                                <div [hidden]="faWorkGroupName.valid || faWorkGroupName.untouched">
+                                    <div *ngIf="faWorkGroupName.errors && faWorkGroupName.errors.minlength">
+                                        درج حداقل ۳ کاراکتر ضروری است
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <label>{{'SELECT.select-access-group'|translate}}</label>
+                            <select class="visitor-input-name"
+                                    [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                    name="selectedAccessGroup" #selectedAccessGroup="ngModel"
+                                    [(ngModel)]="selectedAccessGroupId"
+                                    required>
+                                <option *ngFor="let accessGroup of accessGroups;" [ngValue]="accessGroup.id">
+                                    <p *ngIf="appService.currentLang=='en'">{{accessGroup?.name?.map?.en}}</p>
+                                    <p *ngIf="appService.currentLang=='fa'">{{accessGroup.name?.map?.fa}}</p>
+                                </option>
+                            </select>
+                            <div class="error-message-display">
+                                <div [hidden]="selectedAccessGroup.valid || selectedAccessGroup.untouched">
+                                    <div *ngIf="selectedAccessGroup.errors && selectedAccessGroup.errors.required">
+                                        {{'validate-message.access-group-required' | translate}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label>{{'SELECT.select-access-group-type'|translate}}</label>
+                                <select class="visitor-input-name"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        name="selectedAccessGroupType" #selectedAccessGroupType="ngModel"
+                                        [(ngModel)]="prepareWorkGroup.type"
+                                >
+                                    <option value="department">
+                                        {{'dashboard.department'|translate}}
+                                    </option>
+                                    <option value="visitor">
+                                        {{'SPMS.visitor'|translate}}
+                                    </option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-footer pull-right row "
+                         style="width: 100%;margin-bottom: 20px!important;margin-top: 20px!important;">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 visitor-list-btn" style="float: right">
+                            <div class="col-lg-6 visitor-list-btn-float" style="float: right;width: 50%">
+                                <button *ngIf="appService.hasAccessToWrite(3,9)" type="button"
+                                        (click)="addUpdateWorkGroup()"
+                                        class="form-button-submit floating-bnt" style="width: 100%"
+                                        [disabled]="!workGroupForm.valid">{{'SPAS.execute' | translate}}
+                                </button>
+
+                            </div>
+                            <div class="col-lg-6 visitor-list-btn" style="float: left;width: 50%">
+                                <button _ngcontent-c7="" class="form-button-cancel floating-bnt" type="button"
+                                        style="width: 100%"
+                                        (click)="closeModal()">{{'SPAS.cancel' | translate}}
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="clear "></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <div class="powered-by" style="bottom: -45px!important;">
+                                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+                            </div>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+</div>

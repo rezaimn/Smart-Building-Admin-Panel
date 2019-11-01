@@ -1,0 +1,131 @@
+.main-wrapper {
+    text-align: center;
+}
+
+.data-container {
+    display: inline-block;
+}
+
+.list-menu-container {
+    width: 330px;
+    .list-menu-header {
+        padding: 10px;
+        height: 50px;
+        background-color: #F2F3F4;
+        border-bottom: 0.5px solid #d3d2d2;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        position: relative;
+        .back-button {
+            float: left;
+            cursor: pointer;
+            background-image: url('/assets/images/back-arrow.png');
+            background-repeat: no-repeat;
+            height: 28px;
+            width: 28px;
+        }
+        .header-text {
+            text-align: center;
+            font-size: 22px;
+            color: #f9961e;
+            text-transform: capitalize;
+        }
+    }
+    .list-menu-body {
+        font-size: 20px;
+        min-height: 300px;
+        height: 300px;
+        background-color: #fff;
+        border-bottom: 0.5px solid #CCCCCC;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        .list-item {
+            text-align: left;
+            padding: 15px 0px 10px 15px;
+            margin: 0px;
+            font-size: 16px;
+            color: #000;
+            text-transform: capitalize;
+            border-bottom: 0.5px solid #ccc;
+            cursor: pointer;
+            position: relative;
+            &:after {
+                position: absolute;
+                content: '';
+                height: 16px;
+                width: 16px;
+                right: 5px;
+                background: url('/assets/images/bracket-next.png') no-repeat;
+            }
+        }
+    }
+    .error-message-display {
+        padding-right: 20px;
+        text-transform: none;
+        font-size: 15px;
+    }
+    .update-organization {
+        font-size: 20px;
+        min-height: 300px;
+        background-color: #fff;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        .complete-list {
+            height: 300px;
+            overflow: scroll;
+            .list-item {
+                padding: 12px 0;
+                font-size: 16px;
+                color: #000;
+                text-transform: capitalize;
+                border-bottom: 0.5px solid #ccc;
+                margin-right: 0px;
+                margin-left: 0px;
+                position: relative;
+                .uo-key {
+                    text-align: left;
+                    padding: 5px 0px 0px 15px;
+                }
+                .uo-value {
+                    text-align: right;
+                    input {
+                        text-align: right;
+                        text-transform: capitalize;
+                        color: #939393 !important;
+                        font-size: 16px !important;
+                        border: 0;
+                        background-image: linear-gradient(to left, #ccc 100%, rgba(255, 255, 255, 0) 0%);
+                        background-position: bottom;
+                        background-size: 50px 0px;
+                        background-repeat: repeat-x;
+                        background-position-x: 35px;
+                        background: #fff;
+                    }
+                     ::-webkit-input-placeholder,
+                    ::-moz-placeholder,
+                    :-ms-input-placeholder,
+                    -moz-placeholder {
+                        color: #ccc;
+                        text-transform: initial;
+                    }
+                }
+            }
+        }
+        .submit-button {
+            padding: 15px 0px 10px 0px;
+            text-align: center;
+            color: #fff;
+            background-color: #f9961e;
+            border: #f9961e;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+            text-transform: initial;
+            width: 100%;
+        }
+    }
+}
+
+.error-message-display{
+  bottom: -3px;
+}

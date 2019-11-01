@@ -1,0 +1,118 @@
+@import '../../_variables';
+.sidemenu-wrapper {
+    position: relative;
+    width: 100%;
+    height: $screenHeight;
+    .sidemenu {
+        position: relative;
+        height: 100%;
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            li {
+                display: block;
+                position: relative;
+                padding: 10px;
+                cursor: pointer;
+                &.active {
+                    background: $primary-clr;
+                    width: 80%;
+                    &:after {
+                        left: 100%;
+                        top: 50%;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                        border-color: transparent;
+                        border-left-color: #f9971e;
+                        border-width: 18.5px;
+                        margin-top: -18.5px;
+                    }
+                    a {
+                        color: #010813 !important;
+                    }
+                }
+                a {
+                    font-size: 20px;
+                    color: $primary-clr;
+                    text-transform: uppercase;
+                    line-height: 1.4;
+                    display: inline-table;
+                    vertical-align: middle;
+                    &:hover,
+                    &focus,
+                    &:active {
+                        color: $primary-clr;
+                        -webkit-text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                        -moz-text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                        text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                        transition-duration: 1s;
+                        transition-timing-function: ease-in-out;
+                    }
+                }
+                svg {
+                    display: none;
+                }
+            }
+            li.active {
+                display: block;
+                position: relative;
+                padding: 10px;
+                padding: 5px 10px;
+                height: 37px;
+                svg {
+                    position: absolute;
+                    top: 0px;
+                    left: 0;
+                    z-index: 0;
+                    height: 50px;
+                    display: block;
+                    .arrow {
+                        .head,
+                        .tail
+                        {
+                            fill: $primary-clr;
+                            transition-duration: .5s;
+                            transition-timing-function: ease-in-out;
+                        }
+                        .head {
+                            transform: translateX(-10px);
+                        }
+                        .body-top,
+                        .body-bottom {
+                            fill: transparent
+                        }
+                    }
+                }
+                a {
+                    font-size: 20px;
+                    color: $primary-clr;
+                    -webkit-text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                    -moz-text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                    text-shadow: 0px 0px 25px rgba(249, 150, 30, 1);
+                    text-transform: uppercase;
+                    line-height: 1.4;
+                    display: inline-table;
+                    vertical-align: middle;
+                }
+                &:focus,
+                &:active {
+                    svg {
+                        .arrow {
+                            .body-top,
+                            .body-bottom {
+                                fill: $primary-clr;
+                                transition-duration: .5s;
+                                transition-timing-function: ease-in-out;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+@import '../../../sp/SP';
+
+    @media screen and (min-width: 1024px) {
+        .col-s-1{
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+            width:20%;
+            float: left;
+        } 
+        .col-s-2{
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+            width:20%;
+            float: left;
+        }   
+        .col-s-3{
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+            width:25%;
+            float: left;
+        }   
+         
+        .col-s-6{
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+            width:35%;
+            float: left;
+        }     
+    }
+    
+  
+    
+   

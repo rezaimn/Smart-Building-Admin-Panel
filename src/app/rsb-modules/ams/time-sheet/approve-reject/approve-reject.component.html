@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2 *ngIf="!showStaff && !viewState">{{'AMS.approve-reject-time-sheet' | translate}}</h2>
+                <h2 *ngIf="showStaff && !viewState">{{'AMS.submit-time-sheet' | translate}}</h2>
+                <h2 *ngIf="viewState"> {{'AMS.view-sheet-data' | translate}}</h2>
+
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form>
+                    <div class="col-sm-6" style="padding-left: 0 !important">
+                        <div class="col-sm-12">
+                            <div class="col-sm-c-01">
+                                <div class="form-group">
+                                    <label>{{'AMS.date' | translate}}</label>
+                                    <input placeholder="{{approvereject.timesheetdate}}" type="text" readonly>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{'AMS.time-log' | translate}}</label>
+                                <div class="policy-container">
+                                    <span>{{'AMS.start-time' | translate}} - {{approvereject.fromtime}}</span>
+                                    <!-- <span>BREAK - 11:15 to 12:00</span>
+                                    <span>BREAK - 15:00 to 15:30</span> -->
+                                    <span>{{'AMS.end-time' | translate}} - {{approvereject.totime}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{'AMS.manager-comments' | translate}}</label>
+                                <div class="policy-container1" *ngIf="showStaff">
+                                        {{approvereject.managercomments}}
+                                    </div>
+                                    <textarea *ngIf="!showStaff" name="managercomments" id="input1" class="form-control policy-container1" rows="3" required="required" [(ngModel)]="approvereject.managercomments"></textarea>
+                           
+                            </div>
+                     </div>
+                     <!--
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>manager comments</label>
+                            <textarea name="managercomments" id="input" class="form-control policy-container1" rows="3" required="required" [(ngModel)]="approvereject.timesheetdate"></textarea>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-6">
+                        <div class="form-group approve-reject-staff-comments-mov">
+                            <label>{{'AMS.staff-comments' | translate}}</label>
+                            <div class="policy-container1" *ngIf="!showStaff">
+                                {{approvereject.staffcomments}}
+                            </div>
+                            <textarea name="managercomments" id="input" class="form-control policy-container1" rows="3" required="required" [(ngModel)]="approvereject.staffcomments" *ngIf="showStaff"></textarea>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-footer" *ngIf="staff.id == 1 && !showStaff">
+                        <button class="form-button-submit pull-right" (click)="approveTime(approvereject)">{{'AMS.approve' | translate}}</button>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="form-footer" *ngIf="staff.id == 1 && showStaff">
+                        <button class="form-button-submit pull-right" (click)="submitTime(appRejTime)">{{'AMS.submit' | translate}}</button>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="form-footer" style="margin-top: 2%" *ngIf="staff.id == 2 && !showStaff">
+                            <button class="form-button-submit pull-right" type="button" (click)="rejectTime(approvereject)">{{'AMS.submit' | translate}}</button>
+                            <div class="clear"></div>
+                        </div>
+                    <div class="clearfix"></div>
+                    <div class="form-footer" style="margin-top: 2% ">
+                        <button class="form-button-cancel pull-right" style="margin-right: 0!important" type="button" (click)="closeModal()">{{'AMS.cancel' | translate}}</button>
+                        <div class="clear"></div>
+                    </div>
+                    <!--   <div class="row">
+                                <div class="col-sm-12 text-right">
+                                  <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                                  <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                                </div>
+                              </div> -->
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row" style="    margin-right: 0px;
+    margin-left: 0px;">
+    <div class="col-sm-12" *ngIf="models.length>0">
+
+        <div class="row" (OnUpdateList)="getDevices()" *ngFor="let model of models; let i=index">
+            <div class="col-sm-12">
+                <div class="subsidiary-box ">
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'SP.device-type'|translate}}</span><br>
+                                    <p style="font-family: tw-regular!important; font-size: 16px!important;">{{model.deviceType.enName}}</p>
+                                </div>
+                                <div class="col-sm-2 inline-elements">
+                                    <span>{{'SP.schedule-count'|translate}}</span><br>
+                                    <p>{{model.schedules.length}}</p>
+                                </div>
+                                <div class="col-sm-6 inline-elements  pull-right">
+                                    <button class="manage-btn pull-right" (click)="editDevice(model)">
+                                        {{'shared.edit'|translate}}
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div *ngIf="models.length==0">
+        <h2 style="text-align: center;color: white;">No data to show</h2>
+    </div>
+</div>
+  

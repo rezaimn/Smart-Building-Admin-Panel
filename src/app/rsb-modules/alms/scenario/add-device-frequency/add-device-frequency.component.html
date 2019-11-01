@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span></span>
+                <h2>{{'shared.edit'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form >
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>{{'SP.device-type'|translate}}</label>
+                            <!--<select name="" id="" placeholder="DEVICE TYPE">
+                                <option value="">Select type</option>
+                            </select> -->   
+                            <select id="" placeholder="DEVICE TYPE" [(ngModel)]="model.devicetypeid" name="devicetypeid" >
+                                    <!--<option *ngFor="let devicetype of devicetypes"   name="" [value]="devicetype.code"> {{devicetype.name}}-->
+                                    <option *ngFor="let devicetype of devicetypes"  name="" [value]="devicetype.id"> {{devicetype.name}}
+                                    </option>
+                            </select>    
+                                
+                        </div>
+                    
+                    </div>
+                  
+                    <!--<div class="col-sm-6">
+                        <div class="form-group">
+                            <label>FREQUENCY</label>
+                            <input class="frequency" type="text" placeholder="00"><span class="frequency-label">MIN</span>     
+                            <input class="frequency" type="text" placeholder="00"><span class="frequency-label">SEC</span>  
+                        </div>
+                        
+                    
+                    </div>-->
+                    
+                    <div *ngIf="model.devicetypeid == 4 || model.devicetypeid == 10 || model.devicetypeid == 15; else othertype">
+                            <!--<div *ngIf="model.devicetypename == 'SPD' || model.devicetypename == 'TRM' || model.devicetypename == 'LTN'; else othertype">-->
+                                  <div class="col-sm-6">
+                                          <div class="form-group">
+                                              <label>{{'SP.on-time'|translate}}</label>
+                                              <!--<input class="frequency" type="text" [(ngModel)]="model.ontime" name="ontime" [value]="model.ontime" placeholder="00:00:00"><i class="glyphicon glyphicon-time frequency-label"></i>-->     
+                                              <input class="frequency" type="text" #OffTime="ngModel" [(ngModel)]="model.ontime" name="ontime" placeholder="00:00:00" pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8 maxlength=8><!-- (ngModelChange)="formatTime($event,onTime,'ontime')">-->
+                                              <i class="glyphicon glyphicon-time frequency-label" id="timepickerontime" (click)="openTimer('timepickerontime', 'ontime')"></i>     
+          
+                                            </div>
+                                          
+                                      
+                                      </div>
+                  
+                                      <div class="col-sm-6">
+                                          <div class="form-group">
+                                              <label>{{'SP.off-time'|translate}}</label>
+                                              <!--<input class="frequency" type="text" [(ngModel)]="model.offtime" name="offtime" placeholder="00:00:00"><i class="glyphicon glyphicon-time frequency-label"></i>-->     
+                                              <input class="frequency" type="text"  #OffTime="ngModel" [(ngModel)]="model.offtime" name="offtime" placeholder="00:00:00" pattern="(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)" minlength=8 maxlength=8><!-- (ngModelChange)="formatTime($event,offTime,'offtime')">-->
+                                              <i class="glyphicon glyphicon-time frequency-label" id="timepickerofftime" (click)="openTimer('timepickerofftime', 'offtime')"></i>     
+          
+                                          </div>
+                                          
+                                      
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <div class="form-footer">
+                                              <button class="form-button-submit pull-right" (click)="editDeviceType()" *ngIf="appService.hasAccessToWrite(13,34)">{{'shared.execute'|translate}}</button>
+                                              <div class="clear"></div>
+                                      </div>
+                  
+                  
+                            </div>
+                              
+                              <ng-template #othertype>
+                                      <div class="col-sm-6">
+                                              <div class="form-group">
+                                                  <label>{{'SP.frequency'|translate}}</label>
+                                                  <input class="frequency" type="text" [(ngModel)]="model.minutes" name="minutes" placeholder="00"><span class="frequency-label">{{'SP.min'|translate}}</span>
+                                                  <input class="frequency" type="text" [(ngModel)]="model.seconds" name="seconds" placeholder="00"><span class="frequency-label">{{'SP.sec'|translate}}</span>
+                                                </div>
+                                              
+                                          
+                                          </div>
+                                          <div class="clearfix"></div>
+                                          <div class="form-footer">
+                                      
+                                                  <button class="form-button-submit pull-right" *ngIf="appService.hasAccessToWrite(4,34)" (click)="editDeviceTypeFrequency()">{{'shared.execute'|translate}}</button>
+                                                  <div class="clear"></div>
+                                              </div>
+                      
+                              </ng-template>
+          
+
+                   
+                   
+                    <div class="clearfix"></div>
+                    <!--
+                    <div class="form-footer">
+                            
+                            <button class="form-button-submit pull-right">execute</button>
+                            <div class="clear"></div>
+                        </div>-->
+                        <div class="clearfix"></div>
+                        <div class="form-footer" style="margin-top: 2%">
+                                
+                                <button class="form-button-cancel pull-right" type="button" (click)="closeModal()" >{{'shared.cancel'|translate}}</button>
+                                <div class="clear"></div>
+                            </div>
+                        
+                    
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+            </div>
+        </div>
+    </div>
+</div>

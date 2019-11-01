@@ -1,0 +1,11 @@
+{
+    "/api": {
+        "target": "https://appqa.mitoconnect.com/api",
+        "changeOrigin": true,
+        "autoRewrite": true,
+        "secure": false,
+        "pathRewrite": {
+            "^/api": ""
+        }
+    }
+}

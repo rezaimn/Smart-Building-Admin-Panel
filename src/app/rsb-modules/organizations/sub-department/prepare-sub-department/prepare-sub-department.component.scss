@@ -1,0 +1,42 @@
+@import '../../OMS';
+
+.expand-area {
+    width: 40%;
+    float: right;
+    padding-left: 15px;
+}
+
+.area-icon {
+    color: $primary-clr;
+	margin-bottom:5px;
+    cursor: pointer;
+    font-size: 22px;
+
+    .inactiveChip {
+        padding: 1px;
+        // background-color: $secondary-clr-alpha;
+        color:#985e17 !important;
+        border-radius: 10px;
+    }
+
+    .activeChip {
+        padding: 1px;
+        border-radius: 10px;
+        color:#000 !important;
+        background-color: $primary-clr;
+    }
+}
+
+.read-text {
+    color: $primary-clr;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+.prepare-form {
+    label{
+        font-size: 22px;
+    }
+}
+.form-footer{
+    padding: 0;
+}

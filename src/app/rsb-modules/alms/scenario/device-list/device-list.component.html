@@ -1,0 +1,80 @@
+<div class="row" style="    margin-right: 0px;margin-left: 0px;">
+  <div class="col-sm-12">
+
+    <div class="row"  *ngIf="totalRecordsCount > perPage">
+      <div class="col-sm-12">
+        <div class="">
+          <div class="filter">
+            <div class="pagers">
+              <ul>
+                <li>
+                  <i class="glyphicon glyphicon-menu-left-d filter-icon" (click)="setPage('first')"></i>
+                </li>
+                <li>
+                  <i class="glyphicon glyphicon-menu-left filter-icon" (click)="setPage('previous')"></i>
+                </li>
+                <li class="filter-int">
+                  <span>{{page}}</span>
+                  <span>-</span>
+                  <span>{{totalPages}}</span>
+                </li>
+                <li>
+                  <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                </li>
+                <li>
+                  <i class="glyphicon glyphicon-menu-right-d filter-icon" (click)="setPage('last')"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" *ngFor="let model of scenes; let i=index">
+      <div class="col-sm-12">
+        <div class="subsidiary-box ">
+          <div class="fs-23 staff-header">
+            <span class="header-number">{{(perPage*(page-1))+i+1}}</span>
+          </div>
+
+          <div class="box-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="col-sm-2 inline-elements">
+                  <span>{{'SP.name'|translate}}</span><br>
+                  <p >{{model.name}}</p>
+                </div>
+
+                <div class="col-sm-2 inline-elements">
+                  <span>{{'SP.input-device'|translate}}</span><br>
+                  <p style="font-family: Yekan!important; font-size: 12px!important;">{{model.sourcedevicename}} ({{model.sourcedevicetypename}})</p>
+                </div>
+
+
+                <div class="col-sm-2 inline-elements">
+                  <span>{{'SP.output-device'|translate}}</span><br>
+                  <p style="font-family: Yekan!important; font-size: 12px!important;">{{model.outdevices}}</p>
+                </div>
+
+                <div class="col-sm-2 inline-elements">
+                  <span>{{'SP.frequency'|translate}}</span><br>
+                  <p>{{model.frequency}} </p>
+                </div>
+
+
+                <div class="col-sm-4 inline-elements  pull-right">
+                  <button class="manage-btn pull-right" (click)="deleteDevice(model)" *ngIf="appService.hasAccessToWrite(4,34)">{{'shared.delete'|translate}}</button>
+                  <button class="manage-btn pull-right" (click)="editScenario(model)">{{'shared.edit'|translate}}</button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

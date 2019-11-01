@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <!-- Head -->
+            <div class="prepare-form-head">
+                <!-- <span>{{index}}</span>
+          <h2>{{mode}} Structure</h2> -->
+                <span>{{index}}</span>
+
+                <h2 *ngIf="mode=='new'">{{'OMS.add-designation'|translate}}</h2>
+                <h2 *ngIf="mode=='edit'">{{'OMS.edit-designation'|translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <!-- Content -->
+            <div class="prepare-form-body">
+               
+                <form action="" (ngSubmit)="onSubmit()" #prepareDesignationForm="ngForm" method="post" autocomplete="off" novalidate="">
+                    <!-- (ngSubmit)="onSubmit()" #prepareStructureForm="ngForm" method="post" autocomplete="off" novalidate="" -->
+                    <div class="form-group">
+                        <!-- <label>name</label> -->
+                        <input type="text" #desgnname="ngModel" name="desgnname" [(ngModel)]="this.prepareDesgn.designation" required placeholder="DESIGNATION" />
+                        <div class="error-message-display">
+                            <div [hidden]="desgnname.valid || desgnname.untouched">
+                                <div *ngIf="desgnname.errors && desgnname.errors.required">
+                                  DESIGNATION IS REQUIRED
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--&lt;!&ndash; <label>name</label> &ndash;&gt;-->
+                        <!--<input style="direction: rtl!important;font-family: Yekan!important;" type="text"-->
+                               <!--#faDesgnname="ngModel" name="faDesgnname" [(ngModel)]="this.prepareDesgn.designation" placeholder="سمت" required/>-->
+                        <!--<div class="error-message-display" style="font-family: Yekan!important;float: right">-->
+                            <!--<div [hidden]="faDesgnname.valid || faDesgnname.untouched">-->
+                                <!--<div *ngIf="faDesgnname.errors && faDesgnname.errors.required">-->
+                                    <!--درج سمت ضروری است-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- Footer / buttons -->
+                    <div class="form-footer" >
+                        <!-- (click)="closeModal()" -->
+                        <button class="form-button-cancel pull-left" type="button" (click)="closeDialog()">{{'shared.cancel'|translate}}</button>
+                        <button class="form-button-submit pull-right" [disabled]="!prepareDesignationForm.valid" *ngIf="appService.hasAccessToWrite(1,3)">{{'shared.execute'|translate}}</button>
+                        <div class="clear"></div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+
+
+            </div>
+            <!-- End of form-body -->
+        </div>
+    </div>
+</div>

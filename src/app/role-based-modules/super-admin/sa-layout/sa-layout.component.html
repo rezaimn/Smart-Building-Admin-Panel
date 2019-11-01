@@ -1,0 +1,17 @@
+<div class="page-wrapper">
+	<div class="bg-img">
+		<img [src]="loadURL" alt="BG" />
+		<div class="page-overlay-wrapper">
+			<div class="page-overlay">
+				<app-header></app-header>
+				<div class="container-fluid">
+					<div class="row">
+                        <div class="col-lg-12">
+                            <router-outlet></router-outlet>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

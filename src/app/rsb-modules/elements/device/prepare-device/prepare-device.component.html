@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="prepare-form">
+            <div class="prepare-form-head">
+                <span>{{index}}</span>
+                <h2 *ngIf="mode=='new'">{{'EMS.new-device' | translate}}</h2>
+                <h2 *ngIf="mode=='edit'">{{'EMS.edit-device' | translate}}</h2>
+            </div>
+            <div class="clear"></div>
+            <div class="prepare-form-body">
+                <form  #prepareDeviceForm="ngForm" >
+                    <div class="col-md-12 filter-elements " >
+                        <div class="checkbox" style="width: 100%">
+                            <label style="width: 100%">
+                                <input type="checkbox" name="inuse" [(ngModel)]="bulkUpload">
+                                <span class="cr">
+                                    <i class="cr-icon glyphicon glyphicon-ok-sign"></i>
+                                </span>
+                                <p>{{'EMS.bulk-add-device' | translate}}</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="bulkUpload">
+                        <label   [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                 class="execute-btn" style="width: 30%;cursor: pointer" >
+                            <input type="file"  (change)="loadFile($event)"
+                                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                            {{'shared.upload-content'|translate}}
+                        </label>
+
+                    </div>
+                    <div *ngIf="!bulkUpload">
+                        <div class="col-md-6 submit-form-element" >
+                            <div class="form-group">
+                                <label>{{'EMS.type' | translate}}</label>
+
+                                <select name="devicetype" #deviceType="ngModel" [(ngModel)]="type_id" [disabled]="mode=='edit'"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        aria-placeholder="Device type" (ngModelChange)="getSubDevice($event)" required>
+                                    <option value="0" selected>{{'SELECT.device-type' | translate}}</option>
+                                    <option *ngFor="let deviceType of deviceList;" [ngValue]="deviceType.id">
+                                        {{deviceType.name}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="deviceType.valid || deviceType.untouched">
+                                        <div *ngIf="deviceType.errors && deviceType.errors.required">
+                                            {{'validate-message.device-type-required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 submit-form-element" >
+                            <div class="form-group">
+                                <label>{{'EMS.sub-type' | translate}}</label>
+
+                                <select name="subdevicetype" #subDeviceType="ngModel"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'" [disabled]="mode=='edit'"
+                                        [(ngModel)]="sub_type_id"
+                                        aria-placeholder="device sub type" (ngModelChange)="getBrand($event)" required>
+                                    <option value="0" selected>{{'SELECT.device-sub-type' | translate}}</option>
+                                    <option *ngFor="let subDevice of subDeviceList;" [ngValue]="subDevice.id">
+                                        {{subDevice.subDeviceName}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="subDeviceType.valid || subDeviceType.untouched">
+                                        <div *ngIf="subDeviceType.errors && subDeviceType.errors.required">
+                                            {{'validate-message.sub-device-type-required' | translate}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 submit-form-element" >
+                            <div class="form-group">
+                                <label>{{'EMS.brand' | translate}}</label>
+                                <select name="brand" #brandList1="ngModel" [(ngModel)]="brand_id" [disabled]="mode=='edit'"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        aria-placeholder="brand" (ngModelChange)="getModel($event)" required>
+                                    <option value="0" selected>{{'EMS.brand' | translate}}</option>
+                                    <option *ngFor="let brand of brandList;" [ngValue]="brand.id">{{brand.name}}
+                                    </option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="brandList1.valid || brandList1.untouched">
+                                        <div *ngIf="brandList1.errors && brandList1.errors.required">
+                                            {{'validate-message.brand-required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'EMS.model' | translate}}</label>
+                                <select name="model" #modelList1="ngModel" [(ngModel)]="modelId" [disabled]="mode=='edit'"
+                                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                                        aria-placeholder="model" required>
+                                    <option value="0" selected>{{'SELECT.model' | translate}}</option>
+                                    <option *ngFor="let model of modelList;" [ngValue]="model.id">{{model.name}}</option>
+                                </select>
+                                <div class="error-message-display">
+                                    <div [hidden]="modelList1.valid || modelList1.untouched">
+                                        <div *ngIf="modelList1.errors && modelList1.errors.required">
+                                            {{'validate-message.model-required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 submit-form-element">
+                            <div class="form-group">
+                                <label>{{'EMS.serial-no' | translate}}</label>
+                                <input type="text" name="serial" #serial2="ngModel" [(ngModel)]="createDevice.serialNum"
+                                       aria-placeholder="model"  required [disabled]="mode=='edit'">
+                                <div class="error-message-display">
+                                    <div [hidden]="serial2.valid || serial2.untouched">
+                                        <div *ngIf="serial2.errors && serial2.errors.required">
+                                            {{'validate-message.serial-type-required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="col-md-6 submit-form-element">-->
+                        <!--<div class="form-group">-->
+                            <!--<label>{{'EMS.working-status' | translate}}</label>-->
+                            <!--<select class="workingstatus" name="workingstatus" #status1="ngModel"-->
+                                    <!--[style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"-->
+                                    <!--[(ngModel)]="status"-->
+                                    <!--aria-placeholder="select status" required>-->
+                                <!--<option value="1">{{'EMS.in-service' | translate}}</option>-->
+                                <!--<option value="2">{{'EMS.faulty' | translate}}</option>-->
+                                <!--<option value="3">{{'EMS.out-of-service' | translate}}</option>-->
+                            <!--</select>-->
+                            <!--<div class="error-message-display">-->
+                                <!--<div [hidden]="status1.valid || status1.untouched">-->
+                                    <!--<div *ngIf="status1.errors && status1.errors.required">-->
+                                        <!--{{'validate-message.status-type-required' | translate}}-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="clearfix"></div>
+                    <div class="form-footer pull-right row"
+                         style="width: 100%;margin-bottom: 20px!important;margin-top: 20px!important;">
+                        <div class="footer-btns col-lg-6 col-md-6 col-sm-6 col-xs-6" style="float: right">
+                            <div class="col-lg-6" style="float: right;width: 50%">
+                                <button *ngIf="appService.hasAccessToWrite(2,5)" class="form-button-submit pull-right"
+                                        style="width: 100%" [disabled]="!prepareDeviceForm.form.valid" (click)="saveUpdateDevice();">
+                                    {{'shared.execute' | translate}}
+                                </button>
+                            </div>
+                            <div class="col-lg-6" style="float: left;width: 50%">
+                                <button class="form-button-cancel pull-right" style="width: 100%" type="button"
+                                        (click)="closeModal()">
+                                    {{'shared.cancel' | translate}}
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="clear "></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </form>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+            </div>
+        </div>
+    </div>
+</div>

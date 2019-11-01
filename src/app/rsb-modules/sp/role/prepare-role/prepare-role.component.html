@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-xs-12" style="min-height: 400px;">
+        <div class="prepare-form" style="min-height: 400px;width: 100%">
+            <!-- Head -->
+            <div class="prepare-form-head">
+                <div class="row" style="margin-top: 10px;margin-bottom: 5px">
+                    <div class="col-lg-3 module-list">
+                        <h2 *ngIf="mode=='new'">{{'OMS.add-role'|translate}}</h2>
+                        <h2 *ngIf="mode=='edit'">{{'OMS.edit-role'|translate}}</h2>
+                    </div>
+
+                    <div class="col-lg-9 filter-elements permissions" style="margin-top: 15px;margin-bottom: 10px">
+                        <input placeholder="ROLE NAME" type="text" name="RoleName"
+                               #RoleName="ngModel" [(ngModel)]="prepareRole.role.roleMultiLingual.map.en"
+                               required="true"/>
+                        <div class="error-message-display">
+                            <div [hidden]="RoleName.valid || RoleName.untouched">
+                                <div *ngIf="RoleName.errors && RoleName.errors.required">
+                                    ROLE NAME IS REQUIRED
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 filter-elements permissions" style="margin-top: 15px;margin-bottom: 10px">
+                        <input placeholder="نقش سازمانی" type="text" name="faRoleName" style="font-family: Yekan!important;direction: rtl!important;"
+                               #faRoleName="ngModel" [(ngModel)]="prepareRole.role.roleMultiLingual.map.fa"
+                               required="true"/>
+                        <div class="error-message-display">
+                            <div [hidden]="faRoleName.valid || faRoleName.untouched">
+                                <div *ngIf="faRoleName.errors && faRoleName.errors.required" style="font-family: Yekan!important;">
+                                    درج نقش سازمانی ضروری است
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <span>3</span>
+                <h2>New Department</h2> -->
+            </div>
+            <div class="clear"></div>
+            <!-- Content -->
+            <div class="prepare-form-body" >
+                <div *ngIf="prepareRole.modules.length>0" class="row" style="    margin-bottom: 50px;">
+                    <div class="col-lg-3 col-md-3 col-sm-3 add-role-side"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                        <span *ngFor="let moduleRole of prepareRole.modules;let k=index">
+                            <button *ngIf="moduleHasPermission(moduleRole)" class="execute-btn"
+                                    style="margin-top: 10px;font-size: 20px!important;border:solid 1px #fff;font-family: tw-regular !important;" (click)="selectedModuleChanage(k)">{{moduleRole.module.name}}</button></span>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 add-role-body" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
+                        <form style="margin: 2px">
+                            <div class="row" style="margin-top: 30px;margin-bottom: 30px">
+                                <div class="row" style="margin-left: 0;margin-right: 0 ;margin-bottom: 10px;padding-right: 10px;padding-left: 10px">
+                                    <div class="col-lg-6 filter-elements module-select">
+                                        <label>{{'OMS.select-module' | translate}}</label>
+                                        <select name="selectedModule" #selectModule="ngModel" style="margin-top: 5px"
+                                                [(ngModel)]="selectedModuleIndex" aria-placeholder="select Module"
+                                                required>
+                                            <option value="0" >{{'SELECT.select-module' | translate}}</option>
+                                            <option *ngFor="let module of modulesScreensList;let j=index"
+                                                    [ngValue]="j" (click)="setSelectedModuleIndex(j)">{{module.name}}</option>
+                                            <!--<option value="2">LAST NAME</option>-->
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 read" style="margin-top: 50px!important;">
+                                        <label class="permission-label" style="margin-top: 8px!important;">{{'shared.R'|translate}}</label>
+                                        <input [name]="'read'+'m'+selectedModuleIndex"
+                                               [ngModel]="prepareRole.modules[selectedModuleIndex].permission.R"
+                                               (change)="MRIsChecked(prepareRole.modules[selectedModuleIndex].permission)"
+                                               type="checkbox" style="height: 20px;margin-top: 4px;">
+                                    </div>
+                                    <div class="col-lg-3 write" style="margin-top: 50px!important;">
+                                        <label class="permission-label" style="margin-top:8px!important;">{{'shared.W'|translate}}</label>
+                                        <input [name]="'write'+'m'+selectedModuleIndex" type="checkbox"
+                                               [ngModel]="prepareRole.modules[selectedModuleIndex].permission.W"
+                                               (change)="MWIsChecked(prepareRole.modules[selectedModuleIndex].permission)" style="height: 20px;margin-top: 4px;">
+                                    </div>
+                                </div>
+                                <div *ngFor="let screen of prepareRole.modules[selectedModuleIndex].module.screens;let i=index"
+                                     class="row screens-list">
+                                    <!--<hr style="margin: 10px">-->
+                                    <div class="col-lg-6 module-select">
+                                        <label  >{{'screens.'+screen.screen.screenName|translate}}</label>
+                                    </div>
+                                    <div class="col-lg-3 read">
+                                        <label class="permission-label" style="margin-top: 18px">{{'shared.R'|translate}}</label>
+                                        <input [name]="'read'+'m'+selectedModuleIndex+'s'+i"
+                                               [ngModel]="screen.permission.R" (change)="SRIsChecked(screen.permission,i)"
+                                               type="checkbox" style="height: 20px;margin-top: -2px;">
+                                    </div>
+                                    <div class="col-lg-3 read">
+                                        <label class="permission-label" style="margin-top:18px">{{'shared.W'|translate}}</label>
+                                        <input [name]="'write'+'m'+selectedModuleIndex+'s'+i" type="checkbox"
+                                               [ngModel]="screen.permission.W" (change)="SWIsChecked(screen.permission,i)"
+                                               style="height: 20px;margin-top: -2px;">
+
+                                    </div>
+                                </div>
+                                <!--<hr style="margin: 10px">-->
+
+                                <!--<div class="row"-->
+                                     <!--style="margin-left: 0px;margin-right: 0px;position: absolute;bottom: 10px;right: 10px;">-->
+                                    <!--<button class="form-button-submit pull-right" tabindex="5" style="width: 100px"-->
+                                    <!--&gt;-->
+                                        <!--{{'shared.add'|translate}}-->
+                                    <!--</button>-->
+                                <!--</div>-->
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                            <!-- Footer / buttons -->
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="row" style="bottom: 65px;padding: 0px 70px 0px;width: 100%;">
+                    <div class="form-footer" style="width: 100%;">
+                        <button class="form-button-cancel pull-left" type="button" (click)="closeModal()" tabindex="4">
+                            {{'shared.cancel'|translate}}
+                        </button>
+                        <button type="button" (click)="addUpdate()" *ngIf="appService.hasAccessToWrite(13,41)"
+                                class="form-button-submit pull-right" tabindex="5" [disabled]="executeDisabledCheck()">
+                            {{'shared.execute'|translate}}
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="powered-by">
+                <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png"/>
+                <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png"/>
+
+
+            </div>
+            <!-- End of form-body -->
+        </div>
+    </div>
+</div>

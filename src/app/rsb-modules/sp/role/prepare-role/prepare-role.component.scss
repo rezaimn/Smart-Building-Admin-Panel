@@ -1,0 +1,54 @@
+@import '../../../organizations/OMS';
+
+.form-footer {
+    padding: 0px;
+}
+
+.area-area-icon {
+    font-size: 22px;
+}
+
+.slide-area {
+    width: 45%;
+    float: right;
+    padding-left: 15px;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    display: none;
+    opacity: 0;
+    &.active {
+        transition-duration: 1s;
+        transition-timing-function: ease;
+        display: block;
+        opacity: 1;
+    }
+}
+.add-role-side{
+    min-height: 640px;
+    max-height: 640px;
+    border: solid 2px #f9961e;
+}
+.add-role-body{
+    min-height: 640px;
+    max-height: 640px;
+    border: solid 2px #f9961e;
+}
+.screens-list{
+    margin-left: 0px;
+    margin-right: 0px ;
+    border-bottom: solid 1px #fff;
+    border-top: solid 1px #fff;
+    padding: 10px
+}
+
+input[type="checkbox"]{
+    margin-top: 0px;
+    width: 40px;
+}
+.read,.write,.module-select{
+    margin-top: 10px!important;
+    label{
+        top: -6px;
+        margin-top: 0px!important;
+    }
+}

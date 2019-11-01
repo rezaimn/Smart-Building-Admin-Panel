@@ -1,0 +1,164 @@
+<div class="row" style="margin-right: 0px;margin-left: 0px">
+    <div class="col-sm-12">
+
+        <div class="row" style="margin-right: 0px">
+            <div class="col-sm-3 input1">
+                <p><span class="staff-header">{{'SSMS.campus' | translate}}</span></p>
+
+
+                <select name="selectedCampus" #selectedCampus="ngModel" [(ngModel)]="selectedCampusId"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        aria-placeholder="'SSMS.campus' | translate" required (ngModelChange)="getAllBuildings($event)">
+                    <option value="0" *ngIf="appService.currentLang=='en'" >{{'SSMS.select-a-campus' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'">{{'SSMS.select-a-campus' | translate}}</option>
+                    <option *ngFor="let campus of campusDropdownList;" [ngValue]="campus.id">
+                        <p *ngIf="appService.currentLang=='en'">{{campus.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" >{{campus.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+
+            </div>
+            <div class="col-sm-3 input1">
+                <p><span class="staff-header">{{'SSMS.building' | translate}}</span></p>
+                <select name="selectedBuilding" #selectedBuilding="ngModel" [(ngModel)]="selectedBuildingId"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        aria-placeholder="'SSMS.select-building' | translate" required (ngModelChange)="getAllFloors()">
+                    <option  *ngIf="appService.currentLang=='en'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option  *ngIf="appService.currentLang=='fa'" value="0" >{{'SSMS.select-building' | translate}}</option>
+                    <option *ngFor="let building of buildingDropdownList;" [ngValue]="building.id">
+                        <p *ngIf="appService.currentLang=='en'">{{building.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" >{{building.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+
+            </div>
+            <div class="col-sm-3 input1">
+                <p><span class="staff-header">{{'SSMS.floor-level' | translate}}</span></p>
+                <select name="selectedFloor" #selectedFloor="ngModel" [(ngModel)]="selectedFloorId"
+                        [style.font-family]="appService.currentLang=='fa'?'Yekan':'tw-regular'"
+                        aria-placeholder="'SSMS.select-floor' | translate" required>
+                    <option value="0" *ngIf="appService.currentLang=='en'">{{'SELECT.select-floor' | translate}}</option>
+                    <option value="0" *ngIf="appService.currentLang=='fa'"   >{{'SELECT.select-floor' | translate}}</option>
+                    <option *ngFor="let floor of floorDropdownList;" [ngValue]="floor">
+                        <p *ngIf="appService.currentLang=='en'">{{floor.nameMultiLingualMap.map.en}}</p>
+                        <p *ngIf="appService.currentLang=='fa'" style="font-family: Yekan">{{floor.nameMultiLingualMap.map.fa}}</p>
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-3 ">
+                <p><span class="staff-header">&nbsp;</span></p>
+                <div class="filter-area">
+                    <button class="execute-btn execute-btn-search" (click)="getCheckLists()">{{'SSMS.execute' | translate}}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" *ngIf="totalRecordsCount > perPage">
+            <div class="col-sm-12">
+                <div class="">
+                    <div class="filter">
+                        <div class="pagers">
+                            <ul>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left-d filter-icon"
+                                       (click)="setPage('first')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-left filter-icon"
+                                       (click)="setPage('previous')"></i>
+                                </li>
+                                <li class="filter-int">
+                                    <span>{{page}}</span>
+                                    <span>-</span>
+                                    <span>{{totalPages}}</span>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right filter-icon" (click)="setPage('next')"></i>
+                                </li>
+                                <li>
+                                    <i class="glyphicon glyphicon-menu-right-d filter-icon"
+                                       (click)="setPage('last')"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-right: 0px;margin-left: 0px">
+            <div class="subsidiary-box" *ngFor="let checkList of checks;">
+                <div class="box-body" style="min-height: 45px;padding: 5px">
+
+                    <div class="col-sm-3 inline-elements time-name">
+                        <span>{{'SSMS.time' | translate}}</span>
+                        <br>
+                        <p>{{checkList.scheduledtime}}</p>
+                    </div>
+
+                    <div class=" inline-elements col-sm-3 time-name">
+                        <span>{{'SSMS.name' | translate}}</span>
+                        <br>
+                        <p>{{checkList.name}}</p>
+                    </div>
+                    <div class="col-sm-6 inline-elements ">
+                        <div class="col-sm-4 ">
+                            <button class="execute-btn" (click)="editCheck(checkList)">{{'SSMS.view' | translate}}</button>
+                        </div>
+                        <div class="col-sm-4 ">
+                            <button *ngIf="appService.hasAccessToWrite(7,20)" class="execute-btn" (click)="editCheck(checkList)">{{'SSMS.edit' | translate}}</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button  *ngIf="appService.hasAccessToWrite(7,20)" class="execute-btn" (click)="deleteVisitorAccess(checkList)">{{'SSMS.delete' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-sm-4">
+                <div class="content1">
+                  <div class="row">
+                    <span class="text-center col-sm-12">12:00</span>
+                  </div>
+                  <div class="row">
+                      <span class="text-center col-sm-12">EVENING CHECK LIST</span>
+                    </div>
+                    <div class="row btns">
+                        <div class="col-sm-4">
+                          <button class="manage-btn">view</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="manage-btn">edit</button>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="manage-btn">manage</button>
+                            </div>
+                      </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="content1">
+                    <div class="row">
+                      <span class="text-center col-sm-12">22:00</span>
+                    </div>
+                    <div class="row">
+                        <span class="text-center col-sm-12">NIGHT CHECK LIST</span>
+                      </div>
+                      <div class="row btns">
+                          <div class="col-sm-4">
+                            <button class="manage-btn">view</button>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="manage-btn">edit</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="manage-btn">manage</button>
+                              </div>
+                        </div>
+                  </div>
+                </div> -->
+        </div>
+    </div>
+
+</div>
+      

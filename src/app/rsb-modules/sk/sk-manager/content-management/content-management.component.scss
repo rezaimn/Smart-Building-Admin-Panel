@@ -1,0 +1,22 @@
+@import "../../SK.scss";
+input[type="file"] {
+  display: none;
+}
+.manage-btn {
+  float: right;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+  width: 120px;
+  margin-right: 50px;
+  color: $inputfill;
+}
+.upload-button{
+  float: right;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 44px;
+  width: 140px;
+}

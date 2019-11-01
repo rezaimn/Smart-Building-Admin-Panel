@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-xs-12">
+       <div class="prepare-form">
+          <div class="prepare-form-head">
+             <span></span>
+             <h2> {{'SFMS.enter-pass-code'|translate}}</h2>
+          </div>
+          <div class="clear"></div>
+          <div class="prepare-form-body">
+             <form action="" >
+                <div class="col-md-12">
+                   <div class="form-group">
+                      
+                      <input type="password" class="inline-input" maxlength="4" minlength="4" [placeholder]="'SFMS.enter-pass-code'|translate" name="staffid" [(ngModel)]="passcode">
+  
+                   </div>
+                </div>
+                
+                
+                <div class="clearfix"></div>
+                <div class="form-footer">
+                   <button class="form-button-submit pull-right" (click)="execute()" >{{'shared.execute'|translate}}</button>
+                   <div class="clear"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-footer" style="margin-top: 2%">
+                   <button class="form-button-cancel pull-right" type="button" (click)="closeModal()" >{{'shared.cancel'|translate}}</button>
+                   <div class="clear"></div>
+                </div>
+                <!--   <div class="row">
+                   <div class="col-md-12 text-right">
+                     <button class="form-button-submit floating-bnt" tabindex="5" [disabled]="(createAccessZoneForm.form.invalid) ">execute</button>
+                     <button class="form-button-cancel floating-bnt" type="button" (click)="closeModal()" tabindex="4">cancel</button>
+                   </div>
+                   </div> -->
+             </form>
+          </div>
+          <div class="powered-by">
+             <img *ngIf="!appService.lightThemeC" src="../../../../../assets/images/logo.png" />
+             <img *ngIf="appService.lightThemeC" src="../../../../../assets/images/logo2.png" />
+              
+          </div>
+       </div>
+    </div>
+ </div>
